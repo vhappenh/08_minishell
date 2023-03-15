@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vr.h                                               :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/15 16:28:45 by vhappenh         ###   ########.fr       */
+/*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
+/*   Updated: 2023/03/15 16:29:56 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VR_H
-# define VR_H
-# include <stdio.h>
-# include <stdlib.h>
+#include "vr.h"
 
-typedef struct s_cmdline
+int	ft_free(t_cmdline **todo)
 {
-	char	*prev_op;
-	char	*file;
-	char	*cmd;
-	char	*nxt_op;
-}	t_cmdline;
-
-int		input_parse(t_cmdline **todo);
-int		execute(t_cmdline *todo, char **envp);
-int		ft_free(t_cmdline **todo);
-
-#endif
+	(void)todo;
+	return (0);
+}

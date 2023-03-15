@@ -1,4 +1,4 @@
-NAME := #Put name here!!!
+NAME := minishell
 
 CFLAGS := -Wall -Werror -Wextra -g
 
@@ -10,7 +10,10 @@ ARCH := ./src/libft_ultra/libft.a
 
 OBJ_P := ./obj/
 
-SRC :=
+SRC :=	main.c\
+		input_parse.c\
+		execute.c\
+		ft_free.c
 
 OBJ := $(SRC:%.c=$(OBJ_P)%.o)
 
@@ -21,26 +24,30 @@ $(OBJ_P)%.o:%.c
 .SILENT:
 
 .PHONY:
-	all clean fclean re
+	all clean fclean re norm
 
 all: $(NAME)
 
 vpath %.c src
 
 $(NAME): $(OBJ)
+	echo "compiling..."
 	$(MAKE) -C $(LIBFT)
 	$(CC) -o $(NAME) $(OBJ) $(ARCH)
-	echo "The executable: push_swap was created!"
+	echo "The executable: minishell was created!"
 
 clean:
 	rm -f $(OBJ)
 	rm -f -d $(OBJ_P)
 	$(MAKE) clean -C $(LIBFT)
-	echo "The push_swap o_files where removed!"
+	echo "The minishell o_files where removed!"
 
 fclean:	clean
 	rm -f $(NAME)
 	$(MAKE) fclean -C $(LIBFT)
-	echo "The executable: push_swap was removed!"
+	echo "The executable: minishell was removed!"
 
 re:	fclean all
+
+norm:
+	norminette -R CheckForbiddenSourceHeader src/*.c src/vr.h

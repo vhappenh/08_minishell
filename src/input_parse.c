@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/15 14:27:49 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/15 16:24:03 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	input_parse(t_cmdline **todo)
 {
-	while (1)
+	(void)todo;
+/*	while (1)
 	{
 		readline();
-	}
+	}*/
 	return (0);
 }

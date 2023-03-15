@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/15 14:35:29 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/15 16:28:20 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,15 @@ int	main(int argc, char **argv, char **envp)
 	int			i;
 	t_cmdline	*todo;
 
+	(void)argc;
+	(void)argv;
 	i = -1;
 	if (argc > 1)
 		return (1);
-	while (envp[++i])
-		printf("%s\n", envp[i]);
-	while (1)
-	{
-		if (input_parse(&todo))
-			return (2);
-		if (pipex(todo))
-			return (3);
-	}
-	ffree ();
+	if (input_parse(&todo))
+		return (2);
+	if (execute(&(t_cmdline){NULL, NULL, "ls", NULL}, envp))
+		return (3);
+	ft_free(&todo);
 	return (0);
 }
