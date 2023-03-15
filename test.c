@@ -18,4 +18,3 @@ int	main(void)
 {
 	printf("Shit");
 	return (0);
-}
