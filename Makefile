@@ -4,9 +4,9 @@ CFLAGS := -Wall -Werror -Wextra -g
 
 CC := cc
 
-LIBFT := ./src/libft/
+LIBFT := ./src/libft_ultra/
 
-ARCH := ./src/libft/libft.a
+ARCH := ./src/libft_ultra/libft.a
 
 OBJ_P := ./obj/
 
