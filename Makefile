@@ -13,7 +13,8 @@ OBJ_P := ./obj/
 SRC :=	main.c\
 		input_parse.c\
 		execute.c\
-		ft_free.c
+		ft_free.c\
+		utils1.c
 
 OBJ := $(SRC:%.c=$(OBJ_P)%.o)
 
