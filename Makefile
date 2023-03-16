@@ -34,7 +34,7 @@ vpath %.c src
 $(NAME): $(OBJ)
 	echo "compiling..."
 	$(MAKE) -C $(LIBFT)
-	$(CC) -o $(NAME) $(OBJ) $(ARCH)
+	$(CC) -lreadline -o $(NAME) $(OBJ) $(ARCH)
 	echo "The executable: minishell was created!"
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/16 14:37:21 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/16 15:23:50 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,5 @@ int	execute(t_cmdline **todo, char **envp)
 	{
 		free (path);
 		return (3);
-	} */
+	}
+*/

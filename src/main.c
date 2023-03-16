@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/16 15:05:19 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/16 15:22:27 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	main(int argc, char **argv, char **envp)
 	i = -1;
 	todo = ft_calloc(2, sizeof(t_cmdline *));
 	todo[0] = malloc(sizeof(t_cmdline));
-	todo[0]->cmd = ft_calloc(sizeof(char *), 4);
-	todo[0]->cmd[0] = "ls";
-	todo[0]->cmd[1] = "-l";
-	todo[0]->cmd[2] = "-a";
+	todo[0]->cmd = ft_calloc(sizeof(char *), 2);
+//	todo[0]->cmd[0] = "ls";
+//	todo[0]->cmd[1] = "-l";
+//	todo[0]->cmd[2] = "-a";
 	if (argc > 1)
 		return (1);
 	while (1)
@@ -36,16 +36,17 @@ int	main(int argc, char **argv, char **envp)
 		{
 			ft_printf("%s\n", input);
 			free(input);
-			return (0);
+			return (1);
 		}
 		add_history(input);
+		todo[0]->cmd[0] = input;
 		if (input_parse(todo, input))
 			return (2);
-		free(input);
 		if (execute(todo, envp))
 			return (3);
-		ft_free(todo);
+		free(input);
 		rl_on_new_line();
 	}
+	ft_free(todo);
 	return (0);
 }
