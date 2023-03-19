@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/16 15:22:27 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:28:04 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	int					i;
 	static t_cmdline	**todo;
 	char				*input;
+	char				prompt[1024];
 
 	(void)argc;
 	(void)argv;
@@ -31,7 +32,8 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	while (1)
 	{
-		input = readline("minishell: ");
+		getcwd(prompt, 1024);
+		input = readline(prompt);
 		if (ft_strlen(input) == 4 && !ft_strncmp(input, "exit", 4))
 		{
 			ft_printf("%s\n", input);
