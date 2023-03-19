@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/17 16:28:04 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/19 09:03:17 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ int	main(int argc, char **argv, char **envp)
 	todo = ft_calloc(2, sizeof(t_cmdline *));
 	todo[0] = malloc(sizeof(t_cmdline));
 	todo[0]->cmd = ft_calloc(sizeof(char *), 2);
-//	todo[0]->cmd[0] = "ls";
-//	todo[0]->cmd[1] = "-l";
-//	todo[0]->cmd[2] = "-a";
 	if (argc > 1)
 		return (1);
 	while (1)

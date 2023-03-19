@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/16 15:17:55 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/18 13:46:49 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 
 typedef struct s_cmdline
 {

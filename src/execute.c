@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/16 15:23:50 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:39:30 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ static int	find_paths(char **envp, char **paths)
 	while (envp[++i])
 	{
 		j = -1;
-		if (envp[i][0] == 'P' && envp[i][1] == 'A'
-			&& envp[i][2] == 'T' && envp[i][3] == 'H')
+		if (!ft_strncmp("PATH=", envp[i], 5))
 		{
 			*paths = ft_strdup(envp[i]);
 			if (paths == NULL)
@@ -59,18 +58,20 @@ int	execute(t_cmdline **todo, char **envp)
 {
 	static char	*paths;
 	static char	*path;
+	int			id;
 
 	if (find_paths(envp, &paths))
 		return (1);
 	if (split_paths(&paths, &path, todo))
 		return (2);
+	id = fork();
+	if (id != 0)
+		wait(NULL);
+	else
+	{
+		if (execve(path, todo[0]->cmd, envp) < 0)
+			return (3);
+	}
 	free (path);
 	return (0);
 }
-/*	have to fork before and then call this in the child
-	if (execve(path, todo[0]->cmd, envp) < 0)
-	{
-		free (path);
-		return (3);
-	}
-*/

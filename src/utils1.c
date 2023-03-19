@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/16 14:37:01 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/18 14:14:19 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,22 @@
 
 int	ft_doublejoin(char *split_path, char **path, t_cmdline **todo)
 {
-	char	*temp;
+	char	*temp1;
+	char	*temp2;
 
-	temp = ft_strjoin(split_path, "/");
-	if (temp == NULL)
+	temp1 = ft_strjoin(split_path, "/");
+	if (temp1 == NULL)
 		return (1);
-	*path = ft_strjoin(temp, todo[0]->cmd[0]);
-	free (temp);
-	if (*path == NULL)
+	temp2 = ft_strjoin(temp1, todo[0]->cmd[0]);
+	free (temp1);
+	if (temp2 == NULL)
 		return (2);
-	if (access(*path, X_OK))
+	if (access(temp2, X_OK))
+	{
+		free (temp2);
 		return (3);
+	}
+	*path = ft_strdup(temp2);
+	free (temp2);
 	return (0);
 }
