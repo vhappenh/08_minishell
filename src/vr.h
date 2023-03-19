@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/18 13:46:49 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/19 11:01:50 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ typedef struct s_cmdline
 	char	*nxt_op;
 }	t_cmdline;
 
-int		input_parse(t_cmdline **todo, char *input);
+char	*input_parse(t_cmdline **todo, char **envp);
 int		execute(t_cmdline **todo, char **envp);
 int		ft_free(t_cmdline **todo);
 int		ft_doublejoin(char *split_path, char **paths, t_cmdline **todo);
+char	*ft_get_prompt(char **envp);
 
 #endif

@@ -14,7 +14,8 @@ SRC :=	main.c\
 		input_parse.c\
 		execute.c\
 		ft_free.c\
-		utils1.c
+		utils1.c\
+		utils_parse.c
 
 OBJ := $(SRC:%.c=$(OBJ_P)%.o)
 
