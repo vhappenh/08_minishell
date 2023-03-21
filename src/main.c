@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/19 09:50:06 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/21 10:51:57 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	while (1)
 	{
-		input = input_parse(todo, envp);
+		input = input_parse(todo);
 		if (input == NULL)
 			return (2);
 		todo[0]->cmd[0] = input;
