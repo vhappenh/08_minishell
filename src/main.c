@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/18 15:29:18 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/21 10:51:57 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	main(int argc, char **argv, char **envp)
 {
 	int					i;
-	static t_cmdline	**todo;
 	char				*input;
+	static t_cmdline	**todo;
 
 	(void)argc;
 	(void)argv;
@@ -28,17 +28,10 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	while (1)
 	{
-		input = readline("minishell: ");
-		if (ft_strlen(input) == 4 && !ft_strncmp(input, "exit", 4))
-		{
-			ft_printf("%s\n", input);
-			free(input);
-			return (1);
-		}
-		add_history(input);
-		todo[0]->cmd[0] = input;
-		if (input_parse(todo, input))
+		input = input_parse(todo);
+		if (input == NULL)
 			return (2);
+		todo[0]->cmd[0] = input;
 		if (execute(todo, envp))
 			return (3);
 		free(input);

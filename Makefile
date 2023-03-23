@@ -14,7 +14,8 @@ SRC :=	main.c\
 		input_parse.c\
 		execute.c\
 		ft_free.c\
-		utils1.c
+		utils1.c\
+		utils_prompt.c
 
 OBJ := $(SRC:%.c=$(OBJ_P)%.o)
 
@@ -39,7 +40,7 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -f $(OBJ)
-	rm -f -d $(OBJ_P)
+	rm -f -rd $(OBJ_P)
 	$(MAKE) clean -C $(LIBFT)
 	echo "The minishell o_files where removed!"
 
