@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/23 15:29:31 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/23 17:08:18 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,25 +51,11 @@ void	ft_fill_cmd(t_cmdline **todo, char *input, int arg_count)
 	while (input[i])
 	{
 		if (input[i] == '<' || input[i] == '>')
-		{
-			i++;
-			while (input[i] && input[i] == ' ')
-				i++;
-			while (input[i] && input[1] != ' ')
-				i++;
-		}
-//		if (input[i] && (input[i] == '"' || input[i] == '\''))
-//		{
-//			c = input[i];
-//			i++;
-//			while (input[i] && input[i] != c)
-//
-//		}
+			ft_get_file(input, &i, todo);
+		if (input[i] && (input[i] == '"' || input[i] == '\''))
+			ft_get_quots(input, &i, todo, &k);
 		if (input[i] && input[i] != ' ')
-		{
-			ft_getcmd(input, &i, todo, k);
-			k++;
-		}
+			ft_getcmd(input, &i, todo, &k);
 		if (input[i])
 			i++;
 	}
@@ -84,6 +70,7 @@ static t_cmdline	**ft_split_input(char *input)
 	todo[0] = ft_calloc(1, sizeof(t_cmdline));
 	arg_count = ft_count_args(input);
 	ft_fill_cmd(&todo[0], input, arg_count);
+	printf("%s.\n%s.\n", (*todo)->in_file, (*todo)->out_file);
 	return (todo);
 }
 
