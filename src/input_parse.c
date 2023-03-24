@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/23 17:08:18 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/24 10:36:17 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static t_cmdline	**ft_split_input(char *input)
 	todo = ft_calloc(2, sizeof(t_cmdline *));
 	todo[0] = ft_calloc(1, sizeof(t_cmdline));
 	arg_count = ft_count_args(input);
-	ft_fill_cmd(&todo[0], input, arg_count);
+	ft_fill_cmd(&tt odo[0], input, arg_count);
 	printf("%s.\n%s.\n", (*todo)->in_file, (*todo)->out_file);
 	return (todo);
 }
