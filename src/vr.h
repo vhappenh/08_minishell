@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/25 13:38:12 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/25 14:11:47 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 typedef struct s_cmdline
 {
+	long	nbr;
 	char	*prev_op;
 	char	*in_file;
 	char	*out_file;
@@ -38,5 +39,6 @@ int			ft_get_quots(char *input, int *i, t_cmdline **todo, int *k);
 int			ft_get_file(char *input, int *i, t_cmdline **todo);
 int			ft_get_outfile(char *input, int *i, t_cmdline **todo, int j);
 int			ft_get_infile(char *input, int *i, t_cmdline **todo, int j);
+t_cmdline	**ft_free_array(t_cmdline **todo);
 
 #endif
