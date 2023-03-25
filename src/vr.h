@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/23 16:59:02 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/25 13:38:12 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int			execute(t_cmdline **todo, char **envp);
 int			ft_free(t_cmdline **todo);
 int			ft_doublejoin(char *split_path, char **paths, t_cmdline **todo);
 char		*ft_get_prompt(void);
-void		ft_getcmd(char *input, int *i, t_cmdline **todo, int *k);
-void		ft_get_quots(char *input, int *i, t_cmdline **todo, int *k);
-void		ft_get_file(char *input, int *i, t_cmdline **todo);
+int			ft_getcmd(char *input, int *i, t_cmdline **todo, int *k);
+int			ft_get_quots(char *input, int *i, t_cmdline **todo, int *k);
+int			ft_get_file(char *input, int *i, t_cmdline **todo);
+int			ft_get_outfile(char *input, int *i, t_cmdline **todo, int j);
+int			ft_get_infile(char *input, int *i, t_cmdline **todo, int j);
 
 #endif

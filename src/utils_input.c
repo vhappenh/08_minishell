@@ -6,28 +6,31 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:54:57 by rrupp             #+#    #+#             */
-/*   Updated: 2023/03/23 17:05:14 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/25 13:39:05 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-void	ft_getcmd(char *input, int *i, t_cmdline **todo, int *k)
+int	ft_getcmd(char *input, int *i, t_cmdline **todo, int *k)
 {
-	int	j;
-	int	d;
+	int j;
+	int d;
 
 	j = (*i);
 	while (input[j] && input[j] != ' ')
 		j++;
 	(*todo)->cmd[(*k)] = ft_calloc(j - (*i) + 1, sizeof(char));
+	if ((*todo)->cmd[(*k)] == NULL)
+		return (1);
 	d = 0;
 	while ((*i) < j)
 		(*todo)->cmd[(*k)][d++] = input[(*i)++];
 	(*k)++;
+	return (0);
 }
 
-void	ft_get_quots(char *input, int *i, t_cmdline **todo, int *k)
+int	ft_get_quots(char *input, int *i, t_cmdline **todo, int *k)
 {
 	int		j;
 	int		d;
@@ -39,40 +42,30 @@ void	ft_get_quots(char *input, int *i, t_cmdline **todo, int *k)
 	while (input[j] && input[j] != c)
 		j++;
 	(*todo)->cmd[(*k)] = ft_calloc(j - (*i) + 1, sizeof(char));
+	if ((*todo)->cmd[(*k)] == NULL)
+		return (1);
 	d = 0;
 	while ((*i) < j)
 		(*todo)->cmd[(*k)][d++] = input[(*i)++];
 	(*i)++;
 	(*k)++;
+	return (0);
 }
 
-void	ft_get_file(char *input, int *i, t_cmdline **todo)
+int	ft_get_file(char *input, int *i, t_cmdline **todo)
 {
-	int		j;
-	int		d;
-	char	c;
+	int j;
+	char c;
 
 	c = input[(*i)++];
-	d = 0;
-	while (input[(*i)] == ' ')
-		(*i)++;
 	j = (*i);
-	while (input[j] != ' ')
-		j++;
-	if(c == '<')
+	if (c == '<')
 	{
-		if ((*todo)->in_file)
-			free((*todo)->in_file);
-		(*todo)->in_file = ft_calloc(j - (*i) + 1, sizeof(char));
-		while ((*i) < j)
-			(*todo)->in_file[d++] = input[(*i)++];
+		if (ft_get_infile(input, i, todo, j))
+			return (1);
 	}
 	else
-	{
-		if ((*todo)->out_file)
-			free((*todo)->out_file);
-		(*todo)->out_file = ft_calloc(j - (*i) + 1, sizeof(char));
-		while ((*i) < j)
-			(*todo)->out_file[d++] = input[(*i)++];
-	}
+		if (ft_get_outfile(input, i, todo, j))
+			return (1);
+	return (0);
 }
