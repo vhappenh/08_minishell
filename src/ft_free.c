@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/25 14:11:39 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/25 14:49:55 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_free(t_cmdline **todo)
 	return (0);
 }
 
-t_cmdline **ft_free_array(t_cmdline **todo)
+t_cmdline	**ft_free_array(t_cmdline **todo)
 {
 	int	i;
 	int	j;
