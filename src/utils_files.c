@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/03/25 13:34:14 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/25 14:44:42 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ int	ft_get_infile(char *input, int *i, t_cmdline **todo, int j)
 int	ft_get_outfile(char *input, int *i, t_cmdline **todo, int j)
 {
 	int d;
+	int	trunc;
 
 	d = 0;
+	trunc = 0;
 	if ((*todo)->out_file)
 		free((*todo)->out_file);
-	while (input[(*i)] == '<')
+	while (input[(*i)] == '>')
 		(*i)++;
-//	if ((*i) - j == 0)
-//		ft_trunc();
-//	else
-//		ft_appand();
+	if ((*i) - j == 0)
+		trunc = 1;
 	while (input[(*i)] == ' ')
 		(*i)++;
 	j = (*i);
@@ -64,5 +64,10 @@ int	ft_get_outfile(char *input, int *i, t_cmdline **todo, int j)
 		return (1);
 	while ((*i) < j)
 		(*todo)->out_file[d++] = input[(*i)++];
+	if (trunc)
+		d = open((*todo)->out_file, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	else 
+		d = open((*todo)->out_file, O_WRONLY | O_APPEND | O_CREAT, 0644);
+	close(d);
 	return (0);
 }
