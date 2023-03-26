@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/21 10:50:14 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/25 14:11:47 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,24 @@
 
 typedef struct s_cmdline
 {
+	long	nbr;
 	char	*prev_op;
-	char	*file;
+	char	*in_file;
+	char	*out_file;
 	char	**cmd;
 	char	*nxt_op;
 }	t_cmdline;
 
-char	*input_parse(t_cmdline **todo);
-int		execute(t_cmdline **todo, char **envp);
-int		ft_free(t_cmdline **todo);
-int		ft_doublejoin(char *split_path, char **paths, t_cmdline **todo);
-char	*ft_get_prompt(void);
+t_cmdline	**input_parse(void);
+int			execute(t_cmdline **todo, char **envp);
+int			ft_free(t_cmdline **todo);
+int			ft_doublejoin(char *split_path, char **paths, t_cmdline **todo);
+char		*ft_get_prompt(void);
+int			ft_getcmd(char *input, int *i, t_cmdline **todo, int *k);
+int			ft_get_quots(char *input, int *i, t_cmdline **todo, int *k);
+int			ft_get_file(char *input, int *i, t_cmdline **todo);
+int			ft_get_outfile(char *input, int *i, t_cmdline **todo, int j);
+int			ft_get_infile(char *input, int *i, t_cmdline **todo, int j);
+t_cmdline	**ft_free_array(t_cmdline **todo);
 
 #endif
