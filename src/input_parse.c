@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/28 13:49:19 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/28 14:51:19 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	ft_fill_cmd(t_cmdline **todo, char *input, int nbr)
 	return (0);
 }
 
-static t_cmdline	**ft_split_input(char *input)
+static t_cmdline	**ft_split_input(char **input)
 {
 	t_cmdline	**todo;
 	int			i;
@@ -76,7 +76,7 @@ static t_cmdline	**ft_split_input(char *input)
 	char		*token;
 
 	i = 0;
-	tokens = ft_count_token(input);
+	tokens = ft_count_token(*input);
 	todo = ft_calloc(tokens + 1, sizeof(t_cmdline *));
 	if (todo == NULL)
 		return (NULL);
@@ -112,7 +112,7 @@ t_cmdline	**input_parse(void)
 		return (NULL);
 	}
 	free(prompt);
-	todo = ft_split_input(input);
+	todo = ft_split_input(&input);
 	add_history(input);
 	free(input);
 	return (todo);
