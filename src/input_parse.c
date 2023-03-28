@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/25 14:50:51 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/28 09:48:08 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,14 @@ static t_cmdline	**ft_split_input(char *input)
 	t_cmdline	**todo;
 	int			i;
 	int			arg_count;
+	int 		tokens;
+//	char		*token;
 
 	i = 0;
+
+	tokens = ft_count_token(input);
+	printf("tokens: %d\n", tokens);
+//	token = ft_tokenise(input);
 	todo = ft_calloc(2, sizeof(t_cmdline *));
 	if (todo == NULL)
 		return (NULL);

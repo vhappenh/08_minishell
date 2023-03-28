@@ -17,7 +17,8 @@ SRC :=	main.c\
 		utils1.c\
 		utils_prompt.c\
 		utils_input.c\
-		utils_files.c
+		utils_files.c\
+		utils_token.c
 
 OBJ := $(SRC:%.c=$(OBJ_P)%.o)
 

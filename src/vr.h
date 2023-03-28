@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/25 14:11:47 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/28 09:44:13 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ int			ft_get_file(char *input, int *i, t_cmdline **todo);
 int			ft_get_outfile(char *input, int *i, t_cmdline **todo, int j);
 int			ft_get_infile(char *input, int *i, t_cmdline **todo, int j);
 t_cmdline	**ft_free_array(t_cmdline **todo);
+int			ft_count_token(char *input);
+
 
 #endif
