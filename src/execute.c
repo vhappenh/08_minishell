@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/26 13:04:30 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:37:17 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,32 @@ static int	split_paths(char **paths, char **path, t_cmdline **todo)
 	return (0);
 }
 
-int	execute(t_cmdline **todo, char **envp)
+static int	ft_fork(t_cmdline **todo, char **envp, char *path)
 {
-	static char	*paths;
-	static char	*path;
 	int			id;
 
-	if (find_paths(envp, &paths))
-		return (1);
-	if (split_paths(&paths, &path, todo))
-		return (2);
 	id = fork();
 	if (id != 0)
 		wait(NULL);
 	else
 	{
 		if (execve(path, todo[0]->cmd, envp) < 0)
-			return (3);
+			return (1);
 	}
 	free (path);
+	return (0);
+}
+
+int	execute(t_cmdline **todo, char **envp)
+{
+	static char	*paths;
+	static char	*path;
+
+	if (find_paths(envp, &paths))
+		return (1);
+	if (split_paths(&paths, &path, todo))
+		return (2);
+	if (ft_fork(todo, envp, path))
+		return (3);
 	return (0);
 }
