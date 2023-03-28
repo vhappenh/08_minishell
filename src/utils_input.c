@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:54:57 by rrupp             #+#    #+#             */
-/*   Updated: 2023/03/25 13:39:05 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/25 14:53:42 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_getcmd(char *input, int *i, t_cmdline **todo, int *k)
 {
-	int j;
-	int d;
+	int	j;
+	int	d;
 
 	j = (*i);
 	while (input[j] && input[j] != ' ')
@@ -54,8 +54,8 @@ int	ft_get_quots(char *input, int *i, t_cmdline **todo, int *k)
 
 int	ft_get_file(char *input, int *i, t_cmdline **todo)
 {
-	int j;
-	char c;
+	int		j;
+	char	c;
 
 	c = input[(*i)++];
 	j = (*i);

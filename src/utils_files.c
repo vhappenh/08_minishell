@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/03/25 14:44:42 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/25 15:00:01 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_get_infile(char *input, int *i, t_cmdline **todo, int j)
 {
-	int d;
+	int	d;
 
 	d = 0;
 	while (input[(*i)] == '<')
@@ -27,12 +27,12 @@ int	ft_get_infile(char *input, int *i, t_cmdline **todo, int j)
 	while (input[j] && input[j] != ' ')
 		j++;
 	if ((*todo)->in_file)
-		{
-			if (access((*todo)->in_file, O_RDONLY) == -1)
-				return (0);
-			else
-				free((*todo)->in_file);
-		}
+	{
+		if (access((*todo)->in_file, O_RDONLY) == -1)
+			return (0);
+		else
+			free((*todo)->in_file);
+	}
 	(*todo)->in_file = ft_calloc(j - (*i) + 1, sizeof(char));
 	if ((*todo)->in_file == NULL)
 		return (1);
@@ -41,9 +41,31 @@ int	ft_get_infile(char *input, int *i, t_cmdline **todo, int j)
 	return (0);
 }
 
+static int	ft_create(char *out_file, int trunc)
+{
+	int	fd;
+
+	fd = 0;
+	if (trunc)
+	{
+		fd = open(out_file, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		if (fd == -1)
+			return (1);
+	}
+	else
+	{
+		fd = open(out_file, O_WRONLY | O_APPEND | O_CREAT, 0644);
+		if (fd == -1)
+			return (1);
+	}
+	if (close(fd) == -1)
+		return (1);
+	return (0);
+}
+
 int	ft_get_outfile(char *input, int *i, t_cmdline **todo, int j)
 {
-	int d;
+	int	d;
 	int	trunc;
 
 	d = 0;
@@ -64,10 +86,7 @@ int	ft_get_outfile(char *input, int *i, t_cmdline **todo, int j)
 		return (1);
 	while ((*i) < j)
 		(*todo)->out_file[d++] = input[(*i)++];
-	if (trunc)
-		d = open((*todo)->out_file, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	else 
-		d = open((*todo)->out_file, O_WRONLY | O_APPEND | O_CREAT, 0644);
-	close(d);
+	if (ft_create((*todo)->out_file, trunc))
+		return (1);
 	return (0);
 }
