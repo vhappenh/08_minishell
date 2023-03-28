@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/28 09:48:08 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/28 11:42:26 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,24 +74,30 @@ static t_cmdline	**ft_split_input(char *input)
 	int			i;
 	int			arg_count;
 	int 		tokens;
-//	char		*token;
+	char		*token;
 
 	i = 0;
 
 	tokens = ft_count_token(input);
-	printf("tokens: %d\n", tokens);
-//	token = ft_tokenise(input);
-	todo = ft_calloc(2, sizeof(t_cmdline *));
+	todo = ft_calloc(tokens + 1, sizeof(t_cmdline *));
 	if (todo == NULL)
 		return (NULL);
-	todo[i] = ft_calloc(1, sizeof(t_cmdline));
-	if (todo[i] == NULL)
-		return (ft_free_array(todo));
-	arg_count = ft_count_args(input);
-	if (ft_fill_cmd(&todo[i], input, arg_count, i + 1))
-		return (ft_free_array(todo));
-	printf("%s.\n%s.\nIn cmd nbr: %ld\n", (*todo)->in_file,
-		(*todo)->out_file, (*todo)->nbr);
+	while (i < tokens)
+	{
+		todo[i] = ft_calloc(1, sizeof(t_cmdline));
+		if (todo[i] == NULL)
+			return (ft_free_array(todo));
+		token = ft_get_token(input, i);
+		if (token == NULL)
+			return (ft_free_array(todo));
+		arg_count = ft_count_args(token);
+		if (ft_fill_cmd(&todo[i], token, arg_count, i + 1))
+			return (ft_free_array(todo));
+		free(token);
+		printf("%s.\n%s.\nIn cmd nbr: %ld\ncmd : %s\n", todo[i]->in_file,
+			todo[i]->out_file, todo[i]->nbr, todo[i]->cmd[0]);
+		i++;
+	}
 	return (todo);
 }
 
