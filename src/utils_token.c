@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 09:42:16 by rrupp             #+#    #+#             */
-/*   Updated: 2023/03/28 11:51:16 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/28 15:02:16 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,34 +25,69 @@ int	ft_count_token(char *input)
 	return (tokens);
 }
 
-char	*ft_get_token(char *input, int check)
+static int	ft_jump_quots(char *input, int i)
 {
-	static int	i;
-	int			j;
-	int			k;
-	char		c;
-	char		*token;
+	char	c;
 
-	if (check == 0)
-		i = 0;
-	j = i;
-	k = 0;
+	c = input[i++];
+	while (input[i] || input[i] != c)
+		i++;
+	return (i);
+}
+static int	ft_get_lenth(char *input, int i)
+{
 	while (input[i])
 	{
 		if (input[i] == '\'' || input[i] == '"')
-		{
-			c = input[i++];
-			while (input[i] || input[i] != c)
-				i++;
-		}
+			i = ft_jump_quots(input, i);
 		if (input[i] == '|')
 			break ;
 		i++;
 	}
+	return (i);
+}
+
+int	ft_get_last_cmd(char **input, int i)
+{
+	char	*buffer;
+	char	*tmp;
+
+	(void)input;
+	buffer = ft_calloc(1001, sizeof(char));
+	write(1, "> ", 2);
+	read(0, buffer, 1000);
+	i += ft_strlen(buffer);
+	tmp = ft_strjoin((*input), " ");
+	if (tmp == NULL)
+		return (-1);
+	free(*input);
+	(*input) = ft_strjoin(tmp, buffer);
+	if ((*input) == NULL)
+		return (-1);
+	return (i);
+}
+
+char	*ft_get_token(char **input, int check)
+{
+	static int	i;
+	int			j;
+	int			k;
+	char		*token;
+
+	if (check == 0)
+		i = 0;
+	while ((*input)[i] == ' ')
+		i++;
+	j = i;
+	k = 0;
+	i = ft_get_lenth((*input), i);
+	if (i == j)
+		i = ft_get_last_cmd(input, i);
 	token = ft_calloc(i - j + 1, sizeof(char));
+	if (token == NULL)
+		return (NULL);
 	while (j < i)
-		token[k++] = input[j++];
-	//if (token[i] == '|')
+		token[k++] = (*input)[j++];
 	i++;
 	return (token);
 }
