@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/28 11:41:56 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/28 14:01:41 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_cmdline
 t_cmdline	**input_parse(void);
 int			execute(t_cmdline **todo, char **envp);
 int			ft_free(t_cmdline **todo);
-int			ft_doublejoin(char *split_path, char **paths, t_cmdline **todo);
+int			ft_doublejoin(char *split_path, char **paths, t_cmdline *todo);
 char		*ft_get_prompt(void);
 int			ft_getcmd(char *input, int *i, t_cmdline **todo, int *k);
 int			ft_get_quots(char *input, int *i, t_cmdline **todo, int *k);

@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/28 13:37:17 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:49:10 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	find_paths(char **envp, char **paths)
 	return (0);
 }
 
-static int	split_paths(char **paths, char **path, t_cmdline **todo)
+static int	split_paths(char **paths, char **path, t_cmdline *todo)
 {
 	int		i;
 	char	**split_paths;
@@ -54,7 +54,7 @@ static int	split_paths(char **paths, char **path, t_cmdline **todo)
 	return (0);
 }
 
-static int	ft_fork(t_cmdline **todo, char **envp, char *path)
+static int	ft_fork(t_cmdline *todo, char **envp, char *path)
 {
 	int			id;
 
@@ -63,7 +63,7 @@ static int	ft_fork(t_cmdline **todo, char **envp, char *path)
 		wait(NULL);
 	else
 	{
-		if (execve(path, todo[0]->cmd, envp) < 0)
+		if (execve(path, todo->cmd, envp) < 0)
 			return (1);
 	}
 	free (path);
@@ -74,12 +74,17 @@ int	execute(t_cmdline **todo, char **envp)
 {
 	static char	*paths;
 	static char	*path;
+	int			i;
 
-	if (find_paths(envp, &paths))
-		return (1);
-	if (split_paths(&paths, &path, todo))
-		return (2);
-	if (ft_fork(todo, envp, path))
-		return (3);
+	i = -1;
+	while (todo[++i])
+	{
+		if (find_paths(envp, &paths))
+			return (1);
+		if (split_paths(&paths, &path, todo[i]))
+			return (2);
+		if (ft_fork(todo[i], envp, path))
+			return (3);
+	}
 	return (0);
 }
