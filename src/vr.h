@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/03/29 11:48:36 by vhappenh         ###   ########.fr       */
+=======
+/*   Updated: 2023/03/28 15:05:24 by rrupp            ###   ########.fr       */
+>>>>>>> 78d79680a1bc493b61fe76389ed74a5f49bd53be
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +45,11 @@ int			ft_get_outfile(char *input, int *i, t_cmdline **todo, int j);
 int			ft_get_infile(char *input, int *i, t_cmdline **todo, int j);
 t_cmdline	**ft_free_array(t_cmdline **todo);
 int			ft_count_token(char *input);
+<<<<<<< HEAD
 char		*ft_get_token(char *input, int check);
 int			ft_built_in_check(t_cmdline *todo, int fd);
+=======
+char		*ft_get_token(char **input, int check);
+>>>>>>> 78d79680a1bc493b61fe76389ed74a5f49bd53be
 
 #endif

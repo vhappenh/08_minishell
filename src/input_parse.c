@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/28 14:01:38 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:32:35 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ static int	ft_count_args(char *input)
 	return (count);
 }
 
-static int	ft_fill_cmd(t_cmdline **todo, char *input, int arg_count, int nbr)
+static int	ft_fill_cmd(t_cmdline **todo, char *input, int nbr)
 {
-	int		i;
-	int		k;
+	int	i;
+	int	k;
 
 	i = 0;
 	k = 0;
-	(*todo)->cmd = ft_calloc(arg_count + 1, sizeof(char *));
+	(*todo)->cmd = ft_calloc(ft_count_args(input) + 1, sizeof(char *));
 	if ((*todo)->cmd == NULL)
 		return (1);
 	(*todo)->nbr = nbr;
@@ -68,16 +68,15 @@ static int	ft_fill_cmd(t_cmdline **todo, char *input, int arg_count, int nbr)
 	return (0);
 }
 
-static t_cmdline	**ft_split_input(char *input)
+static t_cmdline	**ft_split_input(char **input)
 {
 	t_cmdline	**todo;
 	int			i;
-	int			arg_count;
 	int			tokens;
 	char		*token;
 
 	i = 0;
-	tokens = ft_count_token(input);
+	tokens = ft_count_token(*input);
 	todo = ft_calloc(tokens + 1, sizeof(t_cmdline *));
 	if (todo == NULL)
 		return (NULL);
@@ -89,15 +88,56 @@ static t_cmdline	**ft_split_input(char *input)
 		token = ft_get_token(input, i);
 		if (token == NULL)
 			return (ft_free_array(todo));
-		arg_count = ft_count_args(token);
-		if (ft_fill_cmd(&todo[i], token, arg_count, i + 1))
+		if (ft_fill_cmd(&todo[i], token, i))
 			return (ft_free_array(todo));
 		free(token);
-		printf("%s.\n%s.\nIn cmd nbr: %ld\ncmd : %s\n", todo[i]->in_file,
-			todo[i]->out_file, todo[i]->nbr, todo[i]->cmd[0]);
 		i++;
 	}
 	return (todo);
+}
+
+int	ft_get_last_cmd(char **input, int i)
+{
+	char	*buffer;
+	char	*tmp;
+
+	buffer = readline("> ");
+//	printf("%s\n",buffer);
+	i += ft_strlen(buffer);
+	tmp =  (*input);
+	(*input) = ft_strjoin(tmp, buffer);
+	free(tmp);
+//	printf("%s\n",(*input));
+	free(buffer);
+	if ((*input) == NULL)
+		return (-1);
+//	i--;
+//	(*input)[i] = '\0';
+	return (i);
+}
+
+int	ft_check_open_pipe(char **input)
+{
+	int	i;
+
+	i = 0;
+	while ((*input)[i])
+		i++;
+	i--;
+	while (i > 0)
+	{
+		if ((*input)[i] == '|')
+		{
+			i = ft_get_last_cmd(input, i);
+			if (i == -1)
+				return (1);
+		}
+		else if ((*input)[i] != ' ')
+			break ;
+		else
+			i--;
+	}
+	return (0);
 }
 
 t_cmdline	**input_parse(void)
@@ -115,9 +155,14 @@ t_cmdline	**input_parse(void)
 		free(prompt);
 		return (NULL);
 	}
+	if (ft_check_open_pipe(&input))
+		return (NULL);
 	free(prompt);
-	todo = ft_split_input(input);
+	todo = ft_split_input(&input);
+//	for (int i = 0; i < 2; i++)
+//	{
+//		printf("%s, %s, %s\n", (*todo[i]->cmd), todo[i]->in_file, todo[i]->out_file);
+//	}
 	add_history(input);
-	free(input);
 	return (todo);
 }
