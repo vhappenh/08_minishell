@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/28 14:01:41 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:48:36 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ int			ft_get_infile(char *input, int *i, t_cmdline **todo, int j);
 t_cmdline	**ft_free_array(t_cmdline **todo);
 int			ft_count_token(char *input);
 char		*ft_get_token(char *input, int check);
+int			ft_built_in_check(t_cmdline *todo, int fd);
 
 #endif

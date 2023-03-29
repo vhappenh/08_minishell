@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/28 13:49:10 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:56:31 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,14 @@ int	execute(t_cmdline **todo, char **envp)
 	static char	*paths;
 	static char	*path;
 	int			i;
+	int			fd;
 
+	fd = 1;
 	i = -1;
 	while (todo[++i])
 	{
+		if (ft_built_in_check(todo[i], fd))
+			return (4);
 		if (find_paths(envp, &paths))
 			return (1);
 		if (split_paths(&paths, &path, todo[i]))
