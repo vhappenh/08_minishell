@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/29 13:53:18 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:04:44 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ static void	ft_echo(t_cmdline *todo, int fd)
 int	ft_built_in_check(t_cmdline *todo, int fd)
 {
 	if (!ft_strncmp(todo->cmd[0], "echo", 4))
+	{
 		ft_echo(todo, fd);
+		return (1);
+	}
 	else if (!ft_strncmp(todo->cmd[0], "cd", 2))
 	{
 	}
@@ -57,5 +60,5 @@ int	ft_built_in_check(t_cmdline *todo, int fd)
 	else if (!ft_strncmp(todo->cmd[0], "exit", 4))
 	{
 	}
-	return (1);
+	return (0);
 }
