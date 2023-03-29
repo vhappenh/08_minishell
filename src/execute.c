@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/29 11:56:31 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:52:48 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,16 @@ int	execute(t_cmdline **todo, char **envp)
 	while (todo[++i])
 	{
 		if (ft_built_in_check(todo[i], fd))
-			return (4);
-		if (find_paths(envp, &paths))
-			return (1);
-		if (split_paths(&paths, &path, todo[i]))
-			return (2);
-		if (ft_fork(todo[i], envp, path))
-			return (3);
+			;
+		else
+		{
+			if (find_paths(envp, &paths))
+				return (2);
+			if (split_paths(&paths, &path, todo[i]))
+				return (3);
+			if (ft_fork(todo[i], envp, path))
+				return (4);
+		}
 	}
 	return (0);
 }

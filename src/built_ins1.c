@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/29 13:35:34 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:53:18 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,5 @@ int	ft_built_in_check(t_cmdline *todo, int fd)
 	else if (!ft_strncmp(todo->cmd[0], "exit", 4))
 	{
 	}
-	return (0);
+	return (1);
 }
