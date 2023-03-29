@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/29 11:32:35 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/29 14:09:12 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,17 +102,13 @@ int	ft_get_last_cmd(char **input, int i)
 	char	*tmp;
 
 	buffer = readline("> ");
-//	printf("%s\n",buffer);
 	i += ft_strlen(buffer);
-	tmp =  (*input);
+	tmp = (*input);
 	(*input) = ft_strjoin(tmp, buffer);
 	free(tmp);
-//	printf("%s\n",(*input));
 	free(buffer);
 	if ((*input) == NULL)
 		return (-1);
-//	i--;
-//	(*input)[i] = '\0';
 	return (i);
 }
 
@@ -159,10 +155,6 @@ t_cmdline	**input_parse(void)
 		return (NULL);
 	free(prompt);
 	todo = ft_split_input(&input);
-//	for (int i = 0; i < 2; i++)
-//	{
-//		printf("%s, %s, %s\n", (*todo[i]->cmd), todo[i]->in_file, todo[i]->out_file);
-//	}
 	add_history(input);
 	return (todo);
 }

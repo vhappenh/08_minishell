@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 09:42:16 by rrupp             #+#    #+#             */
-/*   Updated: 2023/03/29 11:49:01 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/29 14:09:39 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	ft_jump_quots(char *input, int i)
 		i++;
 	return (i);
 }
+
 static int	ft_get_lenth(char *input, int i)
 {
 	while (input[i])
@@ -46,7 +47,6 @@ static int	ft_get_lenth(char *input, int i)
 	}
 	return (i);
 }
-
 
 char	*ft_get_token(char **input, int check)
 {
