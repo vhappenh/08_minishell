@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/28 15:07:21 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/29 11:32:35 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,50 @@ static t_cmdline	**ft_split_input(char **input)
 	return (todo);
 }
 
+int	ft_get_last_cmd(char **input, int i)
+{
+	char	*buffer;
+	char	*tmp;
+
+	buffer = readline("> ");
+//	printf("%s\n",buffer);
+	i += ft_strlen(buffer);
+	tmp =  (*input);
+	(*input) = ft_strjoin(tmp, buffer);
+	free(tmp);
+//	printf("%s\n",(*input));
+	free(buffer);
+	if ((*input) == NULL)
+		return (-1);
+//	i--;
+//	(*input)[i] = '\0';
+	return (i);
+}
+
+int	ft_check_open_pipe(char **input)
+{
+	int	i;
+
+	i = 0;
+	while ((*input)[i])
+		i++;
+	i--;
+	while (i > 0)
+	{
+		if ((*input)[i] == '|')
+		{
+			i = ft_get_last_cmd(input, i);
+			if (i == -1)
+				return (1);
+		}
+		else if ((*input)[i] != ' ')
+			break ;
+		else
+			i--;
+	}
+	return (0);
+}
+
 t_cmdline	**input_parse(void)
 {
 	t_cmdline	**todo;
@@ -111,9 +155,14 @@ t_cmdline	**input_parse(void)
 		free(prompt);
 		return (NULL);
 	}
+	if (ft_check_open_pipe(&input))
+		return (NULL);
 	free(prompt);
 	todo = ft_split_input(&input);
+//	for (int i = 0; i < 2; i++)
+//	{
+//		printf("%s, %s, %s\n", (*todo[i]->cmd), todo[i]->in_file, todo[i]->out_file);
+//	}
 	add_history(input);
-	free(input);
 	return (todo);
 }
