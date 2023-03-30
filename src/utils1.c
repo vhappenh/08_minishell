@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/30 15:12:37 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/30 17:22:58 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,18 @@ char	*ft_doublejoin(char *str1, char *str2, char *str3)
 	}
 	free(temp);
 	return (fin);
+}
+
+int	get_pwd(char **pwd)
+{
+	*pwd = ft_calloc(sizeof(char), 10000);
+	if (*pwd == NULL)
+		return (1);
+	*pwd = getcwd(*pwd, 9999);
+	if (*pwd == NULL)
+	{
+		perror("minishell");
+		return (2);
+	}
+	return (0);
 }

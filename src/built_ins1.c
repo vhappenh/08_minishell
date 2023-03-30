@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/30 14:59:29 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:11:32 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,10 @@ static int	ft_echo(t_cmdline *todo, int fd)
 
 static int	ft_pwd(int fd)
 {
-	char *pwd;
+	static char	*pwd;
 
-	pwd = ft_calloc(sizeof(char), 10000);
-	if (pwd == NULL)
+	if (get_pwd(&pwd))
 		return (1);
-	pwd = getcwd(pwd, 9999);
-	if (pwd == NULL)
-	{
-		perror("minishell");
-		return (2);
-	}
 	ft_putstr_fd(pwd, fd);
 	write(fd, "\n", 1);
 	free (pwd);
@@ -57,28 +50,38 @@ static int	ft_pwd(int fd)
 
 static int	ft_cd(t_cmdline *todo)
 {
-	char *pwd;
-	char *new_path;
+	char	*pwd;
+	char	*new_path;
+	int		new_len;
+	int		i;
 
-	pwd = ft_calloc(sizeof(char), 10000);
-	if (pwd == NULL)
+	pwd = NULL;
+	if (get_pwd(&pwd))
 		return (1);
-	pwd = getcwd(pwd, 9999);
-	if (pwd == NULL)
+	if (!todo->cmd[1])
+		new_path = ft_strdup(getenv("HOME"));
+	else if (!ft_strncmp(todo->cmd[1], "..", 2))
 	{
-		perror("minishell");
-		return (2);
+		i = -1;
+		while (pwd[++i])
+			if (pwd[i] == '/')
+				new_len = i;
+		new_path = ft_calloc(sizeof(char), new_len + 1);
+		if (new_path == NULL)
+			return (3);
+		new_path = ft_memcpy(new_path, pwd, new_len);
 	}
-//	if (ft_strncmp(todo->cmd[1], "..", 2))
-//		new_path = ft_strlcpy(pwd, todo->cmd[1]);
-	new_path = ft_double_join(pwd, "/", todo->cmd[1]);
-	if (new_path == NULL)
-		return (3);
+	else
+	{
+		new_path = ft_doublejoin(pwd, "/", todo->cmd[1]);
+		if (new_path == NULL)
+			return (3);
+	}
 	free (pwd);
 	if (chdir(new_path))
-		return (3);
+		printf("minishell: cd: %s: No such file or directory", todo->cmd[1]);
+	free (new_path);
 	return (0);
-
 }
 
 int	ft_built_in_check(t_cmdline *todo, int fd)

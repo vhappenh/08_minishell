@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/30 15:03:39 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/30 17:22:27 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ int			ft_count_token(char *input);
 int			ft_built_in_check(t_cmdline *todo, int fd);
 char		*ft_get_token(char **input, int check);
 int			ft_get_last_cmd(char **input, int i);
+char		*ft_doublejoin(char *str1, char *str2, char *str3);
+int			get_pwd(char **pwd);
 
 #endif
