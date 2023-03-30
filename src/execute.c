@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/29 15:03:49 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:57:39 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	split_paths(char **paths, char **path, t_cmdline *todo)
 	i = -1;
 	while (split_paths[++i])
 	{
-		if (!ft_doublejoin(split_paths[i], path, todo))
+		if (!ft_djoin_spec(split_paths[i], path, todo))
 			break ;
 	}
 	i = -1;
@@ -81,7 +81,7 @@ int	execute(t_cmdline **todo, char **envp)
 	i = -1;
 	while (todo[++i])
 	{
-		if (ft_built_in_check(todo[i], fd))
+		if (!ft_built_in_check(todo[i], fd))
 			;
 		else
 		{

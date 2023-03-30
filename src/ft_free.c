@@ -6,22 +6,11 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/28 11:36:52 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/30 13:17:22 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
-
-int	ft_free(t_cmdline **todo)
-{
-	int	i;
-
-	i = -1;
-	while (todo[++i])
-		free (todo[i]);
-	free (todo);
-	return (0);
-}
 
 t_cmdline	**ft_free_array(t_cmdline **todo)
 {
