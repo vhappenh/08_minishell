@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/29 14:09:12 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/29 14:33:32 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,23 +96,7 @@ static t_cmdline	**ft_split_input(char **input)
 	return (todo);
 }
 
-int	ft_get_last_cmd(char **input, int i)
-{
-	char	*buffer;
-	char	*tmp;
-
-	buffer = readline("> ");
-	i += ft_strlen(buffer);
-	tmp = (*input);
-	(*input) = ft_strjoin(tmp, buffer);
-	free(tmp);
-	free(buffer);
-	if ((*input) == NULL)
-		return (-1);
-	return (i);
-}
-
-int	ft_check_open_pipe(char **input)
+static int	ft_check_open_pipe(char **input)
 {
 	int	i;
 

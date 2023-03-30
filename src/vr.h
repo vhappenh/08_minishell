@@ -6,8 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/29 13:38:59 by vhappenh         ###   ########.fr       */
-/*   Updated: 2023/03/28 15:05:24 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/29 14:25:15 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +43,6 @@ t_cmdline	**ft_free_array(t_cmdline **todo);
 int			ft_count_token(char *input);
 int			ft_built_in_check(t_cmdline *todo, int fd);
 char		*ft_get_token(char **input, int check);
+int			ft_get_last_cmd(char **input, int i);
 
 #endif
