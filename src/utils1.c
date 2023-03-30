@@ -6,13 +6,13 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/28 13:49:32 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:09:37 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-int	ft_doublejoin(char *split_path, char **path, t_cmdline *todo)
+int	ft_djoin_spec(char *split_path, char **path, t_cmdline *todo)
 {
 	char	*temp1;
 	char	*temp2;
