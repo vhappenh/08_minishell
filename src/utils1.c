@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/30 15:09:37 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:12:37 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,24 @@ int	ft_djoin_spec(char *split_path, char **path, t_cmdline *todo)
 	*path = ft_strdup(temp2);
 	free (temp2);
 	return (0);
+}
+
+char	*ft_doublejoin(char *str1, char *str2, char *str3)
+{
+	char	*temp;
+	char	*fin;
+
+	if (!str1 || !str2 || !str3)
+		return (NULL);
+	temp = ft_strjoin(str1, str2);
+	if (temp == NULL)
+		return (NULL);
+	fin = ft_strjoin(temp, str3);
+	if (fin == NULL)
+	{
+		free(temp);
+		return (NULL);
+	}
+	free(temp);
+	return (fin);
 }

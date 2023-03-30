@@ -6,10 +6,10 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/30 14:57:21 by vhappenh         ###   ########.fr       */
-/*   Updated: 2023/03/28 15:05:24 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/03/30 15:03:39 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef VR_H
 # define VR_H
@@ -43,5 +43,6 @@ t_cmdline	**ft_free_array(t_cmdline **todo);
 int			ft_count_token(char *input);
 int			ft_built_in_check(t_cmdline *todo, int fd);
 char		*ft_get_token(char **input, int check);
+int			ft_get_last_cmd(char **input, int i);
 
 #endif
