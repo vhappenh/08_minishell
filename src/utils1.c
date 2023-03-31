@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/31 14:09:12 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:41:09 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	get_env_path(char **env, char *pathname)
 	while (env[++i])
 	{
 		if (!ft_strncmp(pathname, env[i], ft_strlen(pathname)))
-			break;
+			break ;
 	}
 	return (i);
 }
