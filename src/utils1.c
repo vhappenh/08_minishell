@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/30 17:22:58 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:52:08 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,26 @@ int	get_pwd(char **pwd)
 		return (2);
 	}
 	return (0);
+}
+
+char	**get_env(char **envp)
+{
+	int		i;
+	char	**env;
+
+	i = -1;
+	while (envp[++i])
+		;
+	env = ft_calloc(sizeof(char *), i + 1);
+	if (env == NULL)
+		return (NULL);
+	i = -1;
+	while (envp[++i])
+	{
+		env[i] = malloc(sizeof(char) * ft_strlen(envp[i]));
+		if (env[i] == NULL)
+			return (NULL);
+		env[i] = envp[i];
+	}
+	return (env);
 }

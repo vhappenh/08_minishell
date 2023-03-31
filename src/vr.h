@@ -6,10 +6,9 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/30 17:22:27 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:01:41 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef VR_H
 # define VR_H
@@ -28,6 +27,7 @@ typedef struct s_cmdline
 	char	*out_file;
 	char	**cmd;
 	char	*nxt_op;
+	char	**env;
 }	t_cmdline;
 
 t_cmdline	**input_parse(void);
@@ -41,10 +41,11 @@ int			ft_get_outfile(char *input, int *i, t_cmdline **todo, int j);
 int			ft_get_infile(char *input, int *i, t_cmdline **todo, int j);
 t_cmdline	**ft_free_array(t_cmdline **todo);
 int			ft_count_token(char *input);
-int			ft_built_in_check(t_cmdline *todo, int fd);
+int			ft_built_in_check(t_cmdline *todo, char **env, int fd);
 char		*ft_get_token(char **input, int check);
 int			ft_get_last_cmd(char **input, int i);
 char		*ft_doublejoin(char *str1, char *str2, char *str3);
 int			get_pwd(char **pwd);
+char		**get_env(char **envp);
 
 #endif

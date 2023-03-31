@@ -6,24 +6,24 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/30 14:57:39 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:00:13 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-static int	find_paths(char **envp, char **paths)
+static int	find_paths(char **env, char **paths)
 {
 	int		i;
 	int		j;
 
 	i = -1;
-	while (envp[++i])
+	while (env[++i])
 	{
 		j = -1;
-		if (!ft_strncmp("PATH=", envp[i], 5))
+		if (!ft_strncmp("PATH=", env[i], 5))
 		{
-			*paths = ft_strdup(envp[i]);
+			*paths = ft_strdup(env[i]);
 			if (paths == NULL)
 				return (1);
 		}
@@ -54,7 +54,7 @@ static int	split_paths(char **paths, char **path, t_cmdline *todo)
 	return (0);
 }
 
-static int	ft_fork(t_cmdline *todo, char **envp, char *path)
+static int	ft_fork(t_cmdline *todo, char **env, char *path)
 {
 	int			id;
 
@@ -63,14 +63,14 @@ static int	ft_fork(t_cmdline *todo, char **envp, char *path)
 		wait(NULL);
 	else
 	{
-		if (execve(path, todo->cmd, envp) < 0)
+		if (execve(path, todo->cmd, env) < 0)
 			return (1);
 	}
 	free (path);
 	return (0);
 }
 
-int	execute(t_cmdline **todo, char **envp)
+int	execute(t_cmdline **todo, char **env)
 {
 	static char	*paths;
 	static char	*path;
@@ -81,15 +81,15 @@ int	execute(t_cmdline **todo, char **envp)
 	i = -1;
 	while (todo[++i])
 	{
-		if (!ft_built_in_check(todo[i], fd))
+		if (!ft_built_in_check(todo[i], env, fd))
 			;
 		else
 		{
-			if (find_paths(envp, &paths))
+			if (find_paths(env, &paths))
 				return (2);
 			if (split_paths(&paths, &path, todo[i]))
 				return (3);
-			if (ft_fork(todo[i], envp, path))
+			if (ft_fork(todo[i], env, path))
 				return (4);
 		}
 	}
