@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/31 13:52:52 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:02:52 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	static t_cmdline	**todo;
-	static char			**env;
+	char				**env;
 
 	(void)argc;
 	(void)argv;
