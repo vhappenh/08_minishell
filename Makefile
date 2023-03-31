@@ -19,7 +19,8 @@ SRC :=	main.c\
 		utils_input.c\
 		utils_files.c\
 		utils_token.c\
-		built_ins1.c
+		built_ins1.c\
+		built_ins2.c
 
 OBJ := $(SRC:%.c=$(OBJ_P)%.o)
 

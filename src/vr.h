@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/31 14:01:41 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:16:36 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ int			ft_get_last_cmd(char **input, int i);
 char		*ft_doublejoin(char *str1, char *str2, char *str3);
 int			get_pwd(char **pwd);
 char		**get_env(char **envp);
+int			get_env_path(char **env, char *pathname);
+int			ft_env(char **env, int fd);
 
 #endif
