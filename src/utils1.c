@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/31 14:41:09 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:31:16 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	ft_djoin_spec(char *split_path, char **path, t_cmdline *todo)
 	if (temp1 == NULL)
 		return (1);
 	if (!todo->cmd[0])
+	{
+		free (temp1);
 		return (2);
+	}
 	temp2 = ft_strjoin(temp1, todo->cmd[0]);
 	free (temp1);
 	if (temp2 == NULL)
@@ -70,37 +73,32 @@ int	get_pwd(char **pwd)
 	return (0);
 }
 
-char	**get_env(char **envp)
+int	get_env(char **envp, t_envlst **env)
 {
-	int		i;
-	char	**env;
+	int			i;
+	t_envlst	*lst;
 
 	i = -1;
 	while (envp[++i])
-		;
-	env = ft_calloc(sizeof(char *), i + 1);
-	if (env == NULL)
-		return (NULL);
-	i = -1;
-	while (envp[++i])
 	{
-		env[i] = malloc(sizeof(char) * ft_strlen(envp[i]));
-		if (env[i] == NULL)
-			return (NULL);
-		env[i] = envp[i];
+		lst = ft_lstnew_minishell(ft_strdup(envp[i]));
+		if (lst == NULL)
+			return (1);
+		ft_lstadd_back_minishell(env, lst);
 	}
-	return (env);
+	return (0);
 }
 
-int	get_env_path(char **env, char *pathname)
+char	*get_env_path(t_envlst *env, char *pathname)
 {
-	int	i;
+	char	*path;
 
-	i = -1;
-	while (env[++i])
+	while (env)
 	{
-		if (!ft_strncmp(pathname, env[i], ft_strlen(pathname)))
+		if (!ft_strncmp(pathname, env->line, ft_strlen(pathname)))
 			break ;
+		env = env->next;
 	}
-	return (i);
+	path = env->line;
+	return (path);
 }

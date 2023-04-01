@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/31 14:02:52 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/01 13:37:43 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 int	main(int argc, char **argv, char **envp)
 {
 	static t_cmdline	**todo;
-	char				**env;
+	static t_envlst		*env;
 
 	(void)argc;
 	(void)argv;
 	if (argc > 1)
 		return (1);
-	env = get_env(envp);
-	if (env == NULL)
+	if (get_env(envp, &env))
 		return (2);
 	while (1)
 	{

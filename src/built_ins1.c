@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/31 14:39:37 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:24:50 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	ft_pwd(int fd)
 	return (0);
 }
 
-static int	ft_cd(t_cmdline *todo, char **env)
+static int	ft_cd(t_cmdline *todo, t_envlst *env)
 {
 	char	*pwd;
 	char	*new_path;
@@ -79,9 +79,9 @@ static int	ft_cd(t_cmdline *todo, char **env)
 		new_path = ft_doublejoin(pwd, "/", todo->cmd[1]);
 		if (new_path == NULL)
 			return (3);
-//		i = get_env_path(env, "PWD");
-//		free (env[i]);
-//		env[i] = ft_strdup(new_path);
+/*		temp = get_env_path(env, "PWD");
+		free (temp);
+		env->line = ft_strdup(new_path);*/
 	}
 	free (pwd);
 	if (chdir(new_path))
@@ -90,7 +90,7 @@ static int	ft_cd(t_cmdline *todo, char **env)
 	return (0);
 }
 
-int	ft_built_in_check(t_cmdline *todo, char **env, int fd)
+int	ft_built_in_check(t_cmdline *todo, t_envlst *env, int fd)
 {
 	if (!ft_strncmp(todo->cmd[0], "echo", 4))
 		return (ft_echo(todo, fd));

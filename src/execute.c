@@ -6,18 +6,18 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/31 14:40:51 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:34:38 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-static int	find_paths(char **env, char **paths)
+static int	find_paths(t_envlst *env, char **paths)
 {
-	int		i;
+	char	*path;
 
-	i = get_env_path(env, "PATH");
-	*paths = ft_strdup(env[i]);
+	path = get_env_path(env, "PATH=");
+	*paths = ft_strdup(path);
 	if (paths == NULL)
 		return (1);
 	return (0);
@@ -45,23 +45,37 @@ static int	split_paths(char **paths, char **path, t_cmdline *todo)
 	return (0);
 }
 
-static int	ft_fork(t_cmdline *todo, char **env, char *path)
+static int	ft_fork(t_cmdline *todo, t_envlst *env, char *path)
 {
-	int			id;
+	int		id;
+	int		i;
+	char	**env_ptr;
 
 	id = fork();
 	if (id != 0)
 		wait(NULL);
 	else
 	{
-		if (execve(path, todo->cmd, env) < 0)
+		if (lst_to_ptr(env, &env_ptr))
 			return (1);
+		if (path == NULL)
+		{
+			path = ft_strdup(todo->cmd[0]);
+			if (path == NULL)
+				return (2);
+		}
+		if (execve(path, todo->cmd, env_ptr) < 0)
+			return (3);
+		i = -1;
+		while (env_ptr[++i])
+			free (env_ptr[i]);
+		free (env_ptr);
 	}
 	free (path);
 	return (0);
 }
 
-int	execute(t_cmdline **todo, char **env)
+int	execute(t_cmdline **todo, t_envlst *env)
 {
 	static char	*paths;
 	static char	*path;
