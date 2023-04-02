@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_ins1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/30 14:59:29 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:44:37 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	ft_cd(t_cmdline *todo)
 	}
 //	if (ft_strncmp(todo->cmd[1], "..", 2))
 //		new_path = ft_strlcpy(pwd, todo->cmd[1]);
-	new_path = ft_double_join(pwd, "/", todo->cmd[1]);
+	new_path = ft_doublejoin(pwd, "/", todo->cmd[1]);
 	if (new_path == NULL)
 		return (3);
 	free (pwd);
