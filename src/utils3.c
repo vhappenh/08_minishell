@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/03 11:39:15 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:03:47 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	cd_dot_dot(char *pwd, char **new_path)
 	if (*new_path == NULL)
 		return (1);
 	*new_path = ft_memcpy(*new_path, pwd, new_len);
-	if (new_len < (int)ft_strlen(getenv("HOME")))
-		*new_path = ft_strdup(getenv("HOME"));
+//	if (new_len < (int)ft_strlen(getenv("HOME")))
+//		*new_path = ft_strdup(getenv("HOME"));
 	if (*new_path == NULL)
 		return (2);
 	return (0);
