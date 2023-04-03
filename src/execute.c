@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/01 15:34:38 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/03 11:59:38 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	execute(t_cmdline **todo, t_envlst *env)
 	i = -1;
 	while (todo[++i])
 	{
-		if (!ft_built_in_check(todo[i], env, fd))
+		if (!ft_built_in_check(todo, i, env, fd))
 			;
 		else
 		{

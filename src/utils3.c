@@ -1,0 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils3.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
+/*   Updated: 2023/04/03 11:39:15 by vhappenh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "vr.h"
+
+int	save_pwd(t_envlst *env, char *pwd)
+{
+	while (env)
+	{
+		if (!ft_strncmp(env->line, "PWD=", 4))
+		{
+			free (env->line);
+			env->line = ft_strjoin("PWD=", pwd);
+			if (env->line == NULL)
+				return (1);
+		}
+		env = env->next;
+	}
+	return (0);
+}
+
+int	save_old_pwd(t_envlst *env, char *pwd)
+{
+	while (env)
+	{
+		if (!ft_strncmp(env->line, "OLDPWD=", 7))
+		{
+			free (env->line);
+			env->line = ft_strjoin("OLDPWD=", pwd);
+			if (env->line == NULL)
+				return (1);
+		}
+		env = env->next;
+	}
+	return (0);
+}
+
+int	cd_dot_dot(char *pwd, char **new_path)
+{
+	int	i;
+	int	new_len;
+
+	i = -1;
+	while (pwd[++i])
+	{
+		if (pwd[i] == '/')
+			new_len = i;
+	}
+	*new_path = ft_calloc(sizeof(char), new_len + 1);
+	if (*new_path == NULL)
+		return (1);
+	*new_path = ft_memcpy(*new_path, pwd, new_len);
+	if (new_len < (int)ft_strlen(getenv("HOME")))
+		*new_path = ft_strdup(getenv("HOME"));
+	if (*new_path == NULL)
+		return (2);
+	return (0);
+}
