@@ -6,13 +6,13 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/03 11:56:11 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:03:19 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-void	ft_free_cmd(t_cmdline **todo)
+static void	ft_free_cmd(t_cmdline **todo)
 {
 	int	i;
 	int	j;
@@ -39,7 +39,7 @@ void	ft_free_cmd(t_cmdline **todo)
 	}
 }
 
-void	ft_free_env(t_envlst *env)
+static void	ft_free_env(t_envlst *env)
 {
 	t_envlst	*temp;
 
@@ -55,8 +55,22 @@ void	ft_free_env(t_envlst *env)
 	}
 }
 
-void	ft_free_all(t_cmdline **todo, t_envlst *env)
+static void	ft_free_array(char **array)
+{
+	int	i;
+
+	if (array)
+	{
+		i = -1;
+		while (array[++i])
+			free (array[i]);
+		free (array);
+	}
+}
+
+void	ft_free_all(t_cmdline **todo, t_envlst *env, char **array)
 {
 	ft_free_cmd(todo);
 	ft_free_env(env);
+	ft_free_array(array);
 }

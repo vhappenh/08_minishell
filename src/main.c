@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/03 12:03:38 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:01:22 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int	main(int argc, char **argv, char **envp)
 			return (3);
 		rl_on_new_line();
 	}
-	ft_free_all(todo, env);
+	ft_free_all(todo, env, NULL);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/03 14:10:05 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:36:57 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,33 @@ static int	ft_pwd(int fd)
 	return (0);
 }
 
+static int	ft_cd_select(char **pwd, char **new_path, t_cmdline *todo)
+{
+	int	i;
+
+	i = 0;
+	if (!todo->cmd[1])
+	{
+		*new_path = ft_strdup(getenv("HOME"));
+		if (*new_path == NULL)
+			i = 1;
+	}
+	else if (!ft_strncmp(todo->cmd[1], "..", 2))
+	{
+		if (cd_dot_dot(*pwd, new_path))
+			i = 2;
+	}
+	else
+	{
+		*new_path = ft_doublejoin(*pwd, "/", todo->cmd[1]);
+		if (*new_path == NULL)
+			i = 3;
+	}
+	if (i)
+		free (*pwd);
+	return (i);
+}
+
 static int	ft_cd(t_cmdline *todo, t_envlst *env)
 {
 	char	*pwd;
@@ -62,37 +89,13 @@ static int	ft_cd(t_cmdline *todo, t_envlst *env)
 		free (pwd);
 		return (2);
 	}
-	if (!todo->cmd[1])
-	{
-		new_path = ft_strdup(getenv("HOME"));
-		if (new_path == NULL)
-		{
-			free (pwd);
-			return (3);
-		}
-	}
-	else if (!ft_strncmp(todo->cmd[1], "..", 2))
-	{
-		if (cd_dot_dot(pwd, &new_path))
-		{
-			free (pwd);
-			return (4);
-		}
-	}
-	else
-	{
-		new_path = ft_doublejoin(pwd, "/", todo->cmd[1]);
-		if (new_path == NULL)
-		{
-			free (pwd);
-			return (5);
-		}
-	}
+	if (ft_cd_select(&pwd, &new_path, todo))
+		return (3);
 	free (pwd);
 	if (save_pwd(env, new_path))
 	{
 		free (new_path);
-		return (6);
+		return (4);
 	}
 	if (chdir(new_path))
 		printf("minishell: cd: %s: No such file or directory\n", todo->cmd[1]);

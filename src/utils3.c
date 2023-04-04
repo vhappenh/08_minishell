@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/03 14:03:47 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:57:18 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	save_pwd(t_envlst *env, char *pwd)
 			env->line = ft_strjoin("PWD=", pwd);
 			if (env->line == NULL)
 				return (1);
+			break ;
 		}
 		env = env->next;
 	}
@@ -38,6 +39,7 @@ int	save_old_pwd(t_envlst *env, char *pwd)
 			env->line = ft_strjoin("OLDPWD=", pwd);
 			if (env->line == NULL)
 				return (1);
+			break ;
 		}
 		env = env->next;
 	}
@@ -51,17 +53,21 @@ int	cd_dot_dot(char *pwd, char **new_path)
 
 	i = -1;
 	while (pwd[++i])
-	{
 		if (pwd[i] == '/')
 			new_len = i;
+	if (new_len == 0)
+	{
+		*new_path = ft_calloc(sizeof(char), 4 + 1);
+		if (*new_path == NULL)
+			return (1);
+		*new_path = ft_memcpy(*new_path, pwd, 4);
 	}
-	*new_path = ft_calloc(sizeof(char), new_len + 1);
-	if (*new_path == NULL)
-		return (1);
-	*new_path = ft_memcpy(*new_path, pwd, new_len);
-//	if (new_len < (int)ft_strlen(getenv("HOME")))
-//		*new_path = ft_strdup(getenv("HOME"));
-	if (*new_path == NULL)
-		return (2);
+	else
+	{
+		*new_path = ft_calloc(sizeof(char), new_len + 1);
+		if (*new_path == NULL)
+			return (2);
+		*new_path = ft_memcpy(*new_path, pwd, new_len);
+	}
 	return (0);
 }

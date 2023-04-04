@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/03 14:22:27 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:00:48 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ static int	ft_fork(t_cmdline *todo, t_envlst *env, char *path)
 		if (execve(path, todo->cmd, env_ptr) < 0)
 			return (3);
 		i = -1;
-		while (env_ptr[++i])
-			free (env_ptr[i]);
-		free (env_ptr);
+		ft_free_all(NULL, NULL, env_ptr);
 	}
 	free (path);
 	return (0);
