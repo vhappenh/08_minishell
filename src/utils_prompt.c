@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 09:39:30 by rrupp             #+#    #+#             */
-/*   Updated: 2023/03/21 14:42:50 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/05 11:32:48 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,15 @@ char	*ft_cut_wd(char *user, char *wd)
 	char	*temp;
 
 	temp = wd;
-	while (ft_strncmp(temp, user, ft_strlen(user)))
+	while (*temp && ft_strncmp(temp, user, ft_strlen(user)))
 		temp++;
-	temp += ft_strlen(user) - 1;
-	temp[0] = '~';
+	if (*temp == '\0')
+		return (wd);
+	else
+	{
+		temp += ft_strlen(user) - 1;
+		temp[0] = '~';
+	}
 	return (temp);
 }
 
