@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/03/29 14:54:02 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/05 13:59:35 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ int	ft_get_infile(char *input, int *i, t_cmdline **todo, int j)
 		if (access((*todo)->in_file, O_RDONLY) == -1)
 			return (0);
 		else
+		{
+			if (strncmp((*todo)->in_file, ".heredoc", 8))
+				unlink((*todo)->in_file);
 			free((*todo)->in_file);
+		}
 	}
 	(*todo)->in_file = ft_calloc(j - (*i) + 1, sizeof(char));
 	if ((*todo)->in_file == NULL)

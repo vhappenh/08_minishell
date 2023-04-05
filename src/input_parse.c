@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/05 11:44:57 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/05 14:17:23 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	ft_count_args(char *input)
 
 	i = 0;
 	count = 0;
-	while (input && input[i])
+	while (input[i])
 	{
-		if (input[i] == '<' || input[i] == '>')
+		if (input[i] && (input[i] == '<' || input[i] == '>'))
 		{
 			i++;
 			while (input[i] && input[i] == ' ')
@@ -29,13 +29,14 @@ static int	ft_count_args(char *input)
 			while (input[i] && input[i] != ' ')
 				i++;
 		}
-		if (ft_isalpha(input[i]))
+		if (input[i] && ft_isalpha(input[i]))
 		{
 			count++;
 			while (input[i] && input[i] != ' ')
 				i++;
 		}
-		i++;
+		if (input[i] != '\0')
+			i++;
 	}
 	return (count);
 }
@@ -51,7 +52,7 @@ static int	ft_fill_cmd(t_cmdline **todo, char *input, int nbr)
 	if ((*todo)->cmd == NULL)
 		return (1);
 	(*todo)->nbr = nbr;
-	while (input[i])
+	while (input && input[i])
 	{
 		if (input[i] == '<' || input[i] == '>')
 			if (ft_get_file(input, &i, todo))
