@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/04 14:02:35 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/05 09:43:39 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,21 +84,12 @@ static t_cmdline	**ft_split_input(char **input)
 	{
 		todo[i] = ft_calloc(1, sizeof(t_cmdline));
 		if (todo[i] == NULL)
-		{
-			ft_free_all(todo, NULL, NULL);
-			return (NULL);
-		}
+			return (ft_free_all(todo, NULL, NULL));
 		token = ft_get_token(input, i);
 		if (token == NULL)
-		{
-			ft_free_all(todo, NULL, NULL);
-			return (NULL);
-		}
+			return (ft_free_all(todo, NULL, NULL));
 		if (ft_fill_cmd(&todo[i], token, i))
-		{
-			ft_free_all(todo, NULL, NULL);
-			return (NULL);
-		}
+			return (ft_free_all(todo, NULL, NULL));
 		free(token);
 		i++;
 	}

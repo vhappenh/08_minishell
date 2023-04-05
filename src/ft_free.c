@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/04 14:03:19 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/05 09:53:24 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ static void	ft_free_array(char **array)
 	}
 }
 
-void	ft_free_all(t_cmdline **todo, t_envlst *env, char **array)
+void	*ft_free_all(t_cmdline **todo, t_envlst *env, char **array)
 {
 	ft_free_cmd(todo);
 	ft_free_env(env);
 	ft_free_array(array);
+	return (NULL);
 }
