@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/05 13:15:52 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:02:38 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,12 @@ int	cd_dot_dot(char *pwd, char **new_path)
 		*new_path = ft_memcpy(*new_path, pwd, new_len);
 	}
 	return (0);
+}
+
+int	ft_change_lvl(char **shlvl)
+{
+	int	i;
+
+	i = 0;
+	while
 }

@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   built_ins1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/05 13:22:21 by vhappenh         ###   ########.fr       */
-/*   Updated: 2023/04/05 11:25:02 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/05 13:38:26 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "vr.h"
 
@@ -115,7 +115,7 @@ int	ft_built_in_check(t_cmdline **todo, int i, t_envlst *env, int fd)
 	else if (!ft_strncmp(todo[i]->cmd[0], "export", 6))
 		return (1);
 	else if (!ft_strncmp(todo[i]->cmd[0], "unset", 5))
-		return (1);
+		return (ft_unset(todo[i], env));
 	else if (!ft_strncmp(todo[i]->cmd[0], "env", 3))
 		return (ft_env(env, fd));
 	else if (!ft_strncmp(todo[i]->cmd[0], "exit", 4))
