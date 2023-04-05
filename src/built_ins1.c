@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/31 14:44:37 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/02 10:28:25 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,55 +38,64 @@ static int	ft_echo(t_cmdline *todo, int fd)
 
 static int	ft_pwd(int fd)
 {
-	char *pwd;
+	static char	*pwd;
 
-	pwd = ft_calloc(sizeof(char), 10000);
-	if (pwd == NULL)
+	if (get_pwd(&pwd))
 		return (1);
-	pwd = getcwd(pwd, 9999);
-	if (pwd == NULL)
-	{
-		perror("minishell");
-		return (2);
-	}
 	ft_putstr_fd(pwd, fd);
 	write(fd, "\n", 1);
 	free (pwd);
 	return (0);
 }
 
-static int	ft_cd(t_cmdline *todo)
+static int	ft_cd(t_cmdline *todo, t_envlst *env)
 {
-	char *pwd;
-	char *new_path;
+	char	*pwd;
+	char	*new_path;
+	int		new_len;
+	int		i;
 
-	pwd = ft_calloc(sizeof(char), 10000);
-	if (pwd == NULL)
+	(void)env;
+	pwd = NULL;
+	if (get_pwd(&pwd))
 		return (1);
-	pwd = getcwd(pwd, 9999);
-	if (pwd == NULL)
+	if (!todo->cmd[1])
+		new_path = ft_strdup(getenv("HOME"));
+	else if (!ft_strncmp(todo->cmd[1], "..", 2))
 	{
-		perror("minishell");
-		return (2);
+		i = -1;
+		while (pwd[++i])
+			if (pwd[i] == '/')
+				new_len = i;
+		new_path = ft_calloc(sizeof(char), new_len + 1);
+		if (new_path == NULL)
+			return (3);
+		new_path = ft_memcpy(new_path, pwd, new_len);
+		if (new_len < (int)ft_strlen(getenv("HOME")))
+			new_path = ft_strdup(getenv("HOME"));
 	}
-//	if (ft_strncmp(todo->cmd[1], "..", 2))
-//		new_path = ft_strlcpy(pwd, todo->cmd[1]);
-	new_path = ft_doublejoin(pwd, "/", todo->cmd[1]);
-	if (new_path == NULL)
-		return (3);
+	else
+	{
+		new_path = ft_doublejoin(pwd, "/", todo->cmd[1]);
+		if (new_path == NULL)
+			return (3);
+/*		temp = get_env_path(env, "PWD");
+		free (temp);
+		env->line = ft_strdup(new_path);*/
+	}
 	free (pwd);
 	if (chdir(new_path))
-		return (3);
+		printf("minishell: cd: %s: No such file or directory", todo->cmd[1]);
+	free (new_path);
 	return (0);
-
 }
 
-int	ft_built_in_check(t_cmdline *todo, int fd)
+int	ft_built_in_check(t_cmdline *todo, t_envlst *env, int fd)
 {
 	if (!ft_strncmp(todo->cmd[0], "echo", 4))
 		return (ft_echo(todo, fd));
 	else if (!ft_strncmp(todo->cmd[0], "cd", 2))
-		return (ft_cd(todo));
+		return (ft_cd(todo, env));
 	else if (!ft_strncmp(todo->cmd[0], "pwd", 3))
 		return (ft_pwd(fd));
 	else if (!ft_strncmp(todo->cmd[0], "export", 6))
@@ -94,7 +103,7 @@ int	ft_built_in_check(t_cmdline *todo, int fd)
 	else if (!ft_strncmp(todo->cmd[0], "unset", 5))
 		return (1);
 	else if (!ft_strncmp(todo->cmd[0], "env", 3))
-		return (1);
+		return (ft_env(env, fd));
 	else if (!ft_strncmp(todo->cmd[0], "exit", 4))
 		return (1);
 	else

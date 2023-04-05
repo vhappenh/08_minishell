@@ -15,11 +15,13 @@ SRC :=	main.c\
 		execute.c\
 		ft_free.c\
 		utils1.c\
+		utils2.c\
 		utils_prompt.c\
 		utils_input.c\
 		utils_files.c\
 		utils_token.c\
-		built_ins1.c
+		built_ins1.c\
+		built_ins2.c
 
 OBJ := $(SRC:%.c=$(OBJ_P)%.o)
 
