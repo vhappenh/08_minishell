@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/05 13:15:56 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:32:03 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ int	main(int argc, char **argv, char **envp)
 			return (2);
 		if (execute(todo, env))
 			return (3);
+		ft_free_all(todo, NULL, NULL);
 		rl_on_new_line();
 	}
-	ft_free_all(todo, env, NULL);
+	ft_free_all(NULL, env, NULL);
 	return (0);
 }
