@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/30 13:17:22 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/05 09:53:24 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-t_cmdline	**ft_free_array(t_cmdline **todo)
+static void	ft_free_cmd(t_cmdline **todo)
 {
 	int	i;
 	int	j;
@@ -37,5 +37,41 @@ t_cmdline	**ft_free_array(t_cmdline **todo)
 		}
 		free(todo);
 	}
+}
+
+static void	ft_free_env(t_envlst *env)
+{
+	t_envlst	*temp;
+
+	if (env)
+	{
+		while (env)
+		{
+			temp = env;
+			env = env->next;
+			free (temp);
+		}
+		free (env);
+	}
+}
+
+static void	ft_free_array(char **array)
+{
+	int	i;
+
+	if (array)
+	{
+		i = -1;
+		while (array[++i])
+			free (array[i]);
+		free (array);
+	}
+}
+
+void	*ft_free_all(t_cmdline **todo, t_envlst *env, char **array)
+{
+	ft_free_cmd(todo);
+	ft_free_env(env);
+	ft_free_array(array);
 	return (NULL);
 }

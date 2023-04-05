@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/02 10:27:34 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/05 10:14:59 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_envlst
 int			get_env(char **envp, t_envlst **env);
 t_cmdline	**input_parse(void);
 int			execute(t_cmdline **todo, t_envlst*env);
-t_cmdline	**ft_free_array(t_cmdline **todo);
+void		*ft_free_all(t_cmdline **todo, t_envlst *env, char **array);
 
 /* get_env */
 t_envlst	*ft_lstnew_minishell(char *content);
@@ -56,7 +56,7 @@ int			ft_get_file(char *input, int *i, t_cmdline **todo);
 int			ft_get_outfile(char *input, int *i, t_cmdline **todo, int j);
 int			ft_get_infile(char *input, int *i, t_cmdline **todo, int j);
 int			ft_count_token(char *input);
-int			ft_built_in_check(t_cmdline *todo, t_envlst *env, int fd);
+int			ft_built_in_check(t_cmdline **todo, int i, t_envlst *env, int fd);
 char		*ft_get_token(char **input, int check);
 int			ft_get_last_cmd(char **input, int i);
 char		*ft_doublejoin(char *str1, char *str2, char *str3);
@@ -65,5 +65,9 @@ char		*get_env_path(t_envlst *env, char *pathname);
 int			ft_env(t_envlst *env, int fd);
 int			lst_to_ptr(t_envlst *env, char ***env_ptr);
 int			ft_lstsize_minishell(t_envlst *lst);
+int			save_pwd(t_envlst *env, char *pwd);
+int			save_old_pwd(t_envlst *env, char *pwd);
+int			cd_dot_dot(char *pwd, char **new_path);
+int			ft_exit(t_cmdline **todo, t_envlst *env);
 
 #endif

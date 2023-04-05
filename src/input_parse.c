@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/03/29 14:33:32 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/05 09:43:39 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ static t_cmdline	**ft_split_input(char **input)
 	{
 		todo[i] = ft_calloc(1, sizeof(t_cmdline));
 		if (todo[i] == NULL)
-			return (ft_free_array(todo));
+			return (ft_free_all(todo, NULL, NULL));
 		token = ft_get_token(input, i);
 		if (token == NULL)
-			return (ft_free_array(todo));
+			return (ft_free_all(todo, NULL, NULL));
 		if (ft_fill_cmd(&todo[i], token, i))
-			return (ft_free_array(todo));
+			return (ft_free_all(todo, NULL, NULL));
 		free(token);
 		i++;
 	}
@@ -128,13 +128,6 @@ t_cmdline	**input_parse(void)
 
 	prompt = ft_get_prompt();
 	input = readline(prompt);
-	if (ft_strlen(input) == 4 && !ft_strncmp(input, "exit", 4))
-	{
-		ft_printf("%s\n", input);
-		free(input);
-		free(prompt);
-		return (NULL);
-	}
 	if (ft_check_open_pipe(&input))
 		return (NULL);
 	free(prompt);
