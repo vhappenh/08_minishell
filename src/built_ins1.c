@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/04 14:36:57 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:11:08 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	ft_cd_select(char **pwd, char **new_path, t_cmdline *todo)
 		if (*new_path == NULL)
 			i = 1;
 	}
-	else if (!ft_strncmp(todo->cmd[1], "..", 2))
+	else if (!ft_strncmp(todo->cmd[1], "..", 2) && !todo->cmd[1][2])
 	{
 		if (cd_dot_dot(*pwd, new_path))
 			i = 2;
