@@ -17,6 +17,7 @@ SRC :=	main.c\
 		utils1.c\
 		utils2.c\
 		utils3.c\
+		utils4.c\
 		utils_prompt.c\
 		utils_input.c\
 		utils_files.c\

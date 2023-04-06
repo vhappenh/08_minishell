@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/05 16:29:42 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:52:46 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ int			save_old_pwd(t_envlst *env, char *pwd);
 int			cd_dot_dot(char *pwd, char **new_path);
 int			ft_exit(t_cmdline **todo, t_envlst *env);
 int			ft_unset(t_cmdline *todo, t_envlst *env);
-int			ft_change_lvl(char **line);
+int			ft_lvl_up(char **line);
+int			ft_add_shlvl(t_envlst **env);
+int			ft_found_target(t_envlst **temp, t_envlst **head);
+int			ft_free_lvl_fail(t_envlst **lst, t_envlst **env);
 
 #endif

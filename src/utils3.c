@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/05 16:59:14 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:29:19 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	cd_dot_dot(char *pwd, char **new_path)
 	return (0);
 }
 
-int	ft_change_lvl(char **line)
+int	ft_lvl_up(char **line)
 {
 	char	*temp;
 	int		lvl;
@@ -91,5 +91,26 @@ int	ft_change_lvl(char **line)
 	free (temp);
 	if (*line == NULL)
 		return (3);
+	return (0);
+}
+
+int	ft_add_shlvl(t_envlst **env)
+{
+	char		*temp;
+	t_envlst	*lst;
+
+	temp = ft_strdup("SHLVL=1");
+	if (temp == NULL)
+	{
+		ft_free_all(NULL, *env, NULL);
+		return (1);
+	}
+	lst = ft_lstnew_minishell(temp);
+	if (lst == NULL)
+	{
+		ft_free_all(NULL, *env, NULL);
+		return (2);
+	}
+	ft_lstadd_back_minishell(env, lst);
 	return (0);
 }
