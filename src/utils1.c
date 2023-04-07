@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/07 09:52:56 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/07 13:39:56 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	ft_djoin_spec(char *split_path, char **path, t_cmdline *todo)
 	free (temp2);
 	return (0);
 }
-
 
 int	get_pwd(char **pwd)
 {

@@ -6,18 +6,40 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/07 12:58:00 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/07 13:53:37 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-int	ft_get_infile(char *input, int *i, t_cmdline **todo, int nbr)
+static int	ft_fillinfile(t_cmdline **todo, char *input, int *i, int j)
 {
 	int	d;
+
+	if ((*todo)->in_file)
+	{
+		if (access((*todo)->in_file, O_RDONLY) == -1)
+			return (0);
+		else
+		{
+			if (strncmp((*todo)->in_file, ".heredoc", 8))
+				unlink((*todo)->in_file);
+			free((*todo)->in_file);
+		}
+	}
+	(*todo)->in_file = ft_calloc(j - (*i) + 1, sizeof(char));
+	if ((*todo)->in_file == NULL)
+		return (1);
+	d = 0;
+	while ((*i) < j)
+		(*todo)->in_file[d++] = input[(*i)++];
+	return (0);
+}
+
+int	ft_get_infile(char *input, int *i, t_cmdline **todo, int nbr)
+{
 	int	j;
 
-	d = 0;
 	j = (*i);
 	while (input[(*i)] == '<')
 		(*i)++;
@@ -33,23 +55,7 @@ int	ft_get_infile(char *input, int *i, t_cmdline **todo, int nbr)
 	j = (*i);
 	while (input[j] && input[j] != ' ')
 		j++;
-	if ((*todo)->in_file)
-	{
-		if (access((*todo)->in_file, O_RDONLY) == -1)
-			return (0);
-		else
-		{
-			if (strncmp((*todo)->in_file, ".heredoc", 8))
-				unlink((*todo)->in_file);
-			free((*todo)->in_file);
-		}
-	}
-	(*todo)->in_file = ft_calloc(j - (*i) + 1, sizeof(char));
-	if ((*todo)->in_file == NULL)
-		return (1);
-	while ((*i) < j)
-		(*todo)->in_file[d++] = input[(*i)++];
-	return (0);
+	return (ft_fillinfile(todo, input, i, j));
 }
 
 static int	ft_create(char *out_file, int trunc)
@@ -74,16 +80,13 @@ static int	ft_create(char *out_file, int trunc)
 	return (0);
 }
 
-int	ft_get_outfile(char *input, int *i, t_cmdline **todo)
+static int	ft_filloutfile(t_cmdline **todo, char *input, int *i)
 {
-	int	d;
 	int	j;
+	int	d;
 	int	trunc;
 
-	d = 0;
 	trunc = 0;
-	if ((*todo)->out_file)
-		free((*todo)->out_file);
 	while (input[(*i)] == '>')
 		(*i)++;
 	j = (*i);
@@ -97,9 +100,17 @@ int	ft_get_outfile(char *input, int *i, t_cmdline **todo)
 	(*todo)->out_file = ft_calloc(j - (*i) + 1, sizeof(char));
 	if ((*todo)->out_file == NULL)
 		return (1);
+	d = 0;
 	while ((*i) < j)
 		(*todo)->out_file[d++] = input[(*i)++];
 	if (ft_create((*todo)->out_file, trunc))
 		return (1);
 	return (0);
+}
+
+int	ft_get_outfile(char *input, int *i, t_cmdline **todo)
+{
+	if ((*todo)->out_file)
+		free((*todo)->out_file);
+	return (ft_filloutfile(todo, input, i));
 }

@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:25:38 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/07 13:14:55 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/07 13:39:46 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*ft_getdel(char *input, int *i)
 {
 	int		j;
 	char	*del;
-	
+
 	while (input[(*i)] == ' ')
 		(*i)++;
 	j = (*i);
@@ -59,14 +59,14 @@ static int	ft_fillfile(char *doc_file, char *del)
 	while (1)
 	{
 		new_input = readline("> ");
-		if(!ft_strncmp(del, new_input, ft_strlen(del) + 1))
+		if (!ft_strncmp(del, new_input, ft_strlen(del) + 1))
 		{
 			free(new_input);
 			break ;
 		}
 		write(fd, new_input, ft_strlen(new_input));
 		write(fd, "\n", 1);
-		free(new_input);		
+		free(new_input);
 	}
 	free(del);
 	return (0);
