@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/05 16:29:42 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/07 12:54:19 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ char		*ft_get_prompt(void);
 int			ft_djoin_spec(char *split_path, char **paths, t_cmdline *todo);
 int			ft_getcmd(char *input, int *i, t_cmdline **todo, int *k);
 int			ft_get_quots(char *input, int *i, t_cmdline **todo, int *k);
-int			ft_get_file(char *input, int *i, t_cmdline **todo);
-int			ft_get_outfile(char *input, int *i, t_cmdline **todo, int j);
-int			ft_get_infile(char *input, int *i, t_cmdline **todo, int j);
+int			ft_get_file(char *input, int *i, t_cmdline **todo, int nbr);
+int			ft_get_outfile(char *input, int *i, t_cmdline **todo);
+int			ft_get_infile(char *input, int *i, t_cmdline **todo, int nbr);
 int			ft_count_token(char *input);
 int			ft_built_in_check(t_cmdline **todo, int i, t_envlst *env, int fd);
 char		*ft_get_token(char **input, int check);
@@ -71,5 +71,7 @@ int			cd_dot_dot(char *pwd, char **new_path);
 int			ft_exit(t_cmdline **todo, t_envlst *env);
 int			ft_unset(t_cmdline *todo, t_envlst *env);
 int			ft_change_lvl(char **line);
+char		*ft_strncopy(char *str, unsigned int i);
+int			ft_heredoc(char *input, int *i, t_cmdline **todo, int nbr);
 
 #endif

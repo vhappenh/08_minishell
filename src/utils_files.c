@@ -6,21 +6,28 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/05 13:59:35 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/07 12:58:00 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-int	ft_get_infile(char *input, int *i, t_cmdline **todo, int j)
+int	ft_get_infile(char *input, int *i, t_cmdline **todo, int nbr)
 {
 	int	d;
+	int	j;
 
 	d = 0;
+	j = (*i);
 	while (input[(*i)] == '<')
 		(*i)++;
-//	if ((*i) - j == 1)
-//		ft_here_doc();
+	if ((*i) - j == 1)
+	{
+		if (ft_heredoc(input, i, todo, nbr))
+			return (1);
+		else
+			return (0);
+	}
 	while (input[(*i)] == ' ')
 		(*i)++;
 	j = (*i);
@@ -67,9 +74,10 @@ static int	ft_create(char *out_file, int trunc)
 	return (0);
 }
 
-int	ft_get_outfile(char *input, int *i, t_cmdline **todo, int j)
+int	ft_get_outfile(char *input, int *i, t_cmdline **todo)
 {
 	int	d;
+	int	j;
 	int	trunc;
 
 	d = 0;
@@ -78,6 +86,7 @@ int	ft_get_outfile(char *input, int *i, t_cmdline **todo, int j)
 		free((*todo)->out_file);
 	while (input[(*i)] == '>')
 		(*i)++;
+	j = (*i);
 	if ((*i) - j == 0)
 		trunc = 1;
 	while (input[(*i)] == ' ')
