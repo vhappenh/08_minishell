@@ -23,7 +23,9 @@ SRC :=	main.c\
 		utils_files.c\
 		utils_token.c\
 		built_ins1.c\
-		built_ins2.c
+		built_ins2.c\
+		utils_universal.c\
+		utils_heredoc.c
 
 OBJ := $(SRC:%.c=$(OBJ_P)%.o)
 
@@ -61,3 +63,6 @@ re:	fclean all
 
 norm:
 	norminette -R CheckForbiddenSourceHeader src/*.c src/vr.h
+
+val: all
+	valgrind --leak-check=full --suppressions=./minishell.supp ./minishell
