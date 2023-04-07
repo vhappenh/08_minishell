@@ -73,5 +73,9 @@ int			ft_unset(t_cmdline *todo, t_envlst *env);
 int			ft_change_lvl(char **line);
 char		*ft_strncopy(char *str, unsigned int i);
 int			ft_heredoc(char *input, int *i, t_cmdline **todo, int nbr);
+int			ft_lvl_up(char **line);
+int			ft_add_shlvl(t_envlst **env);
+int			ft_found_target(t_envlst **temp, t_envlst **head);
+int			ft_free_lvl_fail(t_envlst **lst, t_envlst **env);
 
 #endif

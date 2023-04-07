@@ -57,9 +57,11 @@ int	get_pwd(char **pwd)
 int	get_env(char **envp, t_envlst **env)
 {
 	int			i;
+	int			shlvl;
 	t_envlst	*lst;
 
 	i = -1;
+	shlvl = 0;
 	while (envp[++i])
 	{
 		lst = ft_lstnew_minishell(ft_strdup(envp[i]));
@@ -67,16 +69,16 @@ int	get_env(char **envp, t_envlst **env)
 			return (1);
 		if (!ft_strncmp(lst->line, "SHLVL=", 6))
 		{
-			if (ft_change_lvl(&lst->line))
-			{
-				free (lst->line);
-				free (lst);
-				ft_free_all(NULL, *env, NULL);
-				return (2);
-			}
+			if (ft_lvl_up(&lst->line))
+				if (!ft_free_lvl_fail(&lst, env))
+					return (2);
+			shlvl = 1;
 		}
 		ft_lstadd_back_minishell(env, lst);
 	}
+	if (shlvl == 0)
+		if (ft_add_shlvl(env))
+			return (3);
 	return (0);
 }
 
