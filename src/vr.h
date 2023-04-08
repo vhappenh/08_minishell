@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/07 12:54:19 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/08 14:47:59 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_envlst
 
 /* main */
 int			get_env(char **envp, t_envlst **env);
-t_cmdline	**input_parse(void);
+t_cmdline	**input_parse(t_envlst *env);
 int			execute(t_cmdline **todo, t_envlst*env);
 void		*ft_free_all(t_cmdline **todo, t_envlst *env, char **array);
 
@@ -77,5 +77,6 @@ int			ft_lvl_up(char **line);
 int			ft_add_shlvl(t_envlst **env);
 int			ft_found_target(t_envlst **temp, t_envlst **head);
 int			ft_free_lvl_fail(t_envlst **lst, t_envlst **env);
+int			ft_check_syntax(char *input);
 
 #endif

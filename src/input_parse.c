@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/06 13:16:23 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/08 15:56:43 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ static int	ft_count_args(char *input)
 	return (count);
 }
 
-static int	ft_fill_cmd(t_cmdline **todo, char *input, int nbr)
+static int	ft_fill_cmd(t_cmdline **todo, char *input, int nbr, t_envlst *env)
 {
 	int	i;
 	int	k;
 
 	i = 0;
 	k = 0;
+	(void)env;
 	(*todo)->cmd = ft_calloc(ft_count_args(input) + 1, sizeof(char *));
 	if ((*todo)->cmd == NULL)
 		return (1);
@@ -69,7 +70,7 @@ static int	ft_fill_cmd(t_cmdline **todo, char *input, int nbr)
 	return (0);
 }
 
-static t_cmdline	**ft_split_input(char **input)
+static t_cmdline	**ft_split_input(char **input, t_envlst *env)
 {
 	t_cmdline	**todo;
 	int			i;
@@ -89,7 +90,7 @@ static t_cmdline	**ft_split_input(char **input)
 		token = ft_get_token(input, i);
 		if (token == NULL)
 			return (ft_free_all(todo, NULL, NULL));
-		if (ft_fill_cmd(&todo[i], token, i))
+		if (ft_fill_cmd(&todo[i], token, i, env))
 			return (ft_free_all(todo, NULL, NULL));
 		free(token);
 		i++;
@@ -121,7 +122,7 @@ static int	ft_check_open_pipe(char **input)
 	return (0);
 }
 
-t_cmdline	**input_parse(void)
+t_cmdline	**input_parse(t_envlst *env)
 {
 	t_cmdline	**todo;
 	char		*prompt;
@@ -129,10 +130,18 @@ t_cmdline	**input_parse(void)
 
 	prompt = ft_get_prompt();
 	input = readline(prompt);
+	if (ft_check_syntax(input))
+	{
+		add_history(input);
+		todo = ft_calloc(1, sizeof(t_cmdline *));
+		if (todo == NULL)
+			return (NULL);
+		return (todo);
+	}
 	if (ft_check_open_pipe(&input))
 		return (NULL);
 	free(prompt);
-	todo = ft_split_input(&input);
+	todo = ft_split_input(&input, env);
 	add_history(input);
 	return (todo);
 }

@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/07 13:53:37 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/08 16:00:49 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,9 @@ static int	ft_filloutfile(t_cmdline **todo, char *input, int *i)
 
 int	ft_get_outfile(char *input, int *i, t_cmdline **todo)
 {
+	if ((*todo)->in_file)
+		if (access((*todo)->in_file, F_OK) == -1)
+			return (0);
 	if ((*todo)->out_file)
 		free((*todo)->out_file);
 	return (ft_filloutfile(todo, input, i));
