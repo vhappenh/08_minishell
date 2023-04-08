@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/08 15:19:42 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/08 15:56:43 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ t_cmdline	**input_parse(t_envlst *env)
 
 	prompt = ft_get_prompt();
 	input = readline(prompt);
-	//printf("%s", input);
 	if (ft_check_syntax(input))
 	{
 		add_history(input);
