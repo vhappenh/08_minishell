@@ -6,12 +6,25 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:54:57 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/06 13:16:23 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/08 14:46:18 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
+/*
+int	ft_getvar(char 	*input, int *i, t_envlst *env)
+{
+	int		j;
+	char	*env;
 
+	(*i)++;
+	j = (*i);
+	while (input[j] && input[j] != ' ')
+		j++;
+	env = ft_strncopy(&input[(*i)], j - i)
+	
+}
+*/
 int	ft_getcmd(char *input, int *i, t_cmdline **todo, int *k)
 {
 	int	j;
