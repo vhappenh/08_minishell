@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:15:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/06 13:46:06 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/15 13:30:59 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,34 @@ int	ft_unset(t_cmdline *todo, t_envlst *env)
 		}
 		free (joined);
 	}	
+	return (0);
+}
+
+int	ft_export(t_cmdline *todo, t_envlst *env)
+{
+	int			i;
+	char		*temp;
+	t_envlst	*templst;
+
+	if (todo->cmd[1])
+	{
+		i = 0;
+		while (todo->cmd[++i])
+		{
+			//searching element that matches the inputcmd, delete it and replace it with new input
+			if (ft_strchr(todo->cmd[i], '='))
+			{	
+				temp = ft_strdup(todo->cmd[i]);
+				if (temp == NULL)
+					return (1);
+				templst = ft_lstnew_minishell(temp);
+				if (temp == NULL)
+					return (2);
+				ft_lstadd_back_minishell(&env, templst);
+			}
+		}
+	}
+	else
+		write(1, "exportlst", 10); //output big list, no clue how. Chatgpt says with pipes.
 	return (0);
 }

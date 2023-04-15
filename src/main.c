@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/08 11:13:09 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/15 12:36:07 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
-
+/*
+static void	sig_handler(int signum)
+{
+	if (signum == 2)
+		;
+	//if (signum == 3)
+	//	;
+}
+*/
 int	main(int argc, char **argv, char **envp)
 {
 	static t_cmdline	**todo;
@@ -25,6 +33,7 @@ int	main(int argc, char **argv, char **envp)
 		return (2);
 	while (1)
 	{
+//		signal(SIGINT, sig_handler);
 		todo = input_parse(env);
 		if (todo == NULL)
 			return (2);
