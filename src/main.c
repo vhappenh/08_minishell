@@ -6,12 +6,20 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/11 15:59:08 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/16 10:09:17 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
-
+/*
+static void	sig_handler(int signum)
+{
+	if (signum == 2)
+		;
+	//if (signum == 3)
+	//	;
+}
+*/
 static void	ft_print_todo(t_cmdline **todo)
 {
 	int	i;
@@ -41,6 +49,7 @@ int	main(int argc, char **argv, char **envp)
 		return (2);
 	while (1)
 	{
+//		signal(SIGINT, sig_handler);
 		todo = input_parse(env);
 		if (todo == NULL)
 			return (2);

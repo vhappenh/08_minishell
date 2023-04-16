@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/09 16:42:51 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/16 10:08:04 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int			ft_add_shlvl(t_envlst **env);
 int			ft_found_target(t_envlst **temp, t_envlst **head);
 int			ft_free_lvl_fail(t_envlst **lst, t_envlst **env);
 int			ft_check_syntax(char *input);
+int			ft_export(t_cmdline *todo, t_envlst *env);
 int			ft_look_for_env(char **str, t_envlst *enviroment);
 
 #endif
