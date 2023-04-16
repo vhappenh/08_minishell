@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/08 14:47:59 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/09 16:42:51 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,23 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 
-typedef struct s_cmdline
-{
-	long	nbr;
-	char	*prev_op;
-	char	*in_file;
-	char	*out_file;
-	char	**cmd;
-	char	*nxt_op;
-	char	**env;
-}	t_cmdline;
-
 typedef struct s_envlst
 {
 	char			*line;
 	struct s_envlst	*next;
 }	t_envlst;
+
+typedef struct s_cmdline
+{
+	long		nbr;
+	char		*prev_op;
+	char		*in_file;
+	char		*out_file;
+	char		**cmd;
+	char		*nxt_op;
+	t_envlst	*enviroment;
+	char		**env;
+}	t_cmdline;
 
 /* main */
 int			get_env(char **envp, t_envlst **env);
@@ -78,5 +79,6 @@ int			ft_add_shlvl(t_envlst **env);
 int			ft_found_target(t_envlst **temp, t_envlst **head);
 int			ft_free_lvl_fail(t_envlst **lst, t_envlst **env);
 int			ft_check_syntax(char *input);
+int			ft_look_for_env(char **str, t_envlst *enviroment);
 
 #endif

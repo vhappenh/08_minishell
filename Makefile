@@ -26,7 +26,8 @@ SRC :=	main.c\
 		built_ins2.c\
 		utils_universal.c\
 		utils_heredoc.c\
-		utils_syntax.c
+		utils_syntax.c\
+		utils_env.c
 
 OBJ := $(SRC:%.c=$(OBJ_P)%.o)
 
