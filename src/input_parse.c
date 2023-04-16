@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/08 15:56:43 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/16 11:23:51 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,16 @@ static int	ft_fill_cmd(t_cmdline **todo, char *input, int nbr, t_envlst *env)
 	int	i;
 	int	k;
 
-	i = 0;
+	i = -1;
 	k = 0;
-	(void)env;
 	(*todo)->cmd = ft_calloc(ft_count_args(input) + 1, sizeof(char *));
 	if ((*todo)->cmd == NULL)
 		return (1);
 	(*todo)->nbr = nbr;
-	while (input && input[i])
+	(*todo)->enviroment = env;
+	while (input && i < (int)ft_strlen(input) - 1 && input[++i])
 	{
-		if (input[i] == '<' || input[i] == '>')
+		if (input[i] && (input[i] == '<' || input[i] == '>'))
 			if (ft_get_file(input, &i, todo, nbr))
 				return (1);
 		if (input[i] && (input[i] == '"' || input[i] == '\''))
@@ -64,8 +64,6 @@ static int	ft_fill_cmd(t_cmdline **todo, char *input, int nbr, t_envlst *env)
 		if (input[i] && input[i] != ' ')
 			if (ft_getcmd(input, &i, todo, &k))
 				return (1);
-		if (input[i])
-			i++;
 	}
 	return (0);
 }
@@ -129,6 +127,8 @@ t_cmdline	**input_parse(t_envlst *env)
 	char		*input;
 
 	prompt = ft_get_prompt();
+	if (prompt == NULL)
+		prompt = "minishell: ";
 	input = readline(prompt);
 	if (ft_check_syntax(input))
 	{
@@ -140,7 +140,10 @@ t_cmdline	**input_parse(t_envlst *env)
 	}
 	if (ft_check_open_pipe(&input))
 		return (NULL);
-	free(prompt);
+	if (ft_look_for_env(&input, env))
+		return (NULL);
+	if (ft_strncmp(prompt, "minishell: ", sizeof(prompt)))
+		free(prompt);
 	todo = ft_split_input(&input, env);
 	add_history(input);
 	return (todo);

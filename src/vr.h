@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/15 12:57:21 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/16 10:08:04 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,23 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 
-typedef struct s_cmdline
-{
-	long	nbr;
-	char	*prev_op;
-	char	*in_file;
-	char	*out_file;
-	char	**cmd;
-	char	*nxt_op;
-	char	**env;
-}	t_cmdline;
-
 typedef struct s_envlst
 {
 	char			*line;
 	struct s_envlst	*next;
 }	t_envlst;
+
+typedef struct s_cmdline
+{
+	long		nbr;
+	char		*prev_op;
+	char		*in_file;
+	char		*out_file;
+	char		**cmd;
+	char		*nxt_op;
+	t_envlst	*enviroment;
+	char		**env;
+}	t_cmdline;
 
 /* main */
 int			get_env(char **envp, t_envlst **env);
@@ -79,5 +80,6 @@ int			ft_found_target(t_envlst **temp, t_envlst **head);
 int			ft_free_lvl_fail(t_envlst **lst, t_envlst **env);
 int			ft_check_syntax(char *input);
 int			ft_export(t_cmdline *todo, t_envlst *env);
+int			ft_look_for_env(char **str, t_envlst *enviroment);
 
 #endif
