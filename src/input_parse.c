@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/16 11:23:51 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/16 15:20:57 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,30 +94,6 @@ static t_cmdline	**ft_split_input(char **input, t_envlst *env)
 		i++;
 	}
 	return (todo);
-}
-
-static int	ft_check_open_pipe(char **input)
-{
-	int	i;
-
-	i = 0;
-	while ((*input)[i])
-		i++;
-	i--;
-	while (i > 0)
-	{
-		if ((*input)[i] == '|')
-		{
-			i = ft_get_last_cmd(input, i);
-			if (i == -1)
-				return (1);
-		}
-		else if ((*input)[i] != ' ')
-			break ;
-		else
-			i--;
-	}
-	return (0);
 }
 
 t_cmdline	**input_parse(t_envlst *env)
