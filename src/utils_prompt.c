@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 09:39:30 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/05 11:32:48 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/16 11:27:49 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	*ft_free_prompt(char *wd, char *manager)
 		free(wd);
 	if (manager)
 		free(manager);
-	perror("zsh");
 	return (NULL);
 }
 
@@ -101,6 +100,8 @@ char	*ft_get_prompt(void)
 		return (ft_free_prompt(NULL, NULL));
 	wd = getcwd(wd, 1024);
 	user = getenv("USER");
+	if (user == NULL)
+		return (ft_free_prompt(wd, NULL));
 	manager = ft_strdup(getenv("SESSION_MANAGER"));
 	if (manager == NULL)
 		return (ft_free_prompt(wd, NULL));

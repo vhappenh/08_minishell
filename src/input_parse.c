@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/12 11:45:04 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/16 11:23:51 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ t_cmdline	**input_parse(t_envlst *env)
 	char		*input;
 
 	prompt = ft_get_prompt();
+	if (prompt == NULL)
+		prompt = "minishell: ";
 	input = readline(prompt);
 	if (ft_check_syntax(input))
 	{
@@ -140,7 +142,8 @@ t_cmdline	**input_parse(t_envlst *env)
 		return (NULL);
 	if (ft_look_for_env(&input, env))
 		return (NULL);
-	free(prompt);
+	if (ft_strncmp(prompt, "minishell: ", sizeof(prompt)))
+		free(prompt);
 	todo = ft_split_input(&input, env);
 	add_history(input);
 	return (todo);
