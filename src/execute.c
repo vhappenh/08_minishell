@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/04 14:00:48 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/17 12:07:12 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int	split_paths(char **paths, char **path, t_cmdline *todo)
 static int	ft_fork(t_cmdline *todo, t_envlst *env, char *path)
 {
 	int		id;
-	int		i;
 	char	**env_ptr;
 
 	id = fork();
@@ -66,7 +65,6 @@ static int	ft_fork(t_cmdline *todo, t_envlst *env, char *path)
 		}
 		if (execve(path, todo->cmd, env_ptr) < 0)
 			return (3);
-		i = -1;
 		ft_free_all(NULL, NULL, env_ptr);
 	}
 	free (path);
@@ -80,12 +78,19 @@ int	execute(t_cmdline **todo, t_envlst *env)
 	int			i;
 	int			fd;
 
-	fd = 1;
 	i = -1;
 	while (todo[++i])
 	{
 		if (!todo[i]->cmd[0])
 			break ;
+		if (!todo[i]->out_file)
+			fd = 1;
+		else
+		{
+			fd = open(todo[i]->out_file, O_WRONLY);
+			if (fd == -1)
+				return (1);
+		}
 		if (!ft_built_in_check(todo, i, env, fd))
 			;
 		else
@@ -97,6 +102,9 @@ int	execute(t_cmdline **todo, t_envlst *env)
 			if (ft_fork(todo[i], env, path))
 				return (4);
 		}
+		if (fd != 1)
+			if (close(fd) == -1)
+				return (5);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/15 12:50:09 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/17 12:31:23 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@ static int	ft_echo(t_cmdline *todo, int fd)
 	while (todo->cmd[++i])
 	{
 		if (!ft_strncmp(todo->cmd[1], "-n", 2))
-			nl = 0;
-		if (ft_strncmp(todo->cmd[i], "-n", 2))
 		{
-			if (ft_strncmp(todo->cmd[i], "-n", 2))
-				ft_putstr_fd(todo->cmd[i], fd);
-			if (todo->cmd[i + 1])
-				write(fd, " ", 1);
+			nl = 0;
+			i++;
 		}
+		ft_putstr_fd(todo->cmd[i], fd);
+		if (todo->cmd[i + 1])
+			write(fd, " ", 1);
 	}
 	if (nl)
 		write(fd, "\n", 1);

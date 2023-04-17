@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/08 15:55:55 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/17 11:48:27 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static int	ft_print_syntax(char *input, int i)
 
 static int	ft_checkbefor(char *input, int i)
 {
-	int	check;
+//	int	check;
 	int	j;
 
-	check = 0;
+//	check = 0;
 	if (i > 0 && input[i - 1] == input[i]
 		&& (input[i] == '<' || input[i] == '>'))
 		i--;
