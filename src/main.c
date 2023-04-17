@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/15 13:41:19 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/17 12:36:10 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/16 10:09:17 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +21,22 @@ static void	sig_handler(int signum)
 	//	;
 }
 */
+static void	ft_print_todo(t_cmdline **todo)
+{
+	int	i;
+
+	i = 0;
+	while (todo[i])
+	{
+		printf("%ld\n", todo[i]->nbr);
+		printf("%s\n", todo[i]->cmd[0]);
+		printf("%s\n", todo[i]->in_file);
+		printf("%s\n", todo[i]->out_file);
+		printf("\n\n");
+		i++;
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	static t_cmdline	**todo;
@@ -37,6 +54,7 @@ int	main(int argc, char **argv, char **envp)
 		todo = input_parse(env);
 		if (todo == NULL)
 			return (2);
+		ft_print_todo(todo);
 		if (execute(todo, env))
 			return (3);
 		ft_free_all(todo, NULL, NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/15 12:57:21 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/16 15:21:50 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,23 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 
-typedef struct s_cmdline
-{
-	long	nbr;
-	char	*prev_op;
-	char	*in_file;
-	char	*out_file;
-	char	**cmd;
-	char	*nxt_op;
-	char	**env;
-}	t_cmdline;
-
 typedef struct s_envlst
 {
 	char			*line;
 	struct s_envlst	*next;
 }	t_envlst;
+
+typedef struct s_cmdline
+{
+	long		nbr;
+	char		*prev_op;
+	char		*in_file;
+	char		*out_file;
+	char		**cmd;
+	char		*nxt_op;
+	t_envlst	*enviroment;
+	char		**env;
+}	t_cmdline;
 
 /* main */
 int			get_env(char **envp, t_envlst **env);
@@ -58,7 +59,6 @@ int			ft_get_infile(char *input, int *i, t_cmdline **todo, int nbr);
 int			ft_count_token(char *input);
 int			ft_built_in_check(t_cmdline **todo, int i, t_envlst *env, int fd);
 char		*ft_get_token(char **input, int check);
-int			ft_get_last_cmd(char **input, int i);
 char		*ft_doublejoin(char *str1, char *str2, char *str3);
 int			get_pwd(char **pwd);
 char		*get_env_path(t_envlst *env, char *pathname);
@@ -79,5 +79,7 @@ int			ft_found_target(t_envlst **temp, t_envlst **head);
 int			ft_free_lvl_fail(t_envlst **lst, t_envlst **env);
 int			ft_check_syntax(char *input);
 int			ft_export(t_cmdline *todo, t_envlst *env);
+int			ft_look_for_env(char **str, t_envlst *enviroment);
+int			ft_check_open_pipe(char **input);
 
 #endif

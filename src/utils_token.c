@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 09:42:16 by rrupp             #+#    #+#             */
-/*   Updated: 2023/03/29 14:37:45 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/16 15:20:57 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,9 @@ static int	ft_get_lenth(char *input, int i)
 			i = ft_jump_quots(input, i);
 		if (input[i] == '|')
 			break ;
-		i++;
+		if (input[i])
+			i++;
 	}
-	return (i);
-}
-
-int	ft_get_last_cmd(char **input, int i)
-{
-	char	*buffer;
-	char	*tmp;
-
-	buffer = readline("> ");
-	i += ft_strlen(buffer);
-	tmp = (*input);
-	(*input) = ft_strjoin(tmp, buffer);
-	free(tmp);
-	free(buffer);
-	if ((*input) == NULL)
-		return (-1);
 	return (i);
 }
 
