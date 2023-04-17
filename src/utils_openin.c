@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_openin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 15:06:43 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/16 15:25:17 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/17 13:43:40 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_check_rest(char **input)
 	int		i;
 	int		j;
 	char	c;
-	
+
 	i = 0;
 	j = 0;
 	while ((*input)[i])
@@ -50,7 +50,6 @@ static int	ft_check_rest(char **input)
 				if (j == -1)
 					return (1);
 			}
-			
 		}
 		if ((*input)[i])
 			i++;

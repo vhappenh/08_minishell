@@ -6,8 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/17 12:36:34 by vhappenh         ###   ########.fr       */
-/*   Updated: 2023/04/16 15:20:57 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/17 13:37:41 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +31,8 @@ static int	ft_print_syntax(char *input, int i)
 
 static int	ft_checkbefor(char *input, int i)
 {
-//	int	check;
 	int	j;
 
-//	check = 0;
 	if (i > 0 && input[i - 1] == input[i]
 		&& (input[i] == '<' || input[i] == '>'))
 		i--;
