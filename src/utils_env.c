@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/16 11:24:30 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/18 11:08:59 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ char	*ft_search_return_env(char *env, t_envlst *enviroment)
 	{
 		if (!ft_strncmp(env, enviroment->line, ft_strlen(env)))
 		{
-			tmp = ft_strncopy(enviroment->line, ft_strlen(enviroment->line));
+			tmp = ft_strncopy(&enviroment->line[ft_search_char(\
+				enviroment->line, '=') + 1], ft_strlen(enviroment->line));
 			if (tmp == NULL)
 				return (NULL);
 			break ;
@@ -71,7 +72,7 @@ static int	ft_get_env(char **str, int i, int j, t_envlst *enviroment)
 	char	*tmp;
 	char	*result;
 
-	while ((*str)[j] && (*str)[j] != ' ')
+	while ((*str)[j] && (*str)[j] != ' ' && (*str)[j] != '"')
 		j++;
 	env = ft_strncopy((&(*str)[i] + 1), j - i - 1);
 	if (env == NULL)
@@ -101,9 +102,8 @@ int	ft_look_for_env(char **str, t_envlst *enviroment)
 	i = 0;
 	while ((*str)[i])
 	{
-		while ((*str)[i] && ((*str)[i] != '$' || (*str)[i] != '\''))
+		while ((*str)[i] && (*str)[i] != '$' && (*str)[i] != '\'')
 			i++;
-		j = i;
 		if ((*str)[i] == '\'')
 		{
 			i++;
@@ -111,9 +111,13 @@ int	ft_look_for_env(char **str, t_envlst *enviroment)
 				i++;
 		}
 		if ((*str)[i] == '$')
+		{
+			j = i;
 			if (ft_get_env(str, i, j, enviroment))
 				return (1);
-		i++;
+		}
+		if ((*str)[i] != '\0')
+			i++;
 	}
 	return (0);
 }

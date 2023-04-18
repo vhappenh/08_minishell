@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/16 15:21:50 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/18 11:08:13 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ int			ft_check_syntax(char *input);
 int			ft_export(t_cmdline *todo, t_envlst *env);
 int			ft_look_for_env(char **str, t_envlst *enviroment);
 int			ft_check_open_pipe(char **input);
+int			ft_search_char(char *str, char c);
 
 #endif

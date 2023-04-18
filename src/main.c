@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/17 13:43:18 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/18 10:23:56 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,21 @@
 static void	ft_print_todo(t_cmdline **todo)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = -1;
 	while (todo[i])
 	{
-		if (todo[i]->nbr)
-			printf("%ld\n", todo[i]->nbr);
-		if (todo[i]->cmd[0])
-			printf("%s\n", todo[i]->cmd[0]);
+		printf("cmd_line %ld: ", todo[i]->nbr);
+		while (todo[i]->cmd[++j])
+			printf("'%s' ", todo[i]->cmd[j]);
+		printf("\n");
 		if (todo[i]->in_file)
 			printf("%s\n", todo[i]->in_file);
 		if (todo[i]->out_file)
 			printf("%s\n", todo[i]->out_file);
-		printf("\n\n");
+		printf("\n");
 		i++;
 	}
 }

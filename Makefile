@@ -47,19 +47,19 @@ vpath %.c src
 
 $(NAME): $(OBJ)
 	echo "compiling..."
-	$(MAKE) -C $(LIBFT)
+	$(MAKE) -s -C $(LIBFT)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(ARCH) -lreadline
 	echo "The executable: minishell was created!"
 
 clean:
 	rm -f $(OBJ)
 	rm -f -rd $(OBJ_P)
-	$(MAKE) clean -C $(LIBFT)
+	$(MAKE) -s clean -C $(LIBFT)
 	echo "The minishell o_files where removed!"
 
 fclean:	clean
 	rm -f $(NAME)
-	$(MAKE) fclean -C $(LIBFT)
+	$(MAKE) -s fclean -C $(LIBFT)
 	echo "The executable: minishell was removed!"
 
 re:	fclean all
