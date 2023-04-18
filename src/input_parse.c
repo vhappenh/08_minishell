@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/18 09:52:46 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/18 10:42:25 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,12 @@ static int	ft_count_args(char *input)
 	{
 		if (input[i] && (input[i] == '<' || input[i] == '>'))
 		{
-			while (input[i] && (input[i] == '<' || input[i] == '>'))
-				i++;
 			while (input[i] && input[i] == ' ')
 				i++;
 			while (input[i] && input[i] != ' ')
 				i++;
 		}
-		if (input[i] && input[i] != ' ')
+		if (input[i] && input[i] != ' ' && input[i] != '<' && input[i] != '>')
 		{
 			count++;
 			while (input[i] && input[i] != ' ')
@@ -117,11 +115,11 @@ t_cmdline	**input_parse(t_envlst *env)
 	}
 	if (ft_check_open_pipe(&input))
 		return (NULL);
+	add_history(input);
 	if (ft_look_for_env(&input, env))
 		return (NULL);
 	if (ft_strncmp(prompt, "minishell: ", sizeof(prompt)))
 		free(prompt);
 	todo = ft_split_input(&input, env);
-	add_history(input);
 	return (todo);
 }

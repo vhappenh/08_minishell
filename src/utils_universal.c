@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:51:40 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/11 10:54:00 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/18 11:08:37 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,17 @@ char	*ft_doublejoin(char *str1, char *str2, char *str3)
 	}
 	free(temp);
 	return (fin);
+}
+
+int	ft_search_char(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	if (str[i] == c && str[i] != '\0')
+		return (i);
+	else
+		return (0);
 }
