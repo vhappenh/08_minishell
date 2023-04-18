@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/18 15:09:41 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/18 15:30:54 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,9 @@ static int	split_paths(char **paths, char **path, t_cmdline *todo)
 	return (0);
 }
 
-static int	ft_fork(t_cmdline *todo, t_envlst *env, char *path)
+static int	ft_fork(t_cmdline *todo, t_envlst *env, char *path, int fd)
 {
 	int		id;
-	int		fd_in;
 	char	**env_ptr;
 
 	id = fork();
@@ -56,43 +55,42 @@ static int	ft_fork(t_cmdline *todo, t_envlst *env, char *path)
 		wait(NULL);
 	else
 	{
-		fd_in = 0;
+		if (dup2(fd, 1) == -1)
+			return (1);
+		todo->fd_in = 0;
 		if (todo->in_file)
 		{
-			fd_in = open(todo->in_file, O_RDONLY);
-			if (fd_in == -1)
-				return (1);
-			if (dup2(fd_in, 0) == -1)
-			{
-				close (fd_in);
+			todo->fd_in = open(todo->in_file, O_RDONLY);
+			if (todo->fd_in == -1)
 				return (2);
-			}
+			if (dup2(todo->fd_in, 0) == -1)
+				return (3);
 		}
 		if (lst_to_ptr(env, &env_ptr))
-			return (1);
+			return (4);
 		if (path == NULL)
 		{
 			path = ft_strdup(todo->cmd[0]);
 			if (path == NULL)
-				return (2);
+				return (5);
 		}
 		if (execve(path, todo->cmd, env_ptr) < 0)
-			return (3);
+			return (6);
 		ft_free_all(NULL, NULL, env_ptr);
-		if (fd_in)
-			if (close(fd_in) == -1)
+		if (todo->fd_in)
+			if (close(todo->fd_in) == -1)
 				return (7);
 	}
 	free (path);
 	return (0);
 }
 
-static int	execute_helper(t_cmdline **todo, t_envlst *env, int fd, int i)
+static int	execute_helper(t_cmdline **todo, t_envlst *env, int i)
 {
 	static char	*paths;
 	static char	*path;
 
-	if (!ft_built_in_check(todo, i, env, fd))
+	if (!ft_built_in_check(todo, i, env, todo[i]->fd_out))
 		;
 	else
 	{
@@ -100,11 +98,11 @@ static int	execute_helper(t_cmdline **todo, t_envlst *env, int fd, int i)
 			return (3);
 		if (split_paths(&paths, &path, todo[i]))
 			return (4);
-		if (ft_fork(todo[i], env, path))
+		if (ft_fork(todo[i], env, path, todo[i]->fd_out))
 			return (5);
 	}
-	if (fd != 1)
-		if (close(fd) == -1)
+	if (todo[i]->fd_out != 1)
+		if (close(todo[i]->fd_out) == -1)
 			return (6);
 	return (0);
 }
@@ -112,7 +110,6 @@ static int	execute_helper(t_cmdline **todo, t_envlst *env, int fd, int i)
 int	execute(t_cmdline **todo, t_envlst *env)
 {
 	int			i;
-	int			fd;
 
 	i = -1;
 	while (todo[++i])
@@ -120,15 +117,19 @@ int	execute(t_cmdline **todo, t_envlst *env)
 		if (!todo[i]->cmd[0])
 			break ;
 		if (!todo[i]->out_file)
-			fd = 1;
+			todo[i]->fd_out = 1;
 		else
 		{
-			fd = open(todo[i]->out_file, O_WRONLY, O_APPEND);
-			if (fd == -1)
+			todo[i]->fd_out = open(todo[i]->out_file, O_WRONLY, O_APPEND);
+			if (todo[i]->fd_out == -1)
 				return (1);
 		}
-		if (execute_helper(todo, env, fd, i))
+		if (execute_helper(todo, env, i))
+		{
+			if (todo[i]->fd_in)
+				close(todo[i]->fd_in);
 			return (2);
+		}
 	}
 	return (0);
 }
