@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/17 14:19:49 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/18 15:09:41 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	split_paths(char **paths, char **path, t_cmdline *todo)
 static int	ft_fork(t_cmdline *todo, t_envlst *env, char *path)
 {
 	int		id;
+	int		fd_in;
 	char	**env_ptr;
 
 	id = fork();
@@ -55,6 +56,18 @@ static int	ft_fork(t_cmdline *todo, t_envlst *env, char *path)
 		wait(NULL);
 	else
 	{
+		fd_in = 0;
+		if (todo->in_file)
+		{
+			fd_in = open(todo->in_file, O_RDONLY);
+			if (fd_in == -1)
+				return (1);
+			if (dup2(fd_in, 0) == -1)
+			{
+				close (fd_in);
+				return (2);
+			}
+		}
 		if (lst_to_ptr(env, &env_ptr))
 			return (1);
 		if (path == NULL)
@@ -66,15 +79,38 @@ static int	ft_fork(t_cmdline *todo, t_envlst *env, char *path)
 		if (execve(path, todo->cmd, env_ptr) < 0)
 			return (3);
 		ft_free_all(NULL, NULL, env_ptr);
+		if (fd_in)
+			if (close(fd_in) == -1)
+				return (7);
 	}
 	free (path);
 	return (0);
 }
 
-int	execute(t_cmdline **todo, t_envlst *env)
+static int	execute_helper(t_cmdline **todo, t_envlst *env, int fd, int i)
 {
 	static char	*paths;
 	static char	*path;
+
+	if (!ft_built_in_check(todo, i, env, fd))
+		;
+	else
+	{
+		if (find_paths(env, &paths))
+			return (3);
+		if (split_paths(&paths, &path, todo[i]))
+			return (4);
+		if (ft_fork(todo[i], env, path))
+			return (5);
+	}
+	if (fd != 1)
+		if (close(fd) == -1)
+			return (6);
+	return (0);
+}
+
+int	execute(t_cmdline **todo, t_envlst *env)
+{
 	int			i;
 	int			fd;
 
@@ -87,24 +123,12 @@ int	execute(t_cmdline **todo, t_envlst *env)
 			fd = 1;
 		else
 		{
-			fd = open(todo[i]->out_file, O_WRONLY);
+			fd = open(todo[i]->out_file, O_WRONLY, O_APPEND);
 			if (fd == -1)
 				return (1);
 		}
-		if (!ft_built_in_check(todo, i, env, fd))
-			;
-		else
-		{
-			if (find_paths(env, &paths))
-				return (2);
-			if (split_paths(&paths, &path, todo[i]))
-				return (3);
-			if (ft_fork(todo[i], env, path))
-				return (4);
-		}
-		if (fd != 1)
-			if (close(fd) == -1)
-				return (5);
+		if (execute_helper(todo, env, fd, i))
+			return (2);
 	}
 	return (0);
 }

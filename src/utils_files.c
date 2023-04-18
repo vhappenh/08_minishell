@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/08 16:00:49 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/18 13:55:21 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	ft_create(char *out_file, int trunc)
 	int	fd;
 
 	fd = 0;
-	if (trunc)
+	if (!trunc)
 	{
 		fd = open(out_file, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		if (fd == -1)
