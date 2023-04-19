@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/18 10:42:25 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/19 18:07:18 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,16 +95,10 @@ static t_cmdline	**ft_split_input(char **input, t_envlst *env)
 	return (todo);
 }
 
-t_cmdline	**input_parse(t_envlst *env)
+t_cmdline	**ft_check_prep_todo(char *input, t_envlst *env)
 {
 	t_cmdline	**todo;
-	char		*prompt;
-	char		*input;
 
-	prompt = ft_get_prompt();
-	if (prompt == NULL)
-		prompt = "minishell: ";
-	input = readline(prompt);
 	if (ft_check_syntax(input))
 	{
 		add_history(input);
@@ -118,8 +112,22 @@ t_cmdline	**input_parse(t_envlst *env)
 	add_history(input);
 	if (ft_look_for_env(&input, env))
 		return (NULL);
-	if (ft_strncmp(prompt, "minishell: ", sizeof(prompt)))
-		free(prompt);
 	todo = ft_split_input(&input, env);
 	return (todo);
+}
+
+t_cmdline	**input_parse(t_envlst *env)
+{
+	char		*prompt;
+	char		*input;
+
+	prompt = ft_get_prompt();
+	if (prompt == NULL)
+		prompt = "minishell: ";
+	input = readline(prompt);
+	if (ft_strncmp(prompt, "minishell: ", sizeof(prompt)))
+		free(prompt);
+	if (input == NULL)
+		return (NULL);
+	return (ft_check_prep_todo(input, env));
 }
