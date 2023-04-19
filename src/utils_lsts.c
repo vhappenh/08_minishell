@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:57:07 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/19 10:44:19 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:45:42 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,13 @@ t_envlst	*ft_lstnew_minishell(char *evar, char *cont)
 	t_envlst	*ptr;
 
 	if (evar == NULL || cont == NULL)
+	{
+		if (evar)
+			free (evar);
+		if (cont)
+			free (cont);
 		return (NULL);
+	}
 	ptr = malloc(sizeof(t_envlst));
 	if (ptr == NULL)
 		return (NULL);
@@ -63,7 +69,7 @@ int	lst_to_ptr(t_envlst *env, char ***env_ptr)
 	int	i;
 
 	i = ft_lstsize_minishell(env);
-	*env_ptr = ft_calloc(sizeof(char *), i + 1);
+	*env_ptr = ft_calloc(sizeof(char **), i + 1);
 	if (*env_ptr == NULL)
 		return (1);
 	i = 0;
@@ -71,7 +77,13 @@ int	lst_to_ptr(t_envlst *env, char ***env_ptr)
 	{
 		(*env_ptr)[i] = ft_doublejoin(env->evar, "=", env->cont);
 		if ((*env_ptr)[i] == NULL)
+		{
+			i = 0;
+			while ((*env_ptr)[i])
+				free ((*env_ptr)[i]);
+			free (*env_ptr);
 			return (2);
+		}
 		env = env->next;
 		i++;
 	}
