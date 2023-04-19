@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   utils_lsts.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:57:07 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/01 15:10:41 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/19 10:44:19 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-t_envlst	*ft_lstnew_minishell(char *content)
+t_envlst	*ft_lstnew_minishell(char *evar, char *cont)
 {
 	t_envlst	*ptr;
 
+	if (evar == NULL || cont == NULL)
+		return (NULL);
 	ptr = malloc(sizeof(t_envlst));
 	if (ptr == NULL)
 		return (NULL);
-	ptr->line = content;
+	ptr->evar = evar;
+	ptr->cont = cont;
 	ptr->next = NULL;
 	return ((t_envlst *)ptr);
 }
@@ -66,7 +69,7 @@ int	lst_to_ptr(t_envlst *env, char ***env_ptr)
 	i = 0;
 	while (env)
 	{
-		(*env_ptr)[i] = ft_strdup(env->line);
+		(*env_ptr)[i] = ft_doublejoin(env->evar, "=", env->cont);
 		if ((*env_ptr)[i] == NULL)
 			return (2);
 		env = env->next;

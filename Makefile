@@ -24,6 +24,7 @@ SRC :=	main.c\
 		utils_token.c\
 		built_ins1.c\
 		built_ins2.c\
+		built_ins3.c\
 		utils_universal.c\
 		utils_heredoc.c\
 		utils_syntax.c\
