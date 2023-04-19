@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/18 15:30:54 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/19 13:40:56 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	find_paths(t_envlst *env, char **paths)
 {
 	char	*path;
 
-	path = get_env_path(env, "PATH=");
+	path = get_env_path(env, "PATH");
 	*paths = ft_strdup(path);
 	if (paths == NULL)
 		return (1);

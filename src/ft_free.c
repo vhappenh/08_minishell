@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/05 14:44:34 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/19 09:45:59 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static void	ft_free_env(t_envlst *env)
 		while (env)
 		{
 			temp = env;
-			free (temp->line);
+			free (temp->evar);
+			free (temp->cont);
 			env = env->next;
 			free (temp);
 		}

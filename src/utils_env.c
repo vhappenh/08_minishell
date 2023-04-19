@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/18 14:34:07 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/19 13:39:43 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,12 @@ char	*ft_search_return_env(char *env, t_envlst *enviroment)
 
 	if (env == NULL)
 		return (NULL);
-	tmp = env;
-	env = ft_strjoin(tmp, "=");
-	if (env == NULL)
-		return (NULL);
-	free(tmp);
 	tmp = NULL;
 	while (enviroment)
 	{
-		if (!ft_strncmp(env, enviroment->line, ft_strlen(env)))
+		if (!ft_strncmp(env, enviroment->evar, ft_strlen(env)))
 		{
-			tmp = ft_strncopy(&enviroment->line[ft_search_char(\
-				enviroment->line, '=') + 1], ft_strlen(enviroment->line));
+			tmp = ft_strdup(enviroment->cont);
 			if (tmp == NULL)
 				return (NULL);
 			break ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/07 13:39:56 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/19 10:40:35 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,25 @@ int	get_env(char **envp, t_envlst **env)
 {
 	int			i;
 	int			shlvl;
+	char		**input;
 	t_envlst	*lst;
 
 	i = -1;
 	shlvl = 0;
 	while (envp[++i])
 	{
-		lst = ft_lstnew_minishell(ft_strdup(envp[i]));
+		input = ft_split(envp[i], '=');
+		if (input == NULL)
+			return (1);
+		lst = ft_lstnew_minishell(ft_strdup(input[0]), ft_strdup(input[1]));
 		if (lst == NULL)
 			return (1);
-		if (!ft_strncmp(lst->line, "SHLVL=", 6))
+		free (input[0]);
+		free (input[1]);
+		free (input);
+		if (!ft_strncmp(lst->evar, "SHLVL", 6))
 		{
-			if (ft_lvl_up(&lst->line))
+			if (ft_lvl_up(&lst))
 				if (!ft_free_lvl_fail(&lst, env))
 					return (2);
 			shlvl = 1;
@@ -87,10 +94,10 @@ char	*get_env_path(t_envlst *env, char *pathname)
 
 	while (env)
 	{
-		if (!ft_strncmp(pathname, env->line, ft_strlen(pathname)))
+		if (!ft_strncmp(pathname, env->evar, ft_strlen(pathname) + 1))
 			break ;
 		env = env->next;
 	}
-	path = env->line;
+	path = env->cont;
 	return (path);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/07 09:52:56 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/19 10:45:04 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int	save_pwd(t_envlst *env, char *pwd)
 {
 	while (env)
 	{
-		if (!ft_strncmp(env->line, "PWD=", 4))
+		if (!ft_strncmp(env->evar, "PWD", 4))
 		{
-			free (env->line);
-			env->line = ft_strjoin("PWD=", pwd);
-			if (env->line == NULL)
+			free (env->cont);
+			env->cont = ft_strdup(pwd);
+			if (env->cont == NULL)
 				return (1);
 			break ;
 		}
@@ -33,11 +33,11 @@ int	save_old_pwd(t_envlst *env, char *pwd)
 {
 	while (env)
 	{
-		if (!ft_strncmp(env->line, "OLDPWD=", 7))
+		if (!ft_strncmp(env->evar, "OLDPWD", 7))
 		{
-			free (env->line);
-			env->line = ft_strjoin("OLDPWD=", pwd);
-			if (env->line == NULL)
+			free (env->cont);
+			env->cont = ft_strdup(pwd);
+			if (env->cont == NULL)
 				return (1);
 			break ;
 		}
@@ -72,44 +72,49 @@ int	cd_dot_dot(char *pwd, char **new_path)
 	return (0);
 }
 
-int	ft_lvl_up(char **line)
+int	ft_lvl_up(t_envlst **lst)
 {
 	char	*temp;
 	int		lvl;
 
-	temp = ft_strchr(*line, '=');
-	temp++;
-	lvl = ft_atoi(temp);
+	lvl = ft_atoi((*lst)->cont);
 	if (lvl == 9)
 		return (1);
 	lvl++;
-	free (*line);
+	free ((*lst)->cont);
 	temp = ft_itoa(lvl);
 	if (temp == NULL)
 		return (2);
-	*line = ft_strjoin("SHLVL=", temp);
+	(*lst)->cont = ft_strdup(temp);
 	free (temp);
-	if (*line == NULL)
+	if ((*lst)->cont == NULL)
 		return (3);
 	return (0);
 }
 
 int	ft_add_shlvl(t_envlst **env)
 {
-	char		*temp;
+	char		*temp1;
+	char		*temp2;
 	t_envlst	*lst;
 
-	temp = ft_strdup("SHLVL=1");
-	if (temp == NULL)
+	temp1 = ft_strdup("SHLVL");
+	if (temp1 == NULL)
 	{
 		ft_free_all(NULL, *env, NULL);
 		return (1);
 	}
-	lst = ft_lstnew_minishell(temp);
-	if (lst == NULL)
+	temp2 = ft_strdup("1");
+	if (temp1 == NULL)
 	{
 		ft_free_all(NULL, *env, NULL);
 		return (2);
+	}
+	lst = ft_lstnew_minishell(temp1, temp2);
+	if (lst == NULL)
+	{
+		ft_free_all(NULL, *env, NULL);
+		return (3);
 	}
 	ft_lstadd_back_minishell(env, lst);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/18 15:19:49 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/19 10:17:29 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 
 typedef struct s_envlst
 {
-	char			*line;
+	char			*evar;
+	char			*cont;
 	struct s_envlst	*next;
 }	t_envlst;
 
@@ -46,7 +47,7 @@ int			execute(t_cmdline **todo, t_envlst*env);
 void		*ft_free_all(t_cmdline **todo, t_envlst *env, char **array);
 
 /* get_env */
-t_envlst	*ft_lstnew_minishell(char *content);
+t_envlst	*ft_lstnew_minishell(char *evar, char *cont);
 void		ft_lstadd_back_minishell(t_envlst **lst, t_envlst *new);
 void		ft_lstadd_front_minishell(t_envlst **lst, t_envlst *new);
 
@@ -75,7 +76,7 @@ int			ft_unset(t_cmdline *todo, t_envlst *env);
 int			ft_change_lvl(char **line);
 char		*ft_strncopy(char *str, unsigned int i);
 int			ft_heredoc(char *input, int *i, t_cmdline **todo, int nbr);
-int			ft_lvl_up(char **line);
+int			ft_lvl_up(t_envlst **lst);
 int			ft_add_shlvl(t_envlst **env);
 int			ft_found_target(t_envlst **temp, t_envlst **head);
 int			ft_free_lvl_fail(t_envlst **lst, t_envlst **env);
