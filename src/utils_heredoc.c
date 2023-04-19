@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:25:38 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/07 13:39:46 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/19 10:42:35 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static char	*ft_getdel(char *input, int *i)
 	del = ft_strncopy(&input[(*i)], j - (*i));
 	if (del == NULL)
 		return (NULL);
+	(*i) = j;
 	return (del);
 }
 
