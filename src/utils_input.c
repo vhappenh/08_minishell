@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:54:57 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/16 15:20:57 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/19 10:44:47 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ int	ft_get_file(char *input, int *i, t_cmdline **todo, int nbr)
 	char	c;
 
 	c = input[(*i)++];
-	if (input[(*i)] != '<')
-		ft_look_for_env(&input, (*todo)->enviroment);
 	if (c == '<')
 	{
 		if (ft_get_infile(input, i, todo, nbr))

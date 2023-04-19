@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/08 16:00:49 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/19 10:57:11 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static int	ft_filloutfile(t_cmdline **todo, char *input, int *i)
 	while (input[(*i)] == ' ')
 		(*i)++;
 	j = (*i);
-	while (input[j] != ' ')
+	while (input[j] && input[j] != ' ')
 		j++;
 	(*todo)->out_file = ft_calloc(j - (*i) + 1, sizeof(char));
 	if ((*todo)->out_file == NULL)
