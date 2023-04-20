@@ -6,20 +6,25 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:15:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/20 13:48:39 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/20 14:09:43 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-int	ft_env(t_envlst *env, int fd)
+int	ft_env(t_envlst *env, int fd, t_cmdline *todo)
 {
-	while (env)
+	if (todo->cmd[1])
+		ft_putendl_fd("minishell: too many arguments", todo->fd_out);
+	else
 	{
-		ft_putstr_fd(env->evar, fd);
-		write(fd, "=", 1);
-		ft_putendl_fd(env->cont, fd);
-		env = env->next;
+		while (env)
+		{
+			ft_putstr_fd(env->evar, fd);
+			write(fd, "=", 1);
+			ft_putendl_fd(env->cont, fd);
+			env = env->next;
+		}
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/20 13:23:21 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/20 14:07:08 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char		*ft_get_token(char **input, int check);
 char		*ft_doublejoin(char *str1, char *str2, char *str3);
 int			get_pwd(char **pwd);
 char		*get_env_path(t_envlst *env, char *pathname);
-int			ft_env(t_envlst *env, int fd);
+int			ft_env(t_envlst *env, int fd, t_cmdline *todo);
 int			lst_to_ptr(t_envlst *env, char ***env_ptr);
 int			ft_lstsize_minishell(t_envlst *lst);
 int			save_pwd(t_envlst *env, char *pwd);

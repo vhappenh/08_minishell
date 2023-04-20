@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/20 13:23:12 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/20 14:04:37 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	ft_built_in_check(t_cmdline **todo, int i, t_envlst *env, int fd)
 	else if (!ft_strncmp(todo[i]->cmd[0], "unset", 6))
 		return (ft_unset(todo[i], env));
 	else if (!ft_strncmp(todo[i]->cmd[0], "env", 4))
-		return (ft_env(env, fd));
+		return (ft_env(env, fd, todo[i]));
 	else if (!ft_strncmp(todo[i]->cmd[0], "exit", 5))
 		return (ft_exit(todo, env, i));
 	else
