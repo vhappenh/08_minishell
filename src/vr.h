@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/19 10:17:29 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/20 10:12:31 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ int			ft_export(t_cmdline *todo, t_envlst *env);
 int			ft_look_for_env(char **str, t_envlst *enviroment);
 int			ft_check_open_pipe(char **input);
 int			ft_search_char(char *str, char c);
+int			ft_free_threestr(char *str1, char *str2, char *str3);
 
 #endif

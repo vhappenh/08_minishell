@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/19 09:45:59 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/20 10:13:04 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
+
+int	ft_free_threestr(char *str1, char *str2, char *str3)
+{
+	if (str1)
+		free(str1);
+	if (str2)
+		free(str2);
+	if (str3)
+		free(str3);
+	return (1);
+}
 
 static void	ft_free_cmd(t_cmdline **todo)
 {

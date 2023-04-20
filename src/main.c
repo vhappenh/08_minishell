@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/19 10:44:47 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/19 18:07:18 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	main(int argc, char **argv, char **envp)
 	static t_cmdline	**todo;
 	static t_envlst		*env;
 
-	(void)argc;
 	(void)argv;
 	if (argc > 1)
 		return (1);
@@ -49,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		todo = input_parse(env);
 		if (todo == NULL)
-			return (2);
+			return (0);
 		ft_print_todo(todo);
 		if (execute(todo, env))
 			return (3);
