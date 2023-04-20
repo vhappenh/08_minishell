@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/19 13:40:56 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:48:12 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,18 @@ static int	ft_fork(t_cmdline *todo, t_envlst *env, char *path, int fd)
 				return (5);
 		}
 		if (execve(path, todo->cmd, env_ptr) < 0)
+		{
+			ft_free_all(NULL, NULL, env_ptr);
+			free (path);
 			return (6);
+		}
 		ft_free_all(NULL, NULL, env_ptr);
 		if (todo->fd_in)
 			if (close(todo->fd_in) == -1)
+			{
+				free (path);
 				return (7);
+			}
 	}
 	free (path);
 	return (0);
