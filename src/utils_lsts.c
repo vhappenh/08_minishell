@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:57:07 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/19 17:45:42 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/20 10:32:25 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,15 @@ t_envlst	*ft_lstnew_minishell(char *evar, char *cont)
 	if (evar == NULL || cont == NULL)
 	{
 		if (evar)
+		{
 			free (evar);
+			evar = NULL;
+		}
 		if (cont)
+		{
 			free (cont);
+			cont = NULL;
+		}
 		return (NULL);
 	}
 	ptr = malloc(sizeof(t_envlst));

@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:15:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/19 15:35:47 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/20 13:48:39 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,43 @@ int	ft_env(t_envlst *env, int fd)
 	return (0);
 }
 
-int	ft_exit(t_cmdline **todo, t_envlst *env)
+int	ft_exit(t_cmdline **todo, t_envlst *env, int i)
 {
+	int	e;
+	int	j;
+
+	e = 2;
+	j = -1;
+	if (todo[i]->cmd[1])
+	{
+		if (todo[i]->cmd[2])
+		{
+			ft_putendl_fd("minishell: exit: too many arguments",
+				todo[i]->fd_out);
+			return (1);
+		}
+		else
+		{
+			while (todo[i]->cmd[1][++j])
+			{
+				if (!ft_isdigit(todo[i]->cmd[1][j]))
+				{
+					ft_putstr_fd("minishell: exit:", todo[i]->fd_out);
+					ft_putstr_fd(todo[i]->cmd[1], todo[i]->fd_out);
+					ft_putendl_fd(": numeric argument required",
+						todo[i]->fd_out);
+					break ;
+				}
+				else
+					e = (char)ft_atoi(todo[i]->cmd[1]);
+			}
+		}
+	}
+	else
+		e = 0;
 	ft_free_all(todo, env, NULL);
 	clear_history();
-	exit (1);
+	exit (e);
 	return (0);
 }
 

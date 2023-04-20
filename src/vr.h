@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/20 10:12:31 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/20 13:23:21 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			ft_lstsize_minishell(t_envlst *lst);
 int			save_pwd(t_envlst *env, char *pwd);
 int			save_old_pwd(t_envlst *env, char *pwd);
 int			cd_dot_dot(char *pwd, char **new_path);
-int			ft_exit(t_cmdline **todo, t_envlst *env);
+int			ft_exit(t_cmdline **todo, t_envlst *env, int i);
 int			ft_unset(t_cmdline *todo, t_envlst *env);
 int			ft_change_lvl(char **line);
 char		*ft_strncopy(char *str, unsigned int i);
