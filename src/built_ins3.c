@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:15:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/21 18:56:18 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:57:24 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_search_and_replace(char *todocmd, t_envlst *env)
 {
 	char	*temp;
-	
+
 	(void) env;
 	temp = ft_strncopy(todocmd, ft_search_char(todocmd, '='));
 	if (temp == NULL)
