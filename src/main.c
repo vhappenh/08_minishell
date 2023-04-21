@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/19 18:07:18 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/20 13:12:56 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static void	ft_print_todo(t_cmdline **todo)
 	int	j;
 
 	i = 0;
-	j = -1;
 	while (todo[i])
 	{
+		j = -1;
 		printf("cmd_line %ld: ", todo[i]->nbr);
 		while (todo[i]->cmd[++j])
 			printf("'%s' ", todo[i]->cmd[j]);

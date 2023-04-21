@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/20 10:27:45 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/21 14:36:31 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ char	*ft_search_return_env(char *env, t_envlst *enviroment)
 	if (env == NULL)
 		return (NULL);
 	tmp = NULL;
+	if (!ft_strncmp(env, "?", ft_strlen(env)))
+	{
+		tmp = ft_itoa(errno);
+		ft_printf("%s\n", tmp);
+		if (tmp == NULL)
+			return (NULL);
+		return (tmp);
+	}
 	while (enviroment)
 	{
 		if (!ft_strncmp(env, enviroment->evar, ft_strlen(env)))
