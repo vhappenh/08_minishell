@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:15:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/20 14:09:43 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/21 17:39:37 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_exit(t_cmdline **todo, t_envlst *env, int i)
 		e = 0;
 	ft_free_all(todo, env, NULL);
 	clear_history();
-	exit (e);
+	exit (errno);
 	return (0);
 }
 
