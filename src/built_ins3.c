@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:15:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/20 15:10:13 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:56:18 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ static int	ft_search_and_replace(char *todocmd, t_envlst *env)
 	char	*temp;
 	
 	(void) env;
-	temp = ft_strncopy(todocmd, ft_search_char(todocmd, '=') - 1);
+	temp = ft_strncopy(todocmd, ft_search_char(todocmd, '='));
 	if (temp == NULL)
 		return (1);
 	while (env)
 	{
-		if (temp == env->evar)
+		if (!ft_strncmp(temp, env->evar, ft_strlen(temp)))
 		{
 			free (env->cont);
 			env->cont = ft_strdup(todocmd + ft_search_char(todocmd, '=') + 1);
@@ -31,11 +31,13 @@ static int	ft_search_and_replace(char *todocmd, t_envlst *env)
 				free (temp);
 				return (2);
 			}
+			free (temp);
+			return (0);
 		}
 		env = env->next;
 	}
 	free (temp);
-	return (0);
+	return (3);
 }
 
 static int	ft_export_arg_execute(char *str1, char *str2, t_envlst **temp)
@@ -61,6 +63,8 @@ static int	ft_export_argument(char *todocmd, t_envlst *env)
 {
 	t_envlst	*templst;
 
+	if (!ft_search_and_replace(todocmd, env))
+		return (0);
 	if (ft_strchr(todocmd, '='))
 	{	
 		if (!todocmd[ft_search_char(todocmd, '=') + 1])
