@@ -6,9 +6,10 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/21 17:31:02 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/21 17:43:10 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef VR_H
 # define VR_H
@@ -18,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <errno.h>
 
 typedef struct s_envlst
 {
