@@ -12,7 +12,6 @@ OBJ_P := ./obj/
 
 SRC :=	main.c\
 		input_parse.c\
-		execute.c\
 		ft_free.c\
 		utils1.c\
 		utils3.c\
@@ -29,7 +28,10 @@ SRC :=	main.c\
 		utils_heredoc.c\
 		utils_syntax.c\
 		utils_env.c\
-		utils_openin.c
+		utils_openin.c\
+		utils_signals.c\
+		pipex_traitor1.c\
+		utils_pipex.c
 
 OBJ := $(SRC:%.c=$(OBJ_P)%.o)
 
@@ -69,4 +71,4 @@ norm:
 	norminette -R CheckForbiddenSourceHeader src/*.c src/vr.h
 
 val: all
-	valgrind --leak-check=full --suppressions=./minishell.supp ./minishell
+	valgrind --leak-check=full --show-leak-kinds=all -s --suppressions=./minishell.supp ./minishell
