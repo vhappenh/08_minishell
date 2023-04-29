@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/28 14:09:10 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/29 12:08:55 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_cmdline
 	char		**env;
 	int			fd_out;
 	int			fd_in;
+	pid_t		*pids;
+	int			**pipe_fds;
 }	t_cmdline;
 
 /* main */
@@ -101,5 +103,6 @@ int			ft_free_threestr(char *str1, char *str2, char *str3);
 int			ft_switch_signals(int sig_case);
 int			ft_execution(t_cmdline **todo);
 int			ft_prep_cmd(t_cmdline *todo);
-
+void		ft_free_exe(pid_t *pids, int **pipe_fds, int i);
+int			ft_init_exe(t_cmdline **todo, int i);
 #endif

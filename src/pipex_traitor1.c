@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/28 17:39:53 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/29 12:43:23 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 		if (ft_prep_cmd(todo))
 			return ;
 	if (dup2(todo->fd_in, 0) == -1 || dup2(todo->fd_out, 1) == -1)
-		return;
+		return ;
 	if (execve(todo->cmd[0], todo->cmd, todo->env) == -1)
 	{
 		if (todo->fd_in != 0)
@@ -39,102 +39,77 @@ void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 	}
 }
 
-static void	ft_free_exe(pid_t *pids, int **pipe_fds, int i)
+static void	ft_child(t_cmdline **t, int i, int j)
 {
-	int	j;
-
-	j = 0;
-	while (j <= i)
+	if (i == 0 && t[i + 1] == NULL)
 	{
-		free(pipe_fds[j++]);
+		close ((*t)->pipe_fds[i][0]);
+		close ((*t)->pipe_fds[i][1]);
+		ft_execute(t[i], 0, 1);
 	}
-	free(pipe_fds);
-	free(pids);
+	else if (i == 0)
+	{
+		close((*t)->pipe_fds[i][0]);
+		ft_execute(t[i], 0, (*t)->pipe_fds[i][1]);
+	}
+	else if (t[i + 1] == NULL)
+	{
+		close((*t)->pipe_fds[i][1]);
+		ft_execute(t[i], (*t)->pipe_fds[i - 1][0], 1);
+	}
+	else
+		ft_execute(t[i], (*t)->pipe_fds[i - 1][0], (*t)->pipe_fds[i][1]);
+	ft_free_exe((*t)->pids, (*t)->pipe_fds, j);
+	exit(0);
+}
+
+static int	ft_fork_it(t_cmdline **todo, int j)
+{
+	int	i;
+
+	i = 0;
+	while (todo[i])
+	{
+		if (pipe((*todo)->pipe_fds[i]))
+			return (1);
+		(*todo)->pids[i] = fork();
+		if ((*todo)->pids[i] == -1)
+			return (1);
+		if ((*todo)->pids[i] == 0)
+			ft_child(todo, i, j);
+		else
+		{
+			close((*todo)->pipe_fds[i][1]);
+			if (i != 0)
+				close((*todo)->pipe_fds[i - 1][0]);
+		}
+		ft_free_all(NULL, NULL, todo[i]->env);
+		i++;
+	}
+	if ((*todo)->pipe_fds[i][0])
+		close((*todo)->pipe_fds[i][0]);
+	return (0);
 }
 
 int	ft_execution(t_cmdline **todo)
 {
 	int		i;
 	int		j;
-	pid_t	*pids;
-	int **pipe_fds;
 
 	i = 0;
-	j = 0;
-	while (todo[i])
-		i++;
-	pids = malloc(i * sizeof(int));
-	if (pids == NULL)
+	i = ft_init_exe(todo, i);
+	if (i == -1)
 		return (1);
-	pipe_fds = ft_calloc(i + 1, sizeof(int*));
-	if (pipe_fds == NULL)
-		return (1);
-	while (j <= i)
-	{
-		pipe_fds[j] = ft_calloc(2, sizeof(int));
-		if (pipe_fds[j] == NULL)
-			return (1);
-		j++;
-	}
-	if (i == 1 && todo[1] == NULL && !ft_built_in_check(todo, 0, todo[0]->enviroment, 1))
+	if (i == 1 && todo[1] == NULL
+		&& !ft_built_in_check(todo, 0, todo[0]->enviroment, 1))
 		;
 	else
-	{
-		i = 0;
-		while (todo[i])
-		{
-			if (pipe(pipe_fds[i]))
-				return (1);
-			pids[i] = fork();
-			if (pids[i] == -1)
-				return (1);
-			if (pids[i] == 0)
-			{
-				if (i == 0 && todo[i + 1] == NULL)
-				{
-					close (pipe_fds[i][0]);
-					close (pipe_fds[i][1]);
-					ft_execute(todo[i], 0, 1);
-					ft_free_exe(pids, pipe_fds, j);
-					exit(0);
-				}
-				else if (i == 0)
-				{
-					close(pipe_fds[i][0]);
-					ft_execute(todo[i], 0, pipe_fds[i][1]);
-					ft_free_exe(pids, pipe_fds, j);
-					exit(0);
-				}
-				else if (todo[i + 1] == NULL)
-				{
-					close(pipe_fds[i][1]);
-					ft_execute(todo[i], pipe_fds[i - 1][0], 1);
-					ft_free_exe(pids, pipe_fds, j);
-					exit(0);
-				}
-				else
-				{
-					ft_execute(todo[i], pipe_fds[i - 1][0], pipe_fds[i][1]);
-					ft_free_exe(pids, pipe_fds, j);
-					exit(0);
-				}
-			}
-			else
-			{
-				close(pipe_fds[i][1]);
-				if (i != 0)
-					close(pipe_fds[i - 1][0]);
-			}
-			ft_free_all(NULL, NULL, todo[i]->env);
-			i++;
-		}
-		if (pipe_fds[i][0])
-			close(pipe_fds[i][0]);
-		j = 0;
-		while (j < i)
-			waitpid(pids[j++], &errno, 0);
-		errno = WEXITSTATUS(errno);
-	}
-	ft_free_exe(pids, pipe_fds, i);
+		if (ft_fork_it(todo, i))
+			return (1);
+	j = 0;
+	while (j < i)
+		waitpid((*todo)->pids[j++], &errno, 0);
+	errno = WEXITSTATUS(errno);
+	ft_free_exe((*todo)->pids, (*todo)->pipe_fds, i);
 	return (0);
 }
