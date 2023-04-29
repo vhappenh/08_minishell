@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/29 12:43:23 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/29 13:47:57 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 
 static void	ft_child(t_cmdline **t, int i, int j)
 {
+	ft_switch_signals(CHILD);
 	if (i == 0 && t[i + 1] == NULL)
 	{
 		close ((*t)->pipe_fds[i][0]);
@@ -68,6 +69,7 @@ static int	ft_fork_it(t_cmdline **todo, int j)
 	int	i;
 
 	i = 0;
+	ft_switch_signals(EXECUTING);
 	while (todo[i])
 	{
 		if (pipe((*todo)->pipe_fds[i]))
@@ -109,6 +111,7 @@ int	ft_execution(t_cmdline **todo)
 	j = 0;
 	while (j < i)
 		waitpid((*todo)->pids[j++], &errno, 0);
+	ft_switch_signals(INTERACTIV);
 	errno = WEXITSTATUS(errno);
 	ft_free_exe((*todo)->pids, (*todo)->pipe_fds, i);
 	return (0);
