@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/20 13:12:56 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/29 13:45:14 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,20 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc > 1)
 		return (1);
+	ft_switch_signals(INTERACTIV);
 	if (get_env(envp, &env))
 		return (2);
 	while (1)
 	{
+		printf("%d\n", getpid());
 		todo = input_parse(env);
 		if (todo == NULL)
-			return (0);
+			return (errno);
 		ft_print_todo(todo);
-		if (execute(todo, env))
+		if (ft_execution(todo))
 			return (3);
 		ft_free_all(todo, NULL, NULL);
-		rl_on_new_line();
 	}
 	ft_free_all(NULL, env, NULL);
-	return (0);
+	return (errno);
 }

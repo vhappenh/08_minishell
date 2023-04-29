@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/19 18:07:18 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/28 14:57:25 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,14 @@ t_cmdline	**input_parse(t_envlst *env)
 	if (prompt == NULL)
 		prompt = "minishell: ";
 	input = readline(prompt);
+	if (input == NULL)
+		printf("%d", errno);
 	if (ft_strncmp(prompt, "minishell: ", sizeof(prompt)))
 		free(prompt);
 	if (input == NULL)
+	{
+		errno = 130;
 		return (NULL);
+	}
 	return (ft_check_prep_todo(input, env));
 }

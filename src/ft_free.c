@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/20 10:13:04 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/27 14:29:23 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ static void	ft_free_cmd(t_cmdline **todo)
 		while (todo[i])
 		{
 			if (todo[i]->in_file)
+			{
+				if (!ft_strncmp(todo[i]->in_file, ".heredoc", 8))
+					unlink(todo[i]->in_file);
 				free(todo[i]->in_file);
+			}
 			if (todo[i]->out_file)
 				free(todo[i]->out_file);
 			if (todo[i]->cmd)

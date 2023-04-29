@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/21 17:48:46 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/29 12:08:55 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <errno.h>
+
+# ifndef INTERACTIV
+#  define INTERACTIV 0
+# endif
+# ifndef EXECUTING
+#  define EXECUTING 1
+# endif
+# ifndef CHILD
+#  define CHILD 2
+# endif
 
 typedef struct s_envlst
 {
@@ -39,6 +49,8 @@ typedef struct s_cmdline
 	char		**env;
 	int			fd_out;
 	int			fd_in;
+	pid_t		*pids;
+	int			**pipe_fds;
 }	t_cmdline;
 
 /* main */
@@ -87,5 +99,10 @@ int			ft_look_for_env(char **str, t_envlst *enviroment);
 int			ft_check_open_pipe(char **input);
 int			ft_search_char(char *str, char c);
 int			ft_free_threestr(char *str1, char *str2, char *str3);
-
+/*signals*/
+int			ft_switch_signals(int sig_case);
+int			ft_execution(t_cmdline **todo);
+int			ft_prep_cmd(t_cmdline *todo);
+void		ft_free_exe(pid_t *pids, int **pipe_fds, int i);
+int			ft_init_exe(t_cmdline **todo, int i);
 #endif

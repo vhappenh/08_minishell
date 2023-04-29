@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:30:41 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/20 11:39:32 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:20:03 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,14 @@ static int	ft_fork(t_cmdline *todo, t_envlst *env, char *path, int fd)
 
 	id = fork();
 	if (id != 0)
+	{
+		ft_switch_signals(EXECUTING);
 		wait(NULL);
+		ft_switch_signals(INTERACTIV);
+	}
 	else
 	{
+		ft_switch_signals(CHILD);
 		if (dup2(fd, 1) == -1)
 			return (1);
 		todo->fd_in = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/18 15:26:29 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/04/29 12:41:21 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_fillinfile(t_cmdline **todo, char *input, int *i, int j)
 			return (0);
 		else
 		{
-			if (strncmp((*todo)->in_file, ".heredoc", 8))
+			if (!strncmp((*todo)->in_file, ".heredoc", 8))
 				unlink((*todo)->in_file);
 			free((*todo)->in_file);
 		}
@@ -111,8 +111,18 @@ static int	ft_filloutfile(t_cmdline **todo, char *input, int *i)
 int	ft_get_outfile(char *input, int *i, t_cmdline **todo)
 {
 	if ((*todo)->in_file)
+	{
 		if (access((*todo)->in_file, F_OK) == -1)
+		{
+			while (input[(*i)] && input[(*i)] == '>')
+				(*i)++;
+			while (input[(*i)] && input[(*i)] == ' ')
+				(*i)++;
+			while (input[(*i)] && input[(*i)] != ' ')
+				(*i)++;
 			return (0);
+		}
+	}
 	if ((*todo)->out_file)
 		free((*todo)->out_file);
 	return (ft_filloutfile(todo, input, i));

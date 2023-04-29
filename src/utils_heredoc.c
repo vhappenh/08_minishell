@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:25:38 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/19 10:42:35 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/04/27 14:28:08 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,14 @@ static int	ft_fillit(t_cmdline **todo, char *doc_file)
 			free(doc_file);
 			return (0);
 		}
+		else
+		{
+			free((*todo)->in_file);
+			(*todo)->in_file = doc_file;
+		}
 	}
-	free((*todo)->in_file);
-	(*todo)->in_file = doc_file;
+	else
+		(*todo)->in_file = doc_file;
 	return (0);
 }
 
