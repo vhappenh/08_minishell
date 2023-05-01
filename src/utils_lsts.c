@@ -6,13 +6,13 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:57:07 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/20 10:32:25 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/01 15:34:54 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-t_envlst	*ft_lstnew_minishell(char *evar, char *cont)
+t_envlst	*ft_lstnew_minishell(char *evar, char *cont, int indic)
 {
 	t_envlst	*ptr;
 
@@ -35,6 +35,7 @@ t_envlst	*ft_lstnew_minishell(char *evar, char *cont)
 		return (NULL);
 	ptr->evar = evar;
 	ptr->cont = cont;
+	ptr->indic = indic;
 	ptr->next = NULL;
 	return ((t_envlst *)ptr);
 }
@@ -65,7 +66,8 @@ int	ft_lstsize_minishell(t_envlst *lst)
 	while (lst)
 	{
 		lst = lst->next;
-		i++;
+		if (!lst->indic)
+			i++;
 	}
 	return (i);
 }

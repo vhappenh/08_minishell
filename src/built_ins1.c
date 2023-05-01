@@ -6,13 +6,13 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/20 14:04:37 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/01 14:22:01 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-static int	ft_echo(t_cmdline *todo, int fd)
+static int	ft_echo(t_cmdline *todo)
 {
 	int	i;
 	int	nl;
@@ -28,14 +28,14 @@ static int	ft_echo(t_cmdline *todo, int fd)
 		}
 		if (todo->cmd[i])
 		{
-			ft_putstr_fd(todo->cmd[i], fd);
+			ft_putstr_fd(todo->cmd[i], todo->fd_out);
 			if (todo->cmd[i + 1])
-				write(fd, " ", 1);
+				write(todo->fd_out, " ", 1);
 			i++;
 		}
 	}
 	if (nl)
-		write(fd, "\n", 1);
+		write(todo->fd_out, "\n", 1);
 	return (0);
 }
 
@@ -106,20 +106,21 @@ static int	ft_cd(t_cmdline *todo, t_envlst *env)
 	return (0);
 }
 
-int	ft_built_in_check(t_cmdline **todo, int i, t_envlst *env, int fd)
+int	ft_built_in_check(t_cmdline **todo, int i, t_envlst *env)
 {
+	todo[i]->fd_out = 1;
 	if (!ft_strncmp((todo[i])->cmd[0], "echo", 5))
-		return (ft_echo(todo[i], fd));
+		return (ft_echo(todo[i]));
 	else if (!ft_strncmp(todo[i]->cmd[0], "cd", 3))
 		return (ft_cd(todo[i], env));
 	else if (!ft_strncmp(todo[i]->cmd[0], "pwd", 4))
-		return (ft_pwd(fd));
+		return (ft_pwd(todo[i]->fd_out));
 	else if (!ft_strncmp(todo[i]->cmd[0], "export", 7))
 		return (ft_export(todo[i], env));
 	else if (!ft_strncmp(todo[i]->cmd[0], "unset", 6))
 		return (ft_unset(todo[i], env));
 	else if (!ft_strncmp(todo[i]->cmd[0], "env", 4))
-		return (ft_env(env, fd, todo[i]));
+		return (ft_env(env, todo[i]));
 	else if (!ft_strncmp(todo[i]->cmd[0], "exit", 5))
 		return (ft_exit(todo, env, i));
 	else

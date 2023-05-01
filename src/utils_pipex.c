@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:20:03 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/29 12:33:49 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/01 15:48:55 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ void	ft_free_exe(pid_t *pids, int **pipe_fds, int i)
 	int	j;
 
 	j = 0;
-	while (j <= i)
-	{
-		free(pipe_fds[j++]);
-	}
+	if (pipe_fds[j])
+		while (j <= i)
+			free(pipe_fds[j++]);
 	free(pipe_fds);
 	free(pids);
 }
+/* dont we have to protect the free in the whileloop here? */
