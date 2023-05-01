@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:15:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/21 18:57:24 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/01 09:16:13 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,19 +101,18 @@ int	ft_export(t_cmdline *todo, t_envlst *env)
 {
 	int	i;
 
-	i = 0;
-	while (todo->cmd[++i])
+	i = 1;
+	if (todo->cmd[i])
 	{
-		if (todo->cmd[i])
+		while (todo->cmd[i])
 		{
 			if (ft_export_argument(todo->cmd[i], env))
 				return (1);
-		}
-		else
-		{
-			if (ft_export_no_argument(todo, env))
-				return (2);
+			i++;
 		}
 	}
+	else
+		if (ft_export_no_argument(todo, env))
+			return (2);
 	return (0);
 }
