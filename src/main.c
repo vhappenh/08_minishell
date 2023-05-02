@@ -6,12 +6,12 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/29 13:45:14 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/02 10:52:34 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
-
+/*
 static void	ft_print_todo(t_cmdline **todo)
 {
 	int	i;
@@ -33,7 +33,7 @@ static void	ft_print_todo(t_cmdline **todo)
 		i++;
 	}
 }
-
+*/
 int	main(int argc, char **argv, char **envp)
 {
 	static t_cmdline	**todo;
@@ -47,11 +47,10 @@ int	main(int argc, char **argv, char **envp)
 		return (2);
 	while (1)
 	{
-		printf("%d\n", getpid());
 		todo = input_parse(env);
 		if (todo == NULL)
 			return (errno);
-		ft_print_todo(todo);
+//		ft_print_todo(todo);
 		if (ft_execution(todo))
 			return (3);
 		ft_free_all(todo, NULL, NULL);

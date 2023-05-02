@@ -3,40 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_traitor1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/01 15:47:40 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/02 11:24:50 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
+static void	ft_close_free(t_cmdline *todo)
+{
+	if (todo->fd_in != 0)
+		close(todo->fd_in);
+	if (todo->fd_out != 1)
+		close(todo->fd_out);
+	ft_free_all(NULL, todo->enviroment, todo->env);
+}
+
 void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 {
-	if (todo->in_file)
-		todo->fd_in = open(todo->in_file, O_RDONLY);
-	else
-		todo->fd_in = fd_in;
-	if (todo->out_file)
-		todo->fd_out = open(todo->out_file, O_WRONLY);
-	else
-		todo->fd_out = fd_out;
-	if (lst_to_ptr(todo->enviroment, &todo->env))
-		return ;
+	ft_prep_inoutenv(todo, fd_in, fd_out);
+	if (!ft_built_in_check(&todo, todo->nbr, todo->enviroment, todo->fd_out))
+		return (ft_close_free(todo));
 	if (todo->cmd)
 		if (ft_prep_cmd(todo))
 			return ;
 	if (dup2(todo->fd_in, 0) == -1 || dup2(todo->fd_out, 1) == -1)
 		return ;
 	if (execve(todo->cmd[0], todo->cmd, todo->env) == -1)
-	{
-		if (todo->fd_in != 0)
-			close(todo->fd_in);
-		if (todo->fd_out != 1)
-			close(todo->fd_out);
-		ft_free_all(NULL, todo->enviroment, todo->env);
-	}
+		ft_close_free(todo);
 }
 
 static void	ft_child(t_cmdline **t, int i, int j)
@@ -99,6 +95,8 @@ int	ft_execution(t_cmdline **todo)
 	int		j;
 
 	i = 0;
+	if (todo[0]->cmd[0] == NULL)
+		return (0);
 	i = ft_init_exe(todo, i);
 	if (i == -1)
 		return (1);
