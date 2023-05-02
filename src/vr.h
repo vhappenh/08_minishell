@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/29 12:08:55 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/02 10:48:12 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,6 @@ int			ft_execution(t_cmdline **todo);
 int			ft_prep_cmd(t_cmdline *todo);
 void		ft_free_exe(pid_t *pids, int **pipe_fds, int i);
 int			ft_init_exe(t_cmdline **todo, int i);
+void		ft_prep_inoutenv(t_cmdline *todo, int fd_in, int fd_out);
+
 #endif

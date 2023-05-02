@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:20:03 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/29 12:33:49 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/02 10:48:32 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,18 @@ void	ft_free_exe(pid_t *pids, int **pipe_fds, int i)
 	}
 	free(pipe_fds);
 	free(pids);
+}
+
+void	ft_prep_inoutenv(t_cmdline *todo, int fd_in, int fd_out)
+{
+	if (todo->in_file)
+		todo->fd_in = open(todo->in_file, O_RDONLY);
+	else
+		todo->fd_in = fd_in;
+	if (todo->out_file)
+		todo->fd_out = open(todo->out_file, O_WRONLY);
+	else
+		todo->fd_out = fd_out;
+	if (lst_to_ptr(todo->enviroment, &todo->env))
+		return ;
 }
