@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/02 11:24:50 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/02 11:58:50 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_close_free(t_cmdline *todo)
 void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 {
 	ft_prep_inoutenv(todo, fd_in, fd_out);
-	if (!ft_built_in_check(&todo, todo->nbr, todo->enviroment, todo->fd_out))
+	if (!ft_built_in_check(&todo, todo->nbr, todo->enviroment))
 		return (ft_close_free(todo));
 	if (todo->cmd)
 		if (ft_prep_cmd(todo))
