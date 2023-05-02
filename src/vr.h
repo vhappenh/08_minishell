@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/02 10:48:12 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/02 11:24:35 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_envlst
 {
 	char			*evar;
 	char			*cont;
+	int				indic;
 	struct s_envlst	*next;
 }	t_envlst;
 
@@ -46,6 +47,7 @@ typedef struct s_cmdline
 	char		**cmd;
 	char		*nxt_op;
 	t_envlst	*enviroment;
+	t_list		*exportvar;
 	char		**env;
 	int			fd_out;
 	int			fd_in;
@@ -60,7 +62,7 @@ int			execute(t_cmdline **todo, t_envlst*env);
 void		*ft_free_all(t_cmdline **todo, t_envlst *env, char **array);
 
 /* get_env */
-t_envlst	*ft_lstnew_minishell(char *evar, char *cont);
+t_envlst	*ft_lstnew_minishell(char *evar, char *cont, int indic);
 void		ft_lstadd_back_minishell(t_envlst **lst, t_envlst *new);
 void		ft_lstadd_front_minishell(t_envlst **lst, t_envlst *new);
 
@@ -73,12 +75,12 @@ int			ft_get_file(char *input, int *i, t_cmdline **todo, int nbr);
 int			ft_get_outfile(char *input, int *i, t_cmdline **todo);
 int			ft_get_infile(char *input, int *i, t_cmdline **todo, int nbr);
 int			ft_count_token(char *input);
-int			ft_built_in_check(t_cmdline **todo, int i, t_envlst *env, int fd);
+int			ft_built_in_check(t_cmdline **todo, int i, t_envlst *env);
 char		*ft_get_token(char **input, int check);
 char		*ft_doublejoin(char *str1, char *str2, char *str3);
 int			get_pwd(char **pwd);
 char		*get_env_path(t_envlst *env, char *pathname);
-int			ft_env(t_envlst *env, int fd, t_cmdline *todo);
+int			ft_env(t_envlst *env, t_cmdline *todo);
 int			lst_to_ptr(t_envlst *env, char ***env_ptr);
 int			ft_lstsize_minishell(t_envlst *lst);
 int			save_pwd(t_envlst *env, char *pwd);

@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:15:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/21 18:57:24 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/01 15:45:46 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	ft_search_and_replace(char *todocmd, t_envlst *env)
 				return (2);
 			}
 			free (temp);
+			env->indic = 0;
 			return (0);
 		}
 		env = env->next;
@@ -51,7 +52,7 @@ static int	ft_export_arg_execute(char *str1, char *str2, t_envlst **temp)
 	temp2 = ft_strdup(str2);
 	if (temp2 == NULL)
 		return (1);
-	*temp = ft_lstnew_minishell(ft_strdup(temp1), ft_strdup(temp2));
+	*temp = ft_lstnew_minishell(ft_strdup(temp1), ft_strdup(temp2), 0);
 	free (temp1);
 	free (temp2);
 	if (*temp == NULL)
@@ -73,26 +74,41 @@ static int	ft_export_argument(char *todocmd, t_envlst *env)
 				return (1);
 		}
 		else
-		{		
 			if (ft_export_arg_execute(todocmd, ft_strdup(todocmd
 						+ ft_search_char(todocmd, '=') + 1), &templst))
 				return (2);
-		}
-		ft_lstadd_back_minishell(&env, templst);
 	}
+	else
+	{
+		templst = ft_lstnew_minishell(ft_strdup(todocmd), ft_strdup(""), 1);
+		if (templst == NULL)
+			return (3);
+	}
+	ft_lstadd_back_minishell(&env, templst);
 	return (0);
 }
 
 static int	ft_export_no_argument(t_cmdline *todo, t_envlst *env)
 {
-	while (env)
+	t_envlst	*temp;
+
+	temp = env;
+	while (temp)
 	{
-		ft_putstr_fd("declare -x ", todo->fd_out);
-		ft_putstr_fd(env->evar, todo->fd_out);
-		ft_putstr_fd("=\"", todo->fd_out);
-		ft_putstr_fd(env->cont, todo->fd_out);
-		ft_putendl_fd("\"", todo->fd_out);
-		env = env->next;
+		if (!temp->indic)
+		{
+			ft_putstr_fd("declare -x ", todo->fd_out);
+			ft_putstr_fd(temp->evar, todo->fd_out);
+			ft_putstr_fd("=\"", todo->fd_out);
+			ft_putstr_fd(temp->cont, todo->fd_out);
+			ft_putendl_fd("\"", todo->fd_out);
+		}
+		else
+		{
+			ft_putstr_fd("declare -x ", todo->fd_out);
+			ft_putendl_fd(temp->evar, todo->fd_out);
+		}
+		temp = temp->next;
 	}
 	return (0);
 }
@@ -101,19 +117,18 @@ int	ft_export(t_cmdline *todo, t_envlst *env)
 {
 	int	i;
 
-	i = 0;
-	while (todo->cmd[++i])
+	i = 1;
+	if (todo->cmd[i])
 	{
-		if (todo->cmd[i])
+		while (todo->cmd[i])
 		{
 			if (ft_export_argument(todo->cmd[i], env))
 				return (1);
-		}
-		else
-		{
-			if (ft_export_no_argument(todo, env))
-				return (2);
+			i++;
 		}
 	}
+	else
+		if (ft_export_no_argument(todo, env))
+			return (2);
 	return (0);
 }

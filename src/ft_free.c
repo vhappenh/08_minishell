@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/27 14:29:23 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/01 15:09:48 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ static void	ft_free_env(t_envlst *env)
 		while (env)
 		{
 			temp = env;
-			free (temp->evar);
-			free (temp->cont);
+			if (temp->evar)
+				free (temp->evar);
+			if (temp->cont)
+				free (temp->cont);
 			env = env->next;
 			free (temp);
 		}

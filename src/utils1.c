@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/04/19 17:58:50 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/01 15:54:33 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,37 @@ int	get_pwd(char **pwd)
 	return (0);
 }
 
+static int	ft_get_inputs(char *envp, t_envlst **lst)
+{
+	char		*input1;
+	char		*input2;
+
+	input1 = ft_strncopy(envp, ft_search_char(envp, '='));
+	if (input1 == NULL)
+		return (1);
+	input2 = ft_strdup(envp + ft_search_char(envp, '=') + 1);
+	if (input2 == NULL)
+		return (2);
+	*lst = ft_lstnew_minishell(ft_strdup(input1), ft_strdup(input2), 0);
+	free (input1);
+	free (input2);
+	if (lst == NULL)
+		return (3);
+	return (0);
+}
+
 int	get_env(char **envp, t_envlst **env)
 {
 	int			i;
 	int			shlvl;
-	char		*input1;
-	char		*input2;
 	t_envlst	*lst;
 
 	i = -1;
 	shlvl = 0;
 	while (envp[++i])
 	{
-		input1 = ft_strncopy(envp[i], ft_search_char(envp[i], '='));
-		if (input1 == NULL)
+		if (ft_get_inputs(envp[i], &lst))
 			return (1);
-		input2 = ft_strdup(envp[i] + ft_search_char(envp[i], '=') + 1);
-		if (input2 == NULL)
-			return (1);
-		lst = ft_lstnew_minishell(ft_strdup(input1), ft_strdup(input2));
-		free (input1);
-		free (input2);
-		if (lst == NULL)
-			return (2);
 		if (!ft_strncmp(lst->evar, "SHLVL", 6))
 		{
 			if (ft_lvl_up(&lst))
