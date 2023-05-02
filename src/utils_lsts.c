@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_lsts.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:57:07 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/01 15:34:54 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/02 14:14:50 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_lstsize_minishell(t_envlst *lst)
 	while (lst)
 	{
 		lst = lst->next;
-		if (!lst->indic)
+	//	if (!lst->indic)
 			i++;
 	}
 	return (i);

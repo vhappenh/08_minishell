@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_ins1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/01 14:22:01 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/02 13:54:39 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static int	ft_cd(t_cmdline *todo, t_envlst *env)
 
 int	ft_built_in_check(t_cmdline **todo, int i, t_envlst *env)
 {
-	todo[i]->fd_out = 1;
+	//todo[i]->fd_out = 1;
 	if (!ft_strncmp((todo[i])->cmd[0], "echo", 5))
 		return (ft_echo(todo[i]));
 	else if (!ft_strncmp(todo[i]->cmd[0], "cd", 3))
