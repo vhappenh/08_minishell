@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_traitor1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/02 11:58:50 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/02 13:09:37 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,3 @@ int	ft_execution(t_cmdline **todo)
 	ft_free_exe((*todo)->pids, (*todo)->pipe_fds, i);
 	return (0);
 }
-
-/* why declaring i as 0 and sending it into the init_exe? */

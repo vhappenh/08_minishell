@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:20:03 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/02 11:58:16 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/02 13:09:19 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	ft_free_exe(pid_t *pids, int **pipe_fds, int i)
 	free(pipe_fds);
 	free(pids);
 }
-/* dont we have to protect the free in the whileloop here? */
 
 void	ft_prep_inoutenv(t_cmdline *todo, int fd_in, int fd_out)
 {
