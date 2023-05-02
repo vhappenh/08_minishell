@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_traitor1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/02 14:31:26 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/02 16:49:52 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_close_free(t_cmdline *todo)
 void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 {
 	ft_prep_inoutenv(todo, fd_in, fd_out);
-	if (!ft_built_in_check(&todo, todo->nbr, todo->enviroment))
+	if (!ft_built_in_check(&todo, 0, todo->enviroment))
 		return (ft_close_free(todo));
 	if (todo->cmd)
 		if (ft_prep_cmd(todo))
@@ -68,7 +68,7 @@ static int	ft_fork_it(t_cmdline **todo, int j)
 {
 	int	i;
 
-	i = 0;
+	i = 0; 
 	ft_switch_signals(EXECUTING);
 	while (todo[i])
 	{
@@ -78,7 +78,7 @@ static int	ft_fork_it(t_cmdline **todo, int j)
 		if ((*todo)->pids[i] == -1)
 			return (1);
 		if ((*todo)->pids[i] == 0)
-			ft_child(todo, i, j);
+		ft_child(todo, i, j);
 		else
 		{
 			close((*todo)->pipe_fds[i][1]);
