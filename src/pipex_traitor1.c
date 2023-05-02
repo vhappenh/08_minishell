@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/02 13:09:37 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/02 14:31:26 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,12 @@ void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 	if (todo->cmd)
 		if (ft_prep_cmd(todo))
 			return ;
-	if (dup2(todo->fd_in, 0) == -1 || dup2(todo->fd_out, 1) == -1)
-		return ;
+	if (todo->fd_in != 0)
+		if (dup2(todo->fd_in, 0) == -1)
+			return (ft_close_free(todo));
+	if (todo->fd_out != 1)
+		if (dup2(todo->fd_out, 1) == -1)
+			return (ft_close_free(todo));
 	if (execve(todo->cmd[0], todo->cmd, todo->env) == -1)
 		ft_close_free(todo);
 }
@@ -100,12 +104,19 @@ int	ft_execution(t_cmdline **todo)
 	i = ft_init_exe(todo, i);
 	if (i == -1)
 		return (1);
+	ft_prep_inoutenv(todo[0], 0, 1);
 	if (i == 1 && todo[1] == NULL
 		&& !ft_built_in_check(todo, 0, todo[0]->enviroment))
 		;
 	else
+	{
+		if (todo[0]->fd_in != 0)
+			close(todo[0]->fd_in);
+		if (todo[0]->fd_out != 1 && todo[0]->fd_out != 0)
+			close(todo[0]->fd_out);
 		if (ft_fork_it(todo, i))
 			return (1);
+	}
 	j = 0;
 	while (j < i)
 		waitpid((*todo)->pids[j++], &errno, 0);
@@ -114,3 +125,6 @@ int	ft_execution(t_cmdline **todo)
 	ft_free_exe((*todo)->pids, (*todo)->pipe_fds, i);
 	return (0);
 }
+
+/* why declaring i as 0 and sending it into the init_exe? */
+/* checking for fails in build in check!!*/

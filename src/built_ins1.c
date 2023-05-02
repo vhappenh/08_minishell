@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/02 14:02:18 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/02 14:30:00 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static int	ft_cd(t_cmdline *todo, t_envlst *env)
 
 int	ft_built_in_check(t_cmdline **todo, int i, t_envlst *env)
 {
-	todo[i]->fd_out = 1;
+	//todo[i]->fd_out = 1;
 	if (!ft_strncmp((todo[i])->cmd[0], "echo", 5))
 		return (ft_echo(todo[i]));
 	else if (!ft_strncmp(todo[i]->cmd[0], "cd", 3))

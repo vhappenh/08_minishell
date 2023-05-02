@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:57:07 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/02 13:21:03 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/02 14:30:49 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_lstsize_minishell(t_envlst *lst)
 	while (lst)
 	{
 		lst = lst->next;
-		if (!lst->indic)
+	//	if (!lst->indic)
 			i++;
 	}
 	ft_printf("%d", i);
