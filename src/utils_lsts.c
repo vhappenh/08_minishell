@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:57:07 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/02 14:30:49 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/02 14:38:20 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ int	ft_lstsize_minishell(t_envlst *lst)
 	while (lst)
 	{
 		lst = lst->next;
-	//	if (!lst->indic)
-			i++;
+		i++;
 	}
 	ft_printf("%d", i);
 	return (i);
@@ -84,14 +83,17 @@ int	lst_to_ptr(t_envlst *env, char ***env_ptr)
 	i = 0;
 	while (env)
 	{
-		(*env_ptr)[i] = ft_doublejoin(env->evar, "=", env->cont);
-		if ((*env_ptr)[i] == NULL)
+		if (!env->indic)
 		{
-			i = 0;
-			while ((*env_ptr)[i])
-				free ((*env_ptr)[i]);
-			free (*env_ptr);
-			return (2);
+			(*env_ptr)[i] = ft_doublejoin(env->evar, "=", env->cont);
+			if ((*env_ptr)[i] == NULL)
+			{
+				i = 0;
+				while ((*env_ptr)[i])
+					free ((*env_ptr)[i]);
+				free (*env_ptr);
+				return (2);
+			}
 		}
 		env = env->next;
 		i++;
