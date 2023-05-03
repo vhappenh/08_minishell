@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/02 15:01:27 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:52:30 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,9 @@ static t_cmdline	**ft_split_input(char **input, t_envlst *env)
 t_cmdline	**ft_check_prep_todo(char *input, t_envlst *env)
 {
 	t_cmdline	**todo;
+	int			err;
 
+	err = errno;
 	if (ft_check_syntax(input))
 	{
 		add_history(input);

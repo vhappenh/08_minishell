@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/03 10:02:46 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/03 15:52:03 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_cmdline
 	int			fd_in;
 	pid_t		*pids;
 	int			**pipe_fds;
+	int			curr_err;
 }	t_cmdline;
 
 /* main */
