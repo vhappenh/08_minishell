@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/01 15:09:48 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/03 09:59:20 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,26 @@ static void	ft_free_cmd(t_cmdline **todo)
 	int	j;
 
 	i = 0;
-	if (todo)
+	while (todo[i])
 	{
-		while (todo[i])
+		if (todo[i]->in_file)
 		{
-			if (todo[i]->in_file)
-			{
-				if (!ft_strncmp(todo[i]->in_file, ".heredoc", 8))
-					unlink(todo[i]->in_file);
-				free(todo[i]->in_file);
-			}
-			if (todo[i]->out_file)
-				free(todo[i]->out_file);
-			if (todo[i]->cmd)
-			{
-				j = 0;
-				while (todo[i]->cmd[j])
-					free(todo[i]->cmd[j++]);
-				free(todo[i]->cmd);
-			}
-			free(todo[i++]);
+			if (!ft_strncmp(todo[i]->in_file, ".heredoc", 8))
+				unlink(todo[i]->in_file);
+			free(todo[i]->in_file);
 		}
-		free(todo);
+		if (todo[i]->out_file)
+			free(todo[i]->out_file);
+		if (todo[i]->cmd)
+		{
+			j = 0;
+			while (todo[i]->cmd[j])
+				free(todo[i]->cmd[j++]);
+			free(todo[i]->cmd);
+		}
+		free(todo[i++]);
 	}
+	free(todo);
 }
 
 static void	ft_free_env(t_envlst *env)
@@ -89,7 +86,8 @@ static void	ft_free_array(char **array)
 
 void	*ft_free_all(t_cmdline **todo, t_envlst *env, char **array)
 {
-	ft_free_cmd(todo);
+	if (todo)
+		ft_free_cmd(todo);
 	ft_free_env(env);
 	ft_free_array(array);
 	return (NULL);

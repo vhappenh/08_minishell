@@ -71,4 +71,4 @@ norm:
 	norminette -R CheckForbiddenSourceHeader src/*.c src/vr.h
 
 val: all
-	valgrind --leak-check=full --show-leak-kinds=all -s --suppressions=./minishell.supp ./minishell
+	valgrind -s --leak-check=full --show-leak-kinds=all --suppressions=./minishell.supp ./minishell

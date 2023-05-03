@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/02 11:24:35 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/03 15:52:03 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_cmdline
 	int			fd_in;
 	pid_t		*pids;
 	int			**pipe_fds;
+	int			curr_err;
 }	t_cmdline;
 
 /* main */
@@ -108,5 +109,6 @@ int			ft_prep_cmd(t_cmdline *todo);
 void		ft_free_exe(pid_t *pids, int **pipe_fds, int i);
 int			ft_init_exe(t_cmdline **todo, int i);
 void		ft_prep_inoutenv(t_cmdline *todo, int fd_in, int fd_out);
+int			ft_built_in_check_only(t_cmdline **todo, int i);
 
 #endif

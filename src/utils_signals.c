@@ -6,13 +6,13 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 09:58:05 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/27 14:34:10 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/03 16:45:06 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-static void	ft_handle_inter(int signum)
+void	ft_handle_inter(int signum)
 {
 	if (signum == SIGINT)
 	{
@@ -20,34 +20,22 @@ static void	ft_handle_inter(int signum)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		errno = 130;
 	}
 }
 
-static void	ft_handle_exe(int signum)
+void	ft_handle_exe(int signum)
 {
 	if (signum == SIGINT)
+	{
 		write(1, "\n", 1);
-	else if (signum == SIGQUIT)
-		;
+	}
 }
 
-static int	ft_sig_interactiv(struct sigaction sa)
+void ft_handle_child(int signum)
 {
-	sa.sa_handler = &ft_handle_inter;
-	if (sigaction(SIGINT, &sa, NULL))
-		return (1);
-	signal(SIGQUIT, SIG_IGN);
-	return (0);
-}
-
-static int	ft_sig_executing(struct sigaction sa)
-{
-	sa.sa_handler = &ft_handle_exe;
-	if (sigaction(SIGINT, &sa, NULL))
-		return (1);
-	if (sigaction(SIGQUIT, &sa, NULL))
-		return (1);
-	return (0);
+	if (signum == SIGINT)
+		exit(130);
 }
 
 int	ft_switch_signals(int sig_case)
@@ -56,17 +44,22 @@ int	ft_switch_signals(int sig_case)
 
 	if (sig_case == INTERACTIV)
 	{
-		if (ft_sig_interactiv(sa))
+		sa.sa_handler = &ft_handle_inter;
+		if (sigaction(SIGINT, &sa, NULL))
 			return (1);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (sig_case == EXECUTING)
 	{
-		if (ft_sig_executing(sa))
+		sa.sa_handler = &ft_handle_exe;
+		if (sigaction(SIGINT, &sa, NULL))
 			return (1);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (sig_case == CHILD)
 	{
-		signal(SIGINT, SIG_DFL);
+		sa.sa_handler = &ft_handle_child;
+		sigaction(SIGINT, &sa, NULL);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	return (0);
