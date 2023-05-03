@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/02 16:50:34 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/03 09:56:05 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 // 		i++;
 // 	}
 // }
+// ft_print_todo(todo);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -50,7 +51,6 @@ int	main(int argc, char **argv, char **envp)
 		todo = input_parse(env);
 		if (todo == NULL)
 			return (errno);
-		// ft_print_todo(todo);
 		if (ft_execution(todo))
 			return (3);
 		ft_free_all(todo, NULL, NULL);
