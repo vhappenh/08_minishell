@@ -13,6 +13,14 @@ OBJ_P := ./obj/
 SRC :=	main.c\
 		input_parse.c\
 		ft_free.c\
+		built_ins.c\
+		built_in_cd.c\
+		built_in_echo.c\
+		built_in_env.c\
+		built_in_exit.c\
+		built_in_export.c\
+		built_in_pwd.c\
+		built_in_unset.c\
 		utils1.c\
 		utils3.c\
 		utils4.c\
@@ -21,9 +29,6 @@ SRC :=	main.c\
 		utils_input.c\
 		utils_files.c\
 		utils_token.c\
-		built_ins1.c\
-		built_ins2.c\
-		built_ins3.c\
 		utils_universal.c\
 		utils_heredoc.c\
 		utils_syntax.c\

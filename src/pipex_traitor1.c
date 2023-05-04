@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_traitor1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/03 16:27:26 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/04 11:18:27 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_close_free(t_cmdline *todo, char *err1, char *err2)
 void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 {
 	ft_prep_inoutenv(todo, fd_in, fd_out);
-	if (!ft_built_in_check(&todo, 0, todo->enviroment))
+	if (!ft_built_in_select(&todo, 0, todo->enviroment))
 		return (ft_close_free(todo, NULL, NULL));
 	if (todo->cmd)
 		if (ft_prep_cmd(todo))
@@ -115,10 +115,10 @@ int	ft_execution(t_cmdline **todo)
 	i = ft_init_exe(todo, i);
 	if (i == -1)
 		return (1);
-	if (i == 1 && todo[1] == NULL && !ft_built_in_check_only(todo, 0))
+	if (i == 1 && todo[1] == NULL && !ft_built_in_check(todo, 0))
 	{
 		ft_prep_inoutenv(todo[0], 0, 1);
-		ft_built_in_check(todo, 0, todo[0]->enviroment);
+		ft_built_in_select(todo, 0, todo[0]->enviroment);
 	}
 	else
 		if (ft_fork_it(todo, i))
