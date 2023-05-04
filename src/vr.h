@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/04 11:16:50 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:38:31 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,12 @@ int			ft_get_infile(char *input, int *i, t_cmdline **todo, int nbr);
 int			ft_count_token(char *input);
 char		*ft_get_token(char **input, int check);
 char		*ft_doublejoin(char *str1, char *str2, char *str3);
-int			get_pwd(char **pwd);
 char		*get_env_path(t_envlst *env, char *pathname);
-int			ft_env(t_envlst *env, t_cmdline *todo);
 int			lst_to_ptr(t_envlst *env, char ***env_ptr);
 int			ft_lstsize_minishell(t_envlst *lst);
 int			save_pwd(t_envlst *env, char *pwd);
 int			save_old_pwd(t_envlst *env, char *pwd);
 int			cd_dot_dot(char *pwd, char **new_path);
-int			ft_exit(t_cmdline **todo, t_envlst *env, int i);
-int			ft_unset(t_cmdline *todo, t_envlst *env);
 int			ft_change_lvl(char **line);
 char		*ft_strncopy(char *str, unsigned int i);
 int			ft_heredoc(char *input, int *i, t_cmdline **todo, int nbr);
@@ -100,6 +96,7 @@ int			ft_look_for_env(char **str, t_envlst *enviroment);
 int			ft_check_open_pipe(char **input);
 int			ft_search_char(char *str, char c);
 int			ft_free_threestr(char *str1, char *str2, char *str3);
+
 /*signals*/
 int			ft_switch_signals(int sig_case);
 int			ft_execution(t_cmdline **todo);
