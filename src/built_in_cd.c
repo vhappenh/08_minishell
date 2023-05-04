@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:03:44 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/04 11:05:41 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:53:31 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_cd(t_cmdline *todo, t_envlst *env)
 
 	(void)env;
 	pwd = NULL;
-	if (get_pwd(&pwd))
+	if (ft_get_pwd(&pwd))
 		return (1);
 	if (save_old_pwd(env, pwd))
 	{

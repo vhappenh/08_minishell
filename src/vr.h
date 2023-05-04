@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/04 11:38:31 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:53:16 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int			ft_look_for_env(char **str, t_envlst *enviroment);
 int			ft_check_open_pipe(char **input);
 int			ft_search_char(char *str, char c);
 int			ft_free_threestr(char *str1, char *str2, char *str3);
+int			ft_get_pwd(char **pwd);
 
 /*signals*/
 int			ft_switch_signals(int sig_case);
@@ -116,4 +117,6 @@ int			ft_export(t_cmdline *todo, t_envlst *env);
 int			ft_unset(t_cmdline *todo, t_envlst *env);
 int			ft_env(t_envlst *env, t_cmdline *todo);
 int			ft_exit(t_cmdline **todo, t_envlst *env, int i);
+int			ft_search_and_replace(char *todocmd, t_envlst *env);
+int			ft_export_arg_execute(char *str1, char *str2, t_envlst **temp);
 #endif

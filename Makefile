@@ -19,6 +19,7 @@ SRC :=	main.c\
 		built_in_env.c\
 		built_in_exit.c\
 		built_in_export.c\
+		built_in_export_utils.c\
 		built_in_pwd.c\
 		built_in_unset.c\
 		utils1.c\

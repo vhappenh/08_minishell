@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:05:05 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/04 11:05:28 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:53:27 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_pwd(int fd)
 {
 	static char	*pwd;
 
-	if (get_pwd(&pwd))
+	if (ft_get_pwd(&pwd))
 		return (1);
 	ft_putstr_fd(pwd, fd);
 	write(fd, "\n", 1);

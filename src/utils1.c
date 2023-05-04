@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/01 15:54:33 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:53:22 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_djoin_spec(char *split_path, char **path, t_cmdline *todo)
 	return (0);
 }
 
-int	get_pwd(char **pwd)
+int	ft_get_pwd(char **pwd)
 {
 	*pwd = ft_calloc(sizeof(char), 10000);
 	if (*pwd == NULL)
