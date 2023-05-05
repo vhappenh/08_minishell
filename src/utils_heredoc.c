@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:25:38 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/27 14:28:08 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/05 22:49:28 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ static int	ft_fillfile(char *doc_file, char *del)
 	while (1)
 	{
 		new_input = readline("> ");
+		if (new_input == NULL)
+		{
+			ft_putendl_fd
+				("minishell: warning: here-document delimited with EOF", 2);
+			return (1);
+		}
 		if (!ft_strncmp(del, new_input, ft_strlen(del) + 1))
 		{
 			free(new_input);
