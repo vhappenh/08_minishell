@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 09:58:05 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/03 16:45:06 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/05 10:10:59 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,6 @@ void	ft_handle_exe(int signum)
 	}
 }
 
-void ft_handle_child(int signum)
-{
-	if (signum == SIGINT)
-		exit(130);
-}
-
 int	ft_switch_signals(int sig_case)
 {
 	static struct sigaction	sa;
@@ -58,8 +52,7 @@ int	ft_switch_signals(int sig_case)
 	}
 	else if (sig_case == CHILD)
 	{
-		sa.sa_handler = &ft_handle_child;
-		sigaction(SIGINT, &sa, NULL);
+		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	return (0);

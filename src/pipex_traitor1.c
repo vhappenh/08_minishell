@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/03 16:27:26 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/05 10:13:05 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int	ft_execution(t_cmdline **todo)
 	{
 		ft_prep_inoutenv(todo[0], 0, 1);
 		ft_built_in_check(todo, 0, todo[0]->enviroment);
+		i = 0;
 	}
 	else
 		if (ft_fork_it(todo, i))
@@ -127,9 +128,14 @@ int	ft_execution(t_cmdline **todo)
 	while (j < i)
 		waitpid((*todo)->pids[j++], &err, 0);
 	ft_switch_signals(INTERACTIV);
-	if (errno != 130)
+	if (WEXITSTATUS(err))
 		errno = WEXITSTATUS(err);
-	printf("errno after exe: %d\n", errno);
+	else if (WTERMSIG(err))
+	{
+		errno = WTERMSIG(err);
+		if (errno == 4)
+			errno = 130;
+	}
 	ft_free_exe((*todo)->pids, (*todo)->pipe_fds, i);
 	return (0);
 }
