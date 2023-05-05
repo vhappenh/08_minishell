@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/03 15:52:03 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/05 10:03:19 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,9 @@ typedef struct s_envlst
 typedef struct s_cmdline
 {
 	long		nbr;
-	char		*prev_op;
 	char		*in_file;
 	char		*out_file;
 	char		**cmd;
-	char		*nxt_op;
 	t_envlst	*enviroment;
 	t_list		*exportvar;
 	char		**env;
@@ -57,7 +55,7 @@ typedef struct s_cmdline
 }	t_cmdline;
 
 /* main */
-int			get_env(char **envp, t_envlst **env);
+int			ft_parse_env(char **envp, t_envlst **env);
 t_cmdline	**input_parse(t_envlst *env);
 int			execute(t_cmdline **todo, t_envlst*env);
 void		*ft_free_all(t_cmdline **todo, t_envlst *env, char **array);
@@ -70,25 +68,20 @@ void		ft_lstadd_front_minishell(t_envlst **lst, t_envlst *new);
 /* input_parse */
 char		*ft_get_prompt(void);
 int			ft_djoin_spec(char *split_path, char **paths, t_cmdline *todo);
-int			ft_getcmd(char *input, int *i, t_cmdline **todo, int *k);
-int			ft_get_quots(char *input, int *i, t_cmdline **todo, int *k);
+int			ft_get_cmd(char *input, int *i, t_cmdline **todo, int *k);
+int			ft_get_quotes(char *input, int *i, t_cmdline **todo, int *k);
 int			ft_get_file(char *input, int *i, t_cmdline **todo, int nbr);
 int			ft_get_outfile(char *input, int *i, t_cmdline **todo);
 int			ft_get_infile(char *input, int *i, t_cmdline **todo, int nbr);
 int			ft_count_token(char *input);
-int			ft_built_in_check(t_cmdline **todo, int i, t_envlst *env);
 char		*ft_get_token(char **input, int check);
 char		*ft_doublejoin(char *str1, char *str2, char *str3);
-int			get_pwd(char **pwd);
 char		*get_env_path(t_envlst *env, char *pathname);
-int			ft_env(t_envlst *env, t_cmdline *todo);
 int			lst_to_ptr(t_envlst *env, char ***env_ptr);
 int			ft_lstsize_minishell(t_envlst *lst);
 int			save_pwd(t_envlst *env, char *pwd);
 int			save_old_pwd(t_envlst *env, char *pwd);
 int			cd_dot_dot(char *pwd, char **new_path);
-int			ft_exit(t_cmdline **todo, t_envlst *env, int i);
-int			ft_unset(t_cmdline *todo, t_envlst *env);
 int			ft_change_lvl(char **line);
 char		*ft_strncopy(char *str, unsigned int i);
 int			ft_heredoc(char *input, int *i, t_cmdline **todo, int nbr);
@@ -97,11 +90,12 @@ int			ft_add_shlvl(t_envlst **env);
 int			ft_found_target(t_envlst **temp, t_envlst **head);
 int			ft_free_lvl_fail(t_envlst **lst, t_envlst **env);
 int			ft_check_syntax(char *input);
-int			ft_export(t_cmdline *todo, t_envlst *env);
 int			ft_look_for_env(char **str, t_envlst *enviroment);
 int			ft_check_open_pipe(char **input);
 int			ft_search_char(char *str, char c);
 int			ft_free_threestr(char *str1, char *str2, char *str3);
+int			ft_get_pwd(char **pwd);
+
 /*signals*/
 int			ft_switch_signals(int sig_case);
 int			ft_execution(t_cmdline **todo);
@@ -109,6 +103,18 @@ int			ft_prep_cmd(t_cmdline *todo);
 void		ft_free_exe(pid_t *pids, int **pipe_fds, int i);
 int			ft_init_exe(t_cmdline **todo, int i);
 void		ft_prep_inoutenv(t_cmdline *todo, int fd_in, int fd_out);
-int			ft_built_in_check_only(t_cmdline **todo, int i);
 
+/*built ins*/
+int			ft_built_in_select(t_cmdline **todo, int i, t_envlst *env);
+int			ft_built_in_check(t_cmdline **todo, int i);
+int			ft_echo(t_cmdline *todo);
+int			ft_cd(t_cmdline *todo, t_envlst *env);
+int			ft_pwd(int fd);
+int			ft_export(t_cmdline *todo, t_envlst *env);
+int			ft_unset(t_cmdline *todo, t_envlst *env);
+int			ft_env(t_envlst *env, t_cmdline *todo);
+int			ft_exit(t_cmdline **todo, t_envlst *env, int i);
+int			ft_search_and_replace(char *todocmd, t_envlst *env);
+int			ft_export_arg_execute(char *str1, char *str2, t_envlst **temp);
+int			ft_valid_export_cmd(char *cmd, int fd);
 #endif

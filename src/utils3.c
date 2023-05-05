@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/04 13:21:08 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/05 09:29:39 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	cd_dot_dot(char *pwd, char **new_path)
 
 int	ft_lvl_up(t_envlst **lst)
 {
-	char	*temp;
+	char	*cont;
 	int		lvl;
 
 	lvl = ft_atoi((*lst)->cont);
@@ -82,13 +82,10 @@ int	ft_lvl_up(t_envlst **lst)
 		return (1);
 	lvl++;
 	free ((*lst)->cont);
-	temp = ft_itoa(lvl);
-	if (temp == NULL)
+	cont = ft_itoa(lvl);
+	if (cont == NULL)
 		return (2);
-	(*lst)->cont = ft_strdup(temp);
-	free (temp);
-	if ((*lst)->cont == NULL)
-		return (3);
+	(*lst)->cont = cont;
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/05 10:10:59 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/05 09:32:07 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ static int	ft_fill_cmd(t_cmdline **todo, char *input, int nbr, t_envlst *env)
 			if (ft_get_file(input, &i, todo, nbr))
 				return (1);
 		if (input[i] && (input[i] == '"' || input[i] == '\''))
-			if (ft_get_quots(input, &i, todo, &k))
+			if (ft_get_quotes(input, &i, todo, &k))
 				return (1);
 		if (input[i] && input[i] != ' ')
-			if (ft_getcmd(input, &i, todo, &k))
+			if (ft_get_cmd(input, &i, todo, &k))
 				return (1);
 	}
 	return (0);

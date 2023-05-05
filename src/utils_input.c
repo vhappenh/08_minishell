@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:54:57 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/19 10:44:47 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/05 09:32:12 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-int	ft_getcmd(char *input, int *i, t_cmdline **todo, int *k)
+int	ft_get_cmd(char *input, int *i, t_cmdline **todo, int *k)
 {
 	int	j;
 	int	d;
@@ -30,7 +30,7 @@ int	ft_getcmd(char *input, int *i, t_cmdline **todo, int *k)
 	return (0);
 }
 
-int	ft_get_quots(char *input, int *i, t_cmdline **todo, int *k)
+int	ft_get_quotes(char *input, int *i, t_cmdline **todo, int *k)
 {
 	int		j;
 	int		d;
