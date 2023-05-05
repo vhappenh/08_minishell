@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:32:40 by vhappenh          #+#    #+#             */
 /*   Updated: 2023/05/05 09:29:39 by vhappenh         ###   ########.fr       */
@@ -102,7 +102,7 @@ int	ft_add_shlvl(t_envlst **env)
 		return (1);
 	}
 	temp2 = ft_strdup("1");
-	if (temp1 == NULL)
+	if (temp2 == NULL)
 	{
 		ft_free_all(NULL, *env, NULL);
 		return (2);

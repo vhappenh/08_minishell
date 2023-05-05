@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/03 15:52:07 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/04 09:56:39 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int	ft_env_double_quotes(char **str, t_envlst *enviroment, int *i)
 		}
 		if ((*str)[(*i)] != '\0')
 			(*i)++;
-	}			
+	}
 	return (0);
 }
 

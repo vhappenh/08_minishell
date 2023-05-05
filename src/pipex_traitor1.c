@@ -118,6 +118,7 @@ int	ft_execution(t_cmdline **todo)
 	if (i == 1 && todo[1] == NULL && !ft_built_in_check(todo, 0))
 	{
 		ft_prep_inoutenv(todo[0], 0, 1);
+		i = 0;
 		ft_built_in_select(todo, 0, todo[0]->enviroment);
 	}
 	else
@@ -127,9 +128,14 @@ int	ft_execution(t_cmdline **todo)
 	while (j < i)
 		waitpid((*todo)->pids[j++], &err, 0);
 	ft_switch_signals(INTERACTIV);
-	if (errno != 130)
+	if (WEXITSTATUS(err))
 		errno = WEXITSTATUS(err);
-	printf("errno after exe: %d\n", errno);
+	else if (WTERMSIG(err))
+	{
+		errno = WTERMSIG(err);
+		if (errno == 4)
+			errno = 130;
+	}
 	ft_free_exe((*todo)->pids, (*todo)->pipe_fds, i);
 	return (0);
 }

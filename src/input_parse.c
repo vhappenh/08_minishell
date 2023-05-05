@@ -98,9 +98,7 @@ static t_cmdline	**ft_split_input(char **input, t_envlst *env)
 t_cmdline	**ft_check_prep_todo(char *input, t_envlst *env)
 {
 	t_cmdline	**todo;
-	int			err;
 
-	err = errno;
 	if (ft_check_syntax(input))
 	{
 		add_history(input);
@@ -123,12 +121,12 @@ t_cmdline	**input_parse(t_envlst *env)
 	char		*prompt;
 	char		*input;
 
+	printf("errno = %d\n", errno);
 	prompt = ft_get_prompt();
 	if (prompt == NULL)
 		prompt = "minishell: ";
 	input = readline(prompt);
-	if (input == NULL)
-		printf("%d", errno);
+	printf("errno = %d\n", errno);
 	if (ft_strncmp(prompt, "minishell: ", sizeof(prompt)))
 		free(prompt);
 	if (input == NULL)
