@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_traitor1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/04 11:18:27 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/05 14:43:36 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,3 @@ int	ft_execution(t_cmdline **todo)
 	ft_free_exe((*todo)->pids, (*todo)->pipe_fds, i);
 	return (0);
 }
-
-/* checking for fails in build in check!!*/

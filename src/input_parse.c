@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/05 09:32:07 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/05 16:05:07 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ t_cmdline	**ft_check_prep_todo(char *input, t_envlst *env)
 		return (todo);
 	}
 	if (ft_check_open_pipe(&input))
+	{
+		free(input);
 		return (NULL);
+	}
 	add_history(input);
 	if (ft_look_for_env(&input, env))
 		return (NULL);
