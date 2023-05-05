@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/04 11:53:22 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/05 09:30:23 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,25 @@ int	ft_get_pwd(char **pwd)
 
 static int	ft_get_inputs(char *envp, t_envlst **lst)
 {
-	char		*input1;
-	char		*input2;
+	char		*evar;
+	char		*cont;
 
-	input1 = ft_strncopy(envp, ft_search_char(envp, '='));
-	if (input1 == NULL)
-		return (1);
-	input2 = ft_strdup(envp + ft_search_char(envp, '=') + 1);
-	if (input2 == NULL)
-		return (2);
-	*lst = ft_lstnew_minishell(ft_strdup(input1), ft_strdup(input2), 0);
-	free (input1);
-	free (input2);
+	evar = ft_strncopy(envp, ft_search_char(envp, '='));
+	cont = ft_strdup(envp + ft_search_char(envp, '=') + 1);
+	*lst = ft_lstnew_minishell(evar, cont, 0);
 	if (lst == NULL)
 		return (3);
 	return (0);
 }
 
-int	get_env(char **envp, t_envlst **env)
+int	ft_parse_env(char **envp, t_envlst **env)
 {
 	int			i;
-	int			shlvl;
+	bool		shlvl;
 	t_envlst	*lst;
 
 	i = -1;
-	shlvl = 0;
+	shlvl = true;
 	while (envp[++i])
 	{
 		if (ft_get_inputs(envp[i], &lst))
@@ -89,11 +83,11 @@ int	get_env(char **envp, t_envlst **env)
 			if (ft_lvl_up(&lst))
 				if (!ft_free_lvl_fail(&lst, env))
 					return (3);
-			shlvl = 1;
+			shlvl = false;
 		}
 		ft_lstadd_back_minishell(env, lst);
 	}
-	if (shlvl == 0)
+	if (shlvl)
 		if (ft_add_shlvl(env))
 			return (3);
 	return (0);

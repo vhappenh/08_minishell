@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/04 11:53:16 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/05 09:32:16 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,9 @@ typedef struct s_envlst
 typedef struct s_cmdline
 {
 	long		nbr;
-	char		*prev_op;
 	char		*in_file;
 	char		*out_file;
 	char		**cmd;
-	char		*nxt_op;
 	t_envlst	*enviroment;
 	t_list		*exportvar;
 	char		**env;
@@ -57,7 +55,7 @@ typedef struct s_cmdline
 }	t_cmdline;
 
 /* main */
-int			get_env(char **envp, t_envlst **env);
+int			ft_parse_env(char **envp, t_envlst **env);
 t_cmdline	**input_parse(t_envlst *env);
 int			execute(t_cmdline **todo, t_envlst*env);
 void		*ft_free_all(t_cmdline **todo, t_envlst *env, char **array);
@@ -70,8 +68,8 @@ void		ft_lstadd_front_minishell(t_envlst **lst, t_envlst *new);
 /* input_parse */
 char		*ft_get_prompt(void);
 int			ft_djoin_spec(char *split_path, char **paths, t_cmdline *todo);
-int			ft_getcmd(char *input, int *i, t_cmdline **todo, int *k);
-int			ft_get_quots(char *input, int *i, t_cmdline **todo, int *k);
+int			ft_get_cmd(char *input, int *i, t_cmdline **todo, int *k);
+int			ft_get_quotes(char *input, int *i, t_cmdline **todo, int *k);
 int			ft_get_file(char *input, int *i, t_cmdline **todo, int nbr);
 int			ft_get_outfile(char *input, int *i, t_cmdline **todo);
 int			ft_get_infile(char *input, int *i, t_cmdline **todo, int nbr);
