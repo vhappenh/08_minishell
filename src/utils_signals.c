@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_signals.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 09:58:05 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/03 16:45:06 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/05 09:35:33 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_handle_exe(int signum)
 	}
 }
 
-void ft_handle_child(int signum)
+void	ft_handle_child(int signum)
 {
 	if (signum == SIGINT)
 		exit(130);

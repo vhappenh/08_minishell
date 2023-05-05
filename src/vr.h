@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/05 09:32:16 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/05 09:35:41 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int			ft_prep_cmd(t_cmdline *todo);
 void		ft_free_exe(pid_t *pids, int **pipe_fds, int i);
 int			ft_init_exe(t_cmdline **todo, int i);
 void		ft_prep_inoutenv(t_cmdline *todo, int fd_in, int fd_out);
-
 
 /*built ins*/
 int			ft_built_in_select(t_cmdline **todo, int i, t_envlst *env);
