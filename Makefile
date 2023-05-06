@@ -11,6 +11,7 @@ ARCH := ./src/libft_ultra/libft.a
 OBJ_P := ./obj/
 
 SRC :=	main.c\
+		env_parse.c\
 		input_parse.c\
 		ft_free.c\
 		built_ins.c\
@@ -22,9 +23,7 @@ SRC :=	main.c\
 		built_in_export_utils.c\
 		built_in_pwd.c\
 		built_in_unset.c\
-		utils1.c\
-		utils3.c\
-		utils4.c\
+		utils_shlvl.c\
 		utils_lsts.c\
 		utils_prompt.c\
 		utils_input.c\

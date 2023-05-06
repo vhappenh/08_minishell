@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 09:42:16 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/16 15:20:57 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/06 15:13:06 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_count_token(char *input)
 	return (tokens);
 }
 
-static int	ft_jump_quots(char *input, int i)
+static int	ft_jump_quotes(char *input, int i)
 {
 	char	c;
 
@@ -35,12 +35,12 @@ static int	ft_jump_quots(char *input, int i)
 	return (i);
 }
 
-static int	ft_get_lenth(char *input, int i)
+static int	ft_get_length(char *input, int i)
 {
 	while (input[i])
 	{
 		if (input[i] == '\'' || input[i] == '"')
-			i = ft_jump_quots(input, i);
+			i = ft_jump_quotes(input, i);
 		if (input[i] == '|')
 			break ;
 		if (input[i])
@@ -62,7 +62,7 @@ char	*ft_get_token(char **input, int check)
 		i++;
 	j = i;
 	k = 0;
-	i = ft_get_lenth((*input), i);
+	i = ft_get_length((*input), i);
 	token = ft_calloc(i - j + 1, sizeof(char));
 	if (token == NULL)
 		return (NULL);

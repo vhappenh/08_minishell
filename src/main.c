@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/05 09:30:04 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/06 14:42:15 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 		if (todo == NULL)
 			return (errno);
 		if (ft_execution(todo))
-			return (3);
+			return (3); //maybe a break here could be a solution?!?!?!
 		ft_free_all(todo, NULL, NULL);
 	}
 	ft_free_all(NULL, env, NULL);

@@ -6,11 +6,20 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:08:05 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/05 09:35:16 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/06 16:02:32 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
+
+static int	ft_found_target(t_envlst **temp, t_envlst **head)
+{
+	free ((*head)->evar);
+	free ((*head)->cont);
+	(*temp)->next = (*head)->next;
+	free (*head);
+	return (0);
+}
 
 int	ft_unset(t_cmdline *todo, t_envlst *env)
 {
@@ -27,8 +36,10 @@ int	ft_unset(t_cmdline *todo, t_envlst *env)
 		{
 			if (!ft_strncmp(todo->cmd[i], head->evar,
 					ft_strlen(todo->cmd[i]) + 1))
-				if (!ft_found_target(&temp, &head))
-					break ;
+			{
+				ft_found_target(&temp, &head);
+				break ;
+			}
 			if (!(temp == head))
 				temp = temp->next;
 			head = head->next;

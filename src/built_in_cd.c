@@ -6,11 +6,58 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:03:44 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/05 09:34:20 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/06 16:02:10 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
+
+static int	cd_dot_dot(char *pwd, char **new_path)
+{
+	int	i;
+	int	new_len;
+
+	i = -1;
+	while (pwd[++i])
+		if (pwd[i] == '/')
+			new_len = i;
+	if (new_len == 0)
+	{
+		*new_path = ft_calloc(sizeof(char), 1 + 1);
+		if (*new_path == NULL)
+			return (1);
+		*new_path = ft_memcpy(*new_path, "/", 1);
+	}
+	else
+	{
+		*new_path = ft_calloc(sizeof(char), new_len + 1);
+		if (*new_path == NULL)
+			return (2);
+		*new_path = ft_memcpy(*new_path, pwd, new_len);
+	}
+	return (0);
+}
+
+static int	ft_save_pwd(t_envlst *env, char *pwd, char *evar)
+{
+	while (env)
+	{
+		if (!ft_strncmp(env->evar, evar, ft_strlen(evar) + 1))
+		{
+			free (env->cont);
+			env->cont = ft_strdup(pwd);
+			if (env->cont == NULL)
+			{
+				free (pwd);
+				return (1);
+			}
+			break ;
+		}
+		env = env->next;
+	}
+	free (pwd);
+	return (0);
+}
 
 static int	ft_cd_select(char **pwd, char **new_path, t_cmdline *todo)
 {
@@ -23,19 +70,19 @@ static int	ft_cd_select(char **pwd, char **new_path, t_cmdline *todo)
 		if (*new_path == NULL)
 			i = 1;
 	}
-	else if (!ft_strncmp(todo->cmd[1], "..", 2) && !todo->cmd[1][2])
-	{
-		if (cd_dot_dot(*pwd, new_path))
-			i = 2;
-	}
-	else
+	else if (!ft_strncmp(todo->cmd[1], "..", 3) && !todo->cmd[2])
+		i = cd_dot_dot(*pwd, new_path);
+	else if (!todo->cmd[2])
 	{
 		*new_path = ft_doublejoin(*pwd, "/", todo->cmd[1]);
 		if (*new_path == NULL)
 			i = 3;
 	}
-	if (i)
-		free (*pwd);
+	else
+	{
+		ft_putendl_fd("minishell: cd: too many arguments", todo->fd_out);
+		i = 4;
+	}
 	return (i);
 }
 
@@ -44,25 +91,20 @@ int	ft_cd(t_cmdline *todo, t_envlst *env)
 	char	*pwd;
 	char	*new_path;
 
-	(void)env;
 	pwd = NULL;
 	if (ft_get_pwd(&pwd))
 		return (1);
-	if (save_old_pwd(env, pwd))
-	{
-		free (pwd);
-		return (2);
-	}
 	if (ft_cd_select(&pwd, &new_path, todo))
+		return (2);
+	if (ft_save_pwd(env, pwd, "OLDPWD"))
 		return (3);
-	free (pwd);
-	if (save_pwd(env, new_path))
+	if (chdir(new_path))
 	{
+		printf("minishell: cd: %s: No such file or directory\n", todo->cmd[1]);
 		free (new_path);
 		return (4);
 	}
-	if (chdir(new_path))
-		printf("minishell: cd: %s: No such file or directory\n", todo->cmd[1]);
-	free (new_path);
+	if (ft_save_pwd(env, new_path, "PWD"))
+		return (5);
 	return (0);
 }

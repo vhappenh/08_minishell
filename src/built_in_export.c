@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:15:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/05 10:09:43 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/06 14:35:31 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,13 @@
 static int	ft_export_argument(char *todocmd, t_envlst *env)
 {
 	t_envlst	*templst;
+	int			destiny;
 
-	if (!ft_search_and_replace(todocmd, env))
+	destiny = ft_search_and_replace(todocmd, env);
+	if (destiny == 0)
 		return (0);
+	else if (destiny == -1)
+		return (1);
 	if (ft_strchr(todocmd, '='))
 	{	
 		if (!todocmd[ft_search_char(todocmd, '=') + 1])

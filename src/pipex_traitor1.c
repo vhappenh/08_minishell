@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/04 11:18:27 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/06 14:39:26 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int	ft_execution(t_cmdline **todo)
 		ft_prep_inoutenv(todo[0], 0, 1);
 		i = 0;
 		ft_built_in_select(todo, 0, todo[0]->enviroment);
+		// we should check this for its return value!!!
 	}
 	else
 		if (ft_fork_it(todo, i))

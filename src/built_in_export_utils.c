@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:21 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/05 10:10:11 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/06 14:51:51 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_search_and_replace(char *todocmd, t_envlst *env)
 
 	temp = ft_strncopy(todocmd, ft_search_char(todocmd, '='));
 	if (temp == NULL)
-		return (1);
+		return (-1);
 	while (env)
 	{
 		if (!ft_strncmp(temp, env->evar, ft_strlen(temp)))
@@ -28,7 +28,7 @@ int	ft_search_and_replace(char *todocmd, t_envlst *env)
 			if (env->cont == NULL)
 			{
 				free (temp);
-				return (2);
+				return (-1);
 			}
 			free (temp);
 			env->indic = 0;
@@ -37,7 +37,7 @@ int	ft_search_and_replace(char *todocmd, t_envlst *env)
 		env = env->next;
 	}
 	free (temp);
-	return (3);
+	return (1);
 }
 
 int	ft_export_arg_execute(char *str1, char *str2, t_envlst **temp)
@@ -46,16 +46,10 @@ int	ft_export_arg_execute(char *str1, char *str2, t_envlst **temp)
 	char	*temp2;
 
 	temp1 = ft_strncopy(str1, ft_search_char(str1, '='));
-	if (temp1 == NULL)
-		return (1);
 	temp2 = ft_strdup(str2);
-	if (temp2 == NULL)
-		return (1);
-	*temp = ft_lstnew_minishell(ft_strdup(temp1), ft_strdup(temp2), 0);
-	free (temp1);
-	free (temp2);
+	*temp = ft_lstnew_minishell(temp1, temp2, 0);
 	if (*temp == NULL)
-		return (3);
+		return (1);
 	return (0);
 }
 
