@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/06 14:42:15 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/06 16:22:47 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static void	ft_print_todo(t_cmdline **todo)
 		printf("\n");
 		i++;
 	}
-}
 	ft_print_todo(todo);
+}
 */
 
 int	main(int argc, char **argv, char **envp)
