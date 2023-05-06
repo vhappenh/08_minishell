@@ -3,39 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   utils_openin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 15:06:43 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/17 13:43:40 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/05 16:58:35 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-static int	ft_get_last_cmd(char **input, int i)
+static int	ft_get_last_cmd(char **input, int i, char c)
 {
 	char	*buffer;
 	char	*tmp;
 
 	buffer = readline("> ");
+	if (buffer == NULL)
+	{
+		if (c)
+		{
+			ft_putstr_fd
+				("minishell: unexpected EOF while looking for matching `", 2);
+			ft_putchar_fd(c, 2);
+			ft_putendl_fd("'", 2);
+		}
+		ft_putendl_fd("minishell: syntax error: unexpected end of file", 2);
+		return (-1);
+	}
 	i += ft_strlen(buffer);
 	tmp = (*input);
-	(*input) = ft_strjoin(tmp, buffer);
-	free(tmp);
-	free(buffer);
-	if ((*input) == NULL)
-		return (-1);
+	if (c)
+	{
+		(*input) = ft_doublejoin(tmp, "\n", buffer);
+		free(tmp);
+		free(buffer);
+		if ((*input) == NULL)
+			return (-1);
+	}
+	else
+	{
+		(*input) = ft_doublejoin(tmp, " ", buffer);
+		free(tmp);
+		free(buffer);
+		if ((*input) == NULL)
+			return (-1);
+	}
 	return (i);
 }
 
 static int	ft_check_rest(char **input)
 {
 	int		i;
-	int		j;
 	char	c;
 
 	i = 0;
-	j = 0;
 	while ((*input)[i])
 	{
 		if ((*input)[i] == '"' || (*input)[i] == '\'')
@@ -46,8 +67,8 @@ static int	ft_check_rest(char **input)
 				while ((*input)[i] && (*input)[i] != c)
 					i++;
 				if ((*input)[i] == '\0')
-					ft_get_last_cmd(input, j);
-				if (j == -1)
+					i = ft_get_last_cmd(input, i, c);
+				if (i == -1)
 					return (1);
 			}
 		}
@@ -69,8 +90,8 @@ int	ft_check_open_pipe(char **input)
 	{
 		if ((*input)[i] == '|')
 		{
-			i = ft_get_last_cmd(input, i);
-			if (i == -1)
+			i++;
+			if (ft_get_last_cmd(input, i, 0) == -1)
 				return (1);
 		}
 		else if ((*input)[i] != ' ')

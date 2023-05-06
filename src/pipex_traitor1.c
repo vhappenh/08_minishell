@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/06 14:39:26 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/06 16:13:58 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,3 @@ int	ft_execution(t_cmdline **todo)
 	ft_free_exe((*todo)->pids, (*todo)->pipe_fds, i);
 	return (0);
 }
-
-/* checking for fails in build in check!!*/
