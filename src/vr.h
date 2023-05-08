@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/06 16:09:37 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:49:12 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_envlst
 	char			*evar;
 	char			*cont;
 	int				indic;
+	bool			sorty;
 	struct s_envlst	*next;
 }	t_envlst;
 

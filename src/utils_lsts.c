@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:57:07 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/02 14:55:12 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:50:48 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_envlst	*ft_lstnew_minishell(char *evar, char *cont, int indic)
 	ptr->evar = evar;
 	ptr->cont = cont;
 	ptr->indic = indic;
+	ptr->sorty = false;
 	ptr->next = NULL;
 	return ((t_envlst *)ptr);
 }

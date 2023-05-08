@@ -6,32 +6,29 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:15:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/06 14:35:31 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/08 14:01:53 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-static int	ft_export_argument(char *todocmd, t_envlst *env)
+static int	ft_export_argument(char *todocmd, t_envlst *env, int destiny)
 {
 	t_envlst	*templst;
-	int			destiny;
 
-	destiny = ft_search_and_replace(todocmd, env);
-	if (destiny == 0)
-		return (0);
-	else if (destiny == -1)
-		return (1);
 	if (ft_strchr(todocmd, '='))
 	{	
+		destiny = ft_search_and_replace(todocmd, env);
+		if (destiny == 0 || destiny == -1)
+			return (destiny);
 		if (!todocmd[ft_search_char(todocmd, '=') + 1])
 		{
 			if (ft_export_arg_execute(todocmd, "", &templst))
 				return (1);
 		}
 		else
-			if (ft_export_arg_execute(todocmd, ft_strdup(todocmd
-						+ ft_search_char(todocmd, '=') + 1), &templst))
+			if (ft_export_arg_execute(todocmd, todocmd
+					+ ft_search_char(todocmd, '=') + 1, &templst))
 				return (2);
 	}
 	else
@@ -44,27 +41,65 @@ static int	ft_export_argument(char *todocmd, t_envlst *env)
 	return (0);
 }
 
+static void	ft_print_export(t_envlst *sorty, int fd)
+{
+	if (!sorty->indic)
+	{
+		ft_putstr_fd("declare -x ", fd);
+		ft_putstr_fd(sorty->evar, fd);
+		ft_putstr_fd("=\"", fd);
+		ft_putstr_fd(sorty->cont, fd);
+		ft_putendl_fd("\"", fd);
+	}
+	else
+	{
+		ft_putstr_fd("declare -x ", fd);
+		ft_putendl_fd(sorty->evar, fd);
+	}
+	sorty->sorty = true;
+}
+
+static t_envlst	*ft_get_smallest(t_envlst *env)
+{
+	t_envlst	*sorty;
+
+	sorty = NULL;
+	while (env)
+	{
+		if (!env->sorty)
+		{
+			sorty = env;
+			break ;
+		}
+		env = env->next;
+	}
+	return (sorty);
+}
+
 static int	ft_export_no_argument(t_cmdline *todo, t_envlst *env)
 {
 	t_envlst	*temp;
+	t_envlst	*sorty;
+	int			i;
 
-	temp = env;
-	while (temp)
+	i = -1;
+	while (++i < ft_lstsize_minishell(env))
 	{
-		if (!temp->indic)
+		temp = env;
+		sorty = ft_get_smallest(temp);
+		while (temp)
 		{
-			ft_putstr_fd("declare -x ", todo->fd_out);
-			ft_putstr_fd(temp->evar, todo->fd_out);
-			ft_putstr_fd("=\"", todo->fd_out);
-			ft_putstr_fd(temp->cont, todo->fd_out);
-			ft_putendl_fd("\"", todo->fd_out);
+			if (ft_strncmp(sorty->evar, temp->evar, ft_strlen(sorty->evar)) > 0
+				&& temp->sorty != 1)
+				sorty = temp;
+			temp = temp->next;
 		}
-		else
-		{
-			ft_putstr_fd("declare -x ", todo->fd_out);
-			ft_putendl_fd(temp->evar, todo->fd_out);
-		}
-		temp = temp->next;
+		ft_print_export(sorty, todo->fd_out);
+	}
+	while (env)
+	{
+		env->sorty = false;
+		env = env->next;
 	}
 	return (0);
 }
@@ -80,7 +115,7 @@ int	ft_export(t_cmdline *todo, t_envlst *env)
 		{
 			if (ft_valid_export_cmd(todo->cmd[i], todo->fd_out))
 				errno = 1;
-			else if (ft_export_argument(todo->cmd[i], env))
+			else if (ft_export_argument(todo->cmd[i], env, 0))
 				return (1);
 			i++;
 		}
