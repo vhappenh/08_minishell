@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:02:13 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/06 11:09:21 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:16:16 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ int	ft_echo(t_cmdline *todo)
 
 	i = 1;
 	nl = true;
-	if (!ft_strncmp(todo->cmd[1], "-n", 3))
+	if (todo->cmd[1])
 	{
-		nl = false;
-		i++;
+		if (!ft_strncmp(todo->cmd[1], "-n", 3))
+		{
+			nl = false;
+			i++;
+		}
 	}
 	while (todo->cmd[i])
 	{
