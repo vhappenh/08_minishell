@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/09 15:40:14 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:06:36 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static char	*ft_get_env_name(char **str, int i)
 
 	j = i;
 	if ((*str)[j] && !ft_isalpha((*str)[j]) &&
-		(*str)[j] != '_' && (*str)[j] != '?')
+		(*str)[j] != '_' && (*str)[j] != '?' && (*str)[j] != '~')
 		return (NULL);
-	if ((*str)[j] == '?')
+	if ((*str)[j] == '?' || (*str)[j] == '~')
 	{
-		env_name = ft_strdup("?");
+		env_name = ft_strncopy(&(*str)[j], 1);
 		if (env_name == NULL)
 			return (NULL);
 		return (env_name);
@@ -106,10 +106,11 @@ int	ft_look_for_env(char **str, t_envlst *enviroment, int err)
 			if (ft_env_double_quotes(str, enviroment, &i, err))
 				return (1);
 		if ((*str)[i] == '$')
-		{
 			if (ft_get_env(str, i + 1, enviroment, err))
 				return (1);
-		}
+		if ((*str)[i] == '~')
+			if (ft_get_env(str, i, enviroment, err))
+				return (1);
 		if ((*str)[i] != '\0')
 			i++;
 	}
