@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/08 14:00:09 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:38:46 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,18 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	ft_switch_signals(INTERACTIV);
 	if (ft_parse_env(envp, &env))
-		return (2);
+		return (1);
 	while (1)
 	{
 		todo = input_parse(env);
 		if (todo == NULL)
 			return (errno);
 		if (ft_execution(todo))
-			return (3); //maybe a break here could be a solution?!?!?!
+		{
+			ft_free_all(todo, env, NULL);
+			return (1); //maybe a break here could be a solution?!?!?!
+		}
 		ft_free_all(todo, NULL, NULL);
 	}
-	ft_free_all(NULL, env, NULL);
-	return (errno);
+	return (0);
 }

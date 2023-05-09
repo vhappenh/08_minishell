@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 09:39:30 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/16 11:27:49 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/09 14:07:05 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ char	*ft_get_manager(char *manager)
 	char	*tmp;
 
 	i = 0;
+	if (manager == NULL)
+		return (NULL);
 	while (manager[i] != '/')
 		i++;
 	tmp = ft_strdup(&manager[i]);
-	free(manager);
 	if (tmp == NULL)
 		return (NULL);
 	tmp[0] = '@';
@@ -102,10 +103,9 @@ char	*ft_get_prompt(void)
 	user = getenv("USER");
 	if (user == NULL)
 		return (ft_free_prompt(wd, NULL));
-	manager = ft_strdup(getenv("SESSION_MANAGER"));
+	manager = ft_get_manager(getenv("SESSION_MANAGER"));
 	if (manager == NULL)
 		return (ft_free_prompt(wd, NULL));
-	manager = ft_get_manager(manager);
 	tmp_wd = ft_cut_wd(user, wd);
 	prompt = ft_fillit(tmp_wd, user, manager, wd);
 	free(wd);

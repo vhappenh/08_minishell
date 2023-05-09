@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_export_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:21 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/08 11:26:22 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:32:49 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	ft_valid_export_cmd(char *cmd, int fd)
 	int	i;
 
 	i = -1;
-	if (ft_isdigit(cmd[0]))
+	if (ft_isdigit(cmd[0]) || cmd[0] == '+')
 	{
 		ft_putstr_fd("bash: export: `", fd);
 		ft_putstr_fd(cmd, fd);
@@ -90,13 +90,15 @@ int	ft_valid_export_cmd(char *cmd, int fd)
 	}
 	while (cmd[++i] && cmd[i] != '=')
 	{
-		if (!ft_isalnum(cmd[i]) && !'+')
+		if (!ft_isalnum(cmd[i]) && cmd[i] != '_')
 		{
 			ft_putstr_fd("bash: export: `", fd);
 			ft_putstr_fd(cmd, fd);
 			ft_putendl_fd("': not a valid identifier", fd);
 			return (2);
 		}
+		if (cmd[i] == '+' && cmd[i + 1] != '=')
+			return (3);
 	}
 	return (0);
 }
