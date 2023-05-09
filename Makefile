@@ -27,15 +27,15 @@ SRC :=	main.c\
 		utils_lsts.c\
 		utils_prompt.c\
 		utils_input.c\
-		utils_files.c\
-		utils_token.c\
+		input_files.c\
+		input_token.c\
 		utils_universal.c\
-		utils_heredoc.c\
-		utils_syntax.c\
-		utils_env.c\
-		utils_openin.c\
-		utils_signals.c\
-		pipex_traitor1.c\
+		input_heredoc.c\
+		syntax_check.c\
+		input_check_for_env.c\
+		input_check_open_pipe.c\
+		signals.c\
+		pipex.c\
 		utils_pipex.c
 
 OBJ := $(SRC:%.c=$(OBJ_P)%.o)

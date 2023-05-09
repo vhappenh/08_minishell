@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_env.c                                        :+:      :+:    :+:   */
+/*   input_check_for_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/04 09:56:39 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/09 11:30:05 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-char	*ft_search_return_env(char *env, t_envlst *enviroment)
+static char	*ft_get_last_error(void)
 {
 	char	*tmp;
 
-	if (env == NULL)
+	tmp = ft_itoa(errno);
+	if (tmp == NULL)
 		return (NULL);
+	return (tmp);
+}
+
+char	*ft_search_return_env(char *env_name, t_envlst *enviroment)
+{
+	char	*tmp;
+
 	tmp = NULL;
-	if (!ft_strncmp(env, "?", ft_strlen(env)))
-	{
-		tmp = ft_itoa(errno);
-		if (tmp == NULL)
-			return (NULL);
-		return (tmp);
-	}
+	if (!ft_strncmp(env_name, "?", ft_strlen(env_name) + 1))
+		return (ft_get_last_error());
 	while (enviroment)
 	{
-		if (!ft_strncmp(env, enviroment->evar, ft_strlen(env)))
+		if (!ft_strncmp(env_name, enviroment->evar, ft_strlen(env_name) + 1))
 		{
 			tmp = ft_strdup(enviroment->cont);
 			if (tmp == NULL)
@@ -38,66 +41,85 @@ char	*ft_search_return_env(char *env, t_envlst *enviroment)
 		else
 			enviroment = enviroment->next;
 	}
+	if (tmp == NULL)
+	{
+		tmp = ft_strdup("");
+		if (tmp == NULL)
+			return (NULL);
+	}
 	return (tmp);
 }
 
-char	*ft_get_env_name(char *str)
+static char	*ft_get_env_name(char **str, int i)
 {
-	char	*env;
 	int		j;
+	char	*env_name;
 
-	j = 0;
-	str++;
-	while (str[j] && str[j] != ' ')
-		j++;
-	env = ft_strncopy(str, j - 1);
-	if (env == NULL)
+	j = i;
+	if ((*str)[j] && !ft_isalpha((*str)[j]) && (*str)[j] != '_' && (*str)[j] != '?')
 		return (NULL);
-	return (env);
+	if ((*str)[j] == '?')
+	{
+		env_name = ft_strdup("?");
+		if (env_name == NULL)
+			return (NULL);
+		return (env_name);
+	}
+	while ((*str)[j] && (ft_isalnum((*str)[j]) || (*str)[j] == '_'))
+		j++;
+	env_name = ft_strncopy(&(*str)[i], j - i);
+	if (env_name == NULL)
+		return (NULL);
+	return (env_name);
 }
 
-static int	ft_get_env(char **str, int i, int j, t_envlst *enviroment)
+static char *ft_rejoin_input(char **str, int i, int j, char *env)
 {
-	char	*env;
 	char	*tmp;
 	char	*result;
 
-	while ((*str)[j] && (*str)[j] != ' ' && \
-		(*str)[j] != '"' && (*str)[j] != '\'')
-		j++;
-	env = ft_strncopy((&(*str)[i] + 1), j - i - 1);
-	if (env == NULL)
-		return (1);
-	env = ft_search_return_env(env, enviroment);
-	if (env == NULL)
-		env = ft_strdup("");
 	if (i > 0)
-		tmp = ft_strncopy((*str), i);
+		tmp = ft_strncopy((*str), i - 1);
 	else
 		tmp = ft_strdup("");
 	if (tmp == NULL)
-		return (ft_free_threestr(env, NULL, NULL));
+	{
+		ft_free_threestr(env, (*str), NULL);
+		return (NULL);
+	}
 	result = ft_doublejoin(tmp, env, &(*str)[j]);
-	if (result == NULL)
-		return (ft_free_threestr(env, tmp, NULL));
 	ft_free_threestr(tmp, env, (*str));
-	(*str) = result;
+	if (result == NULL)
+		return (NULL);
+	return (result);
+}
+
+static int	ft_get_env(char **str, int i, t_envlst *enviroment)
+{
+	char	*env;
+	char	*env_name;
+
+	env_name = ft_get_env_name(str, i);
+	if (env_name == NULL)
+		return (ft_free_threestr(NULL, NULL, (*str)));
+	env = ft_search_return_env(env_name, enviroment);
+	if (env == NULL)
+		return (1);
+	(*str) = ft_rejoin_input(str, i, i + ft_strlen(env_name), env);
+	free(env_name);
+	if ((*str) == NULL)
+		return (1);
 	return (0);
 }
 
 static int	ft_env_double_quotes(char **str, t_envlst *enviroment, int *i)
 {
-	int	j;
-
 	(*i)++;
 	while ((*str)[(*i)] && (*str)[(*i)] != '"')
 	{
 		if ((*str)[(*i)] == '$')
-		{
-			j = (*i);
-			if (ft_get_env(str, (*i), j, enviroment))
+			if (ft_get_env(str, (*i) + 1, enviroment))
 				return (1);
-		}
 		if ((*str)[(*i)] != '\0')
 			(*i)++;
 	}
@@ -122,7 +144,7 @@ int	ft_look_for_env(char **str, t_envlst *enviroment)
 				return (1);
 		if ((*str)[i] == '$')
 		{
-			if (ft_get_env(str, i, i, enviroment))
+			if (ft_get_env(str, i + 1, enviroment))
 				return (1);
 		}
 		if ((*str)[i] != '\0')
@@ -130,5 +152,3 @@ int	ft_look_for_env(char **str, t_envlst *enviroment)
 	}
 	return (0);
 }
-//there is no real check if the search return 
-//fails or not it returns eater way NULL <---- Problem!!!!!
