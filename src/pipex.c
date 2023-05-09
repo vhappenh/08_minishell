@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_traitor1.c                                   :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/06 16:13:58 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:15:27 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,7 @@ int	ft_execution(t_cmdline **todo)
 	if (WEXITSTATUS(err))
 		errno = WEXITSTATUS(err);
 	else if (WTERMSIG(err))
-	{
 		errno = WTERMSIG(err);
-		if (errno == 4)
-			errno = 130;
-	}
 	ft_free_exe((*todo)->pids, (*todo)->pipe_fds, i);
 	return (0);
 }

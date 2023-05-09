@@ -33,6 +33,7 @@ SRC :=	main.c\
 		input_heredoc.c\
 		syntax_check.c\
 		input_check_for_env.c\
+		utils_check_for_env.c\
 		input_check_open_pipe.c\
 		signals.c\
 		pipex.c\

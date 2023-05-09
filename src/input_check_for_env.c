@@ -6,49 +6,11 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/09 11:30:05 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/09 13:03:12 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
-
-static char	*ft_get_last_error(void)
-{
-	char	*tmp;
-
-	tmp = ft_itoa(errno);
-	if (tmp == NULL)
-		return (NULL);
-	return (tmp);
-}
-
-char	*ft_search_return_env(char *env_name, t_envlst *enviroment)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	if (!ft_strncmp(env_name, "?", ft_strlen(env_name) + 1))
-		return (ft_get_last_error());
-	while (enviroment)
-	{
-		if (!ft_strncmp(env_name, enviroment->evar, ft_strlen(env_name) + 1))
-		{
-			tmp = ft_strdup(enviroment->cont);
-			if (tmp == NULL)
-				return (NULL);
-			break ;
-		}
-		else
-			enviroment = enviroment->next;
-	}
-	if (tmp == NULL)
-	{
-		tmp = ft_strdup("");
-		if (tmp == NULL)
-			return (NULL);
-	}
-	return (tmp);
-}
 
 static char	*ft_get_env_name(char **str, int i)
 {
@@ -94,7 +56,7 @@ static char *ft_rejoin_input(char **str, int i, int j, char *env)
 	return (result);
 }
 
-static int	ft_get_env(char **str, int i, t_envlst *enviroment)
+static int	ft_get_env(char **str, int i, t_envlst *enviroment, int err)
 {
 	char	*env;
 	char	*env_name;
@@ -102,7 +64,7 @@ static int	ft_get_env(char **str, int i, t_envlst *enviroment)
 	env_name = ft_get_env_name(str, i);
 	if (env_name == NULL)
 		return (ft_free_threestr(NULL, NULL, (*str)));
-	env = ft_search_return_env(env_name, enviroment);
+	env = ft_search_return_env(env_name, enviroment, err);
 	if (env == NULL)
 		return (1);
 	(*str) = ft_rejoin_input(str, i, i + ft_strlen(env_name), env);
@@ -112,13 +74,13 @@ static int	ft_get_env(char **str, int i, t_envlst *enviroment)
 	return (0);
 }
 
-static int	ft_env_double_quotes(char **str, t_envlst *enviroment, int *i)
+static int	ft_env_double_quotes(char **str, t_envlst *enviroment, int *i, int err)
 {
 	(*i)++;
 	while ((*str)[(*i)] && (*str)[(*i)] != '"')
 	{
 		if ((*str)[(*i)] == '$')
-			if (ft_get_env(str, (*i) + 1, enviroment))
+			if (ft_get_env(str, (*i) + 1, enviroment, err))
 				return (1);
 		if ((*str)[(*i)] != '\0')
 			(*i)++;
@@ -126,7 +88,7 @@ static int	ft_env_double_quotes(char **str, t_envlst *enviroment, int *i)
 	return (0);
 }
 
-int	ft_look_for_env(char **str, t_envlst *enviroment)
+int	ft_look_for_env(char **str, t_envlst *enviroment, int err)
 {
 	int		i;
 
@@ -140,11 +102,11 @@ int	ft_look_for_env(char **str, t_envlst *enviroment)
 				i++;
 		}
 		if ((*str)[i] == '"')
-			if (ft_env_double_quotes(str, enviroment, &i))
+			if (ft_env_double_quotes(str, enviroment, &i, err))
 				return (1);
 		if ((*str)[i] == '$')
 		{
-			if (ft_get_env(str, i + 1, enviroment))
+			if (ft_get_env(str, i + 1, enviroment, err))
 				return (1);
 		}
 		if ((*str)[i] != '\0')

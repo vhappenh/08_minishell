@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/08 13:49:12 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:08:30 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,17 @@ int			ft_lvl_up(t_envlst **lst);
 int			ft_add_shlvl(t_envlst **env);
 int			ft_free_lvl_fail(t_envlst **lst, t_envlst **env);
 int			ft_check_syntax(char *input);
-int			ft_look_for_env(char **str, t_envlst *enviroment);
+int			ft_look_for_env(char **str, t_envlst *enviroment, int err);
 int			ft_check_open_pipe(char **input);
 int			ft_search_char(char *str, char c);
 int			ft_free_threestr(char *str1, char *str2, char *str3);
 int			ft_get_pwd(char **pwd);
+char		*ft_search_return_env(char *env_name, t_envlst *enviroment, int err);
 
 /*signals*/
 int			ft_switch_signals(int sig_case);
+
+/*execution*/
 int			ft_execution(t_cmdline **todo);
 int			ft_prep_cmd(t_cmdline *todo);
 void		ft_free_exe(pid_t *pids, int **pipe_fds, int i);
