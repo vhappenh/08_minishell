@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:15:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/08 14:01:53 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:25:41 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_export_argument(char *todocmd, t_envlst *env, int destiny)
 	}
 	else
 	{
-		templst = ft_lstnew_minishell(ft_strdup(todocmd), ft_strdup(""), 1);
+		templst = ft_lstnew_minishell(ft_strdup(todocmd), ft_strdup(""), true);
 		if (templst == NULL)
 			return (3);
 	}
@@ -43,7 +43,9 @@ static int	ft_export_argument(char *todocmd, t_envlst *env, int destiny)
 
 static void	ft_print_export(t_envlst *sorty, int fd)
 {
-	if (!sorty->indic)
+	if (sorty->hidy)
+		return ;
+	else if (!sorty->indic)
 	{
 		ft_putstr_fd("declare -x ", fd);
 		ft_putstr_fd(sorty->evar, fd);

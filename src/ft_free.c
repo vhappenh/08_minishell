@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/03 09:59:20 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/09 15:35:57 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@ int	ft_free_threestr(char *str1, char *str2, char *str3)
 	if (str3)
 		free(str3);
 	return (1);
+}
+
+static void	ft_free_array(char **array)
+{
+	int	i;
+
+	if (array)
+	{
+		i = -1;
+		while (array[++i])
+			free (array[i]);
+		free (array);
+	}
 }
 
 static void	ft_free_cmd(t_cmdline **todo)
@@ -46,6 +59,7 @@ static void	ft_free_cmd(t_cmdline **todo)
 				free(todo[i]->cmd[j++]);
 			free(todo[i]->cmd);
 		}
+		ft_free_array(todo[i]->env);
 		free(todo[i++]);
 	}
 	free(todo);
@@ -68,19 +82,6 @@ static void	ft_free_env(t_envlst *env)
 			free (temp);
 		}
 		free (env);
-	}
-}
-
-static void	ft_free_array(char **array)
-{
-	int	i;
-
-	if (array)
-	{
-		i = -1;
-		while (array[++i])
-			free (array[i]);
-		free (array);
 	}
 }
 

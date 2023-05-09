@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_check_for_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:51:15 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/09 13:14:21 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/09 15:40:46 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,33 @@ static char	*ft_get_last_error(int err)
 {
 	char	*tmp;
 
-    if (err == 4)
-        tmp = ft_strdup("130");
-    else
-	    tmp = ft_itoa(err);
+	if (err == 4)
+		tmp = ft_strdup("130");
+	else
+		tmp = ft_itoa(err);
 	if (tmp == NULL)
 		return (NULL);
 	return (tmp);
 }
 
-char	*ft_search_return_env(char *env_name, t_envlst *enviroment, int err)
+char	*ft_search_return_env(char *env_name, t_envlst *env, int err)
 {
 	char	*tmp;
 
 	tmp = NULL;
 	if (!ft_strncmp(env_name, "?", ft_strlen(env_name) + 1))
 		return (ft_get_last_error(err));
-	while (enviroment)
+	while (env)
 	{
-		if (!ft_strncmp(env_name, enviroment->evar, ft_strlen(env_name) + 1))
+		if (!ft_strncmp(env_name, env->evar, ft_strlen(env_name) + 1))
 		{
-			tmp = ft_strdup(enviroment->cont);
+			tmp = ft_strdup(env->cont);
 			if (tmp == NULL)
 				return (NULL);
 			break ;
 		}
 		else
-			enviroment = enviroment->next;
+			env = env->next;
 	}
 	if (tmp == NULL)
 	{
@@ -52,4 +52,3 @@ char	*ft_search_return_env(char *env_name, t_envlst *enviroment, int err)
 	}
 	return (tmp);
 }
-

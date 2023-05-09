@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/09 13:08:30 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/09 15:38:51 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ typedef struct s_envlst
 {
 	char			*evar;
 	char			*cont;
-	int				indic;
+	bool			indic;
 	bool			sorty;
+	bool			hidy;
 	struct s_envlst	*next;
 }	t_envlst;
 
@@ -62,7 +63,7 @@ int			execute(t_cmdline **todo, t_envlst*env);
 void		*ft_free_all(t_cmdline **todo, t_envlst *env, char **array);
 
 /* get_env */
-t_envlst	*ft_lstnew_minishell(char *evar, char *cont, int indic);
+t_envlst	*ft_lstnew_minishell(char *evar, char *cont, bool indic);
 void		ft_lstadd_back_minishell(t_envlst **lst, t_envlst *new);
 void		ft_lstadd_front_minishell(t_envlst **lst, t_envlst *new);
 
@@ -90,7 +91,7 @@ int			ft_check_open_pipe(char **input);
 int			ft_search_char(char *str, char c);
 int			ft_free_threestr(char *str1, char *str2, char *str3);
 int			ft_get_pwd(char **pwd);
-char		*ft_search_return_env(char *env_name, t_envlst *enviroment, int err);
+char		*ft_search_return_env(char *env_name, t_envlst *env, int err);
 
 /*signals*/
 int			ft_switch_signals(int sig_case);

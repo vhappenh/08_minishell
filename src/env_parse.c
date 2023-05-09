@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/06 16:11:28 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:09:31 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_get_inputs(char *envp, t_envlst **lst)
 
 	evar = ft_strncopy(envp, ft_search_char(envp, '='));
 	cont = ft_strdup(envp + ft_search_char(envp, '=') + 1);
-	*lst = ft_lstnew_minishell(evar, cont, 0);
+	*lst = ft_lstnew_minishell(evar, cont, false);
 	if (lst == NULL)
 		return (3);
 	return (0);
