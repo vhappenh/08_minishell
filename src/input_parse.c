@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/09 13:24:55 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/10 10:14:25 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static t_cmdline	**ft_split_input(char **input, t_envlst *env)
 	return (todo);
 }
 
-t_cmdline	**ft_check_prep_todo(char *input, t_envlst *env, int err)
+t_cmdline	**ft_check_prep_todo(char *input, t_envlst *env)
 {
 	t_cmdline	**todo;
 
@@ -113,7 +113,7 @@ t_cmdline	**ft_check_prep_todo(char *input, t_envlst *env, int err)
 		return (NULL);
 	}
 	add_history(input);
-	if (ft_look_for_env(&input, env, err))
+	if (ft_look_for_env(&input, env))
 		return (NULL);
 	todo = ft_split_input(&input, env);
 	return (todo);
@@ -123,15 +123,11 @@ t_cmdline	**input_parse(t_envlst *env)
 {
 	char	*prompt;
 	char	*input;
-	int		err;
 
-	err = errno;
 	prompt = ft_get_prompt();
 	if (prompt == NULL)
 		prompt = "minishell: ";
 	input = readline(prompt);
-	if (errno != 0)
-		err = errno;
 	if (ft_strncmp(prompt, "minishell: ", sizeof(prompt)))
 		free(prompt);
 	if (input == NULL)
@@ -139,5 +135,5 @@ t_cmdline	**input_parse(t_envlst *env)
 		write(1, "exit\n", 5);
 		return (NULL);
 	}
-	return (ft_check_prep_todo(input, env, err));
+	return (ft_check_prep_todo(input, env));
 }

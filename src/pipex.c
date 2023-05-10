@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/09 13:15:27 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/10 10:35:05 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int	ft_execution(t_cmdline **todo)
 		ft_prep_inoutenv(todo[0], 0, 1);
 		i = 0;
 		ft_built_in_select(todo, 0, todo[0]->enviroment);
+		g_error = 0;
 		// we should check this for its return value!!!
 	}
 	else
@@ -130,9 +131,9 @@ int	ft_execution(t_cmdline **todo)
 		waitpid((*todo)->pids[j++], &err, 0);
 	ft_switch_signals(INTERACTIV);
 	if (WEXITSTATUS(err))
-		errno = WEXITSTATUS(err);
+		g_error = WEXITSTATUS(err);
 	else if (WTERMSIG(err))
-		errno = WTERMSIG(err);
+		g_error = WTERMSIG(err);
 	ft_free_exe((*todo)->pids, (*todo)->pipe_fds, i);
 	return (0);
 }
