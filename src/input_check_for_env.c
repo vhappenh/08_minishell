@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/10 10:58:16 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/10 11:06:11 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int	ft_look_for_env(char **str, t_envlst *enviroment)
 			if (ft_env_double_quotes(str, enviroment, &i))
 				return (1);
 		if ((*str)[i] == '$')
-		{
 			if (ft_get_env(str, i + 1, enviroment))
 				return (1);
 		if ((*str)[i] == '~')
