@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/10 11:49:18 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:49:02 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int			ft_search_char(char *str, char c);
 int			ft_free_threestr(char *str1, char *str2, char *str3);
 int			ft_get_pwd(char **pwd);
 char		*ft_search_return_env(char *env_name, t_envlst *enviroment);
+void		ft_free_pids_pipes(t_cmdline *todo);
 
 /*signals*/
 int			ft_switch_signals(int sig_case);
