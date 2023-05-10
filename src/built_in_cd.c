@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:03:44 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/06 16:02:10 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:24:53 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,26 @@ static int	ft_cd_select(char **pwd, char **new_path, t_cmdline *todo)
 	{
 		*new_path = ft_strdup(getenv("HOME"));
 		if (*new_path == NULL)
-			i = 1;
+			i = -1;
 	}
 	else if (!ft_strncmp(todo->cmd[1], "..", 3) && !todo->cmd[2])
 		i = cd_dot_dot(*pwd, new_path);
+	else if (todo->cmd[1][0] == '/' && !todo->cmd[2])
+	{
+		*new_path = ft_strdup(todo->cmd[1]);
+		if (*new_path == NULL)
+			i = -1;
+	}
 	else if (!todo->cmd[2])
 	{
 		*new_path = ft_doublejoin(*pwd, "/", todo->cmd[1]);
 		if (*new_path == NULL)
-			i = 3;
+			i = -1;
 	}
 	else
 	{
 		ft_putendl_fd("minishell: cd: too many arguments", todo->fd_out);
-		i = 4;
+		i = -1;
 	}
 	return (i);
 }
@@ -100,7 +106,7 @@ int	ft_cd(t_cmdline *todo, t_envlst *env)
 		return (3);
 	if (chdir(new_path))
 	{
-		printf("minishell: cd: %s: No such file or directory\n", todo->cmd[1]);
+		printf("minishell: cd: %s: No such file or directory\n", new_path);
 		free (new_path);
 		return (4);
 	}
