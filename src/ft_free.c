@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/10 18:49:13 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/10 20:37:55 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ft_free_pids_pipes(t_cmdline *todo)
 
 	i = 0;
 	if (todo->pids)
-			free(todo->pids);
+		free(todo->pids);
 	if (todo->pipe_fds)
 	{
 		while (todo->pipe_fds[i])
