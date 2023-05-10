@@ -3,35 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   utils_check_for_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:51:15 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/09 15:40:46 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:05:22 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-static char	*ft_get_last_error(int err)
+static char	*ft_get_last_error(void)
 {
 	char	*tmp;
 
-	if (err == 4)
-		tmp = ft_strdup("130");
-	else
-		tmp = ft_itoa(err);
+    if (g_error == 2)
+        tmp = ft_strdup("130");
+    else
+	    tmp = ft_itoa(g_error);
 	if (tmp == NULL)
 		return (NULL);
 	return (tmp);
 }
 
-char	*ft_search_return_env(char *env_name, t_envlst *env, int err)
+char	*ft_search_return_env(char *env_name, t_envlst *env)
 {
 	char	*tmp;
 
 	tmp = NULL;
 	if (!ft_strncmp(env_name, "?", ft_strlen(env_name) + 1))
-		return (ft_get_last_error(err));
+		return (ft_get_last_error());
 	while (env)
 	{
 		if (!ft_strncmp(env_name, env->evar, ft_strlen(env_name) + 1))
