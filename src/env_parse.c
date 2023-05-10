@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/09 15:56:26 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:21:56 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	ft_create_tilde(char *env, t_envlst **lst)
 	t_envlst	*temp;
 
 	temp = ft_lstnew_minishell(ft_strdup("~"),
-		ft_strdup(env + ft_search_char(env, '=') + 1), false);
+			ft_strdup(env + ft_search_char(env, '=') + 1), false);
 	if (*lst == NULL)
 		return (-1);
 	temp->hidy = true;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/10 10:35:05 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/10 12:58:58 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ static void	ft_close_free(t_cmdline *todo, char *err1, char *err2)
 void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 {
 	ft_prep_inoutenv(todo, fd_in, fd_out);
-	if (!ft_built_in_select(&todo, 0, todo->enviroment))
+	if (ft_built_in_check(&todo, 0))
+	{
+		ft_built_in_select(&todo, 0, todo->enviroment);
 		return (ft_close_free(todo, NULL, NULL));
+	}
 	if (todo->cmd)
 		if (ft_prep_cmd(todo))
 			return ;
@@ -71,7 +74,7 @@ static void	ft_child(t_cmdline **t, int i, int j)
 	else
 		ft_execute(t[i], (*t)->pipe_fds[i - 1][0], (*t)->pipe_fds[i][1]);
 	ft_free_exe((*t)->pids, (*t)->pipe_fds, j);
-	exit(errno);
+	exit(g_error);
 }
 
 static int	ft_fork_it(t_cmdline **todo, int j)
@@ -120,8 +123,8 @@ int	ft_execution(t_cmdline **todo)
 		ft_prep_inoutenv(todo[0], 0, 1);
 		i = 0;
 		ft_built_in_select(todo, 0, todo[0]->enviroment);
-		g_error = 0;
-		// we should check this for its return value!!!
+		if (g_error == -1)
+			return (-1);
 	}
 	else
 		if (ft_fork_it(todo, i))
