@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:51:15 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/10 10:33:33 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/10 11:03:14 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ char	*ft_search_return_env(char *env_name, t_envlst *enviroment)
 		return (ft_get_last_error());
 	while (enviroment)
 	{
-		if (!ft_strncmp(env_name, enviroment->evar, ft_strlen(env_name) + 1))
+		if (!ft_strncmp(env_name, env->evar, ft_strlen(env_name) + 1))
 		{
-			tmp = ft_strdup(enviroment->cont);
+			tmp = ft_strdup(env->cont);
 			if (tmp == NULL)
 				return (NULL);
 			break ;
 		}
 		else
-			enviroment = enviroment->next;
+			env = env->next;
 	}
 	if (tmp == NULL)
 	{
@@ -52,4 +52,3 @@ char	*ft_search_return_env(char *env_name, t_envlst *enviroment)
 	}
 	return (tmp);
 }
-

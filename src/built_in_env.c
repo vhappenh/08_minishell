@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:10:10 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/05 09:34:33 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:23:03 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_env(t_envlst *env, t_cmdline *todo)
 	{
 		while (env)
 		{
-			if (!env->indic)
+			if (!env->indic && !env->hidy)
 			{
 				ft_putstr_fd(env->evar, todo->fd_out);
 				write(todo->fd_out, "=", 1);

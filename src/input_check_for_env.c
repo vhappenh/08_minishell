@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/10 10:54:41 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/10 10:58:16 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ static char	*ft_get_env_name(char **str, int i)
 	char	*env_name;
 
 	j = i;
-	if ((*str)[j] && !ft_isalpha((*str)[j]) && (*str)[j] != '_' && (*str)[j] != '?')
+	if ((*str)[j] && !ft_isalpha((*str)[j]) &&
+		(*str)[j] != '_' && (*str)[j] != '?' && (*str)[j] != '~')
 		return (NULL);
-	if ((*str)[j] == '?')
+	if ((*str)[j] == '?' || (*str)[j] == '~')
 	{
-		env_name = ft_strdup("?");
+		env_name = ft_strncopy(&(*str)[j], 1);
 		if (env_name == NULL)
 			return (NULL);
 		return (env_name);
@@ -35,7 +36,7 @@ static char	*ft_get_env_name(char **str, int i)
 	return (env_name);
 }
 
-static char *ft_rejoin_input(char **str, int i, int j, char *env)
+static char	*ft_rejoin_input(char **str, int i, int j, char *env)
 {
 	char	*tmp;
 	char	*result;
@@ -113,7 +114,9 @@ int	ft_look_for_env(char **str, t_envlst *enviroment)
 		{
 			if (ft_get_env(str, i + 1, enviroment))
 				return (1);
-		}
+		if ((*str)[i] == '~')
+			if (ft_get_env(str, i, enviroment))
+				return (1);
 		if ((*str)[i] != '\0')
 			i++;
 	}

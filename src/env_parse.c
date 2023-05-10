@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 14:09:14 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/06 16:11:28 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:56:26 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,22 @@ static int	ft_get_inputs(char *envp, t_envlst **lst)
 
 	evar = ft_strncopy(envp, ft_search_char(envp, '='));
 	cont = ft_strdup(envp + ft_search_char(envp, '=') + 1);
-	*lst = ft_lstnew_minishell(evar, cont, 0);
+	*lst = ft_lstnew_minishell(evar, cont, false);
 	if (lst == NULL)
 		return (3);
+	return (0);
+}
+
+static int	ft_create_tilde(char *env, t_envlst **lst)
+{
+	t_envlst	*temp;
+
+	temp = ft_lstnew_minishell(ft_strdup("~"),
+		ft_strdup(env + ft_search_char(env, '=') + 1), false);
+	if (*lst == NULL)
+		return (-1);
+	temp->hidy = true;
+	ft_lstadd_back_minishell(lst, temp);
 	return (0);
 }
 
@@ -45,6 +58,8 @@ int	ft_parse_env(char **envp, t_envlst **env)
 			shlvl = false;
 		}
 		ft_lstadd_back_minishell(env, lst);
+		if (!ft_strncmp(lst->evar, "HOME", 5))
+			ft_create_tilde(envp[i], &lst);
 	}
 	if (shlvl)
 		if (ft_add_shlvl(env))

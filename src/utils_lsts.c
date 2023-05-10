@@ -6,28 +6,22 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:57:07 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/08 13:50:48 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:15:44 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-t_envlst	*ft_lstnew_minishell(char *evar, char *cont, int indic)
+t_envlst	*ft_lstnew_minishell(char *evar, char *cont, bool indic)
 {
 	t_envlst	*ptr;
 
 	if (evar == NULL || cont == NULL)
 	{
 		if (evar)
-		{
 			free (evar);
-			evar = NULL;
-		}
 		if (cont)
-		{
 			free (cont);
-			cont = NULL;
-		}
 		return (NULL);
 	}
 	ptr = malloc(sizeof(t_envlst));
@@ -37,6 +31,7 @@ t_envlst	*ft_lstnew_minishell(char *evar, char *cont, int indic)
 	ptr->cont = cont;
 	ptr->indic = indic;
 	ptr->sorty = false;
+	ptr->hidy = false;
 	ptr->next = NULL;
 	return ((t_envlst *)ptr);
 }
