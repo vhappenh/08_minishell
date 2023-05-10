@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:21 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/09 15:33:50 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:29:18 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ft_export_arg_execute(char *str1, char *str2, t_envlst **temp)
 	temp2 = ft_strdup(str2);
 	*temp = ft_lstnew_minishell(temp1, temp2, false);
 	if (*temp == NULL)
-		return (1);
+		return (-1);
 	return (0);
 }
 

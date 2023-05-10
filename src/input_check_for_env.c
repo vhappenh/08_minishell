@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_check_for_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/10 11:06:11 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/10 18:43:13 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static char	*ft_rejoin_input(char **str, int i, int j, char *env)
 	if (i > 0)
 	{
 		if ((*str)[i - 1] == '$')
-		tmp = ft_strncopy((*str), i - 1);
+			tmp = ft_strncopy((*str), i - 1);
 		else
-		tmp = ft_strncopy((*str), i);
+			tmp = ft_strncopy((*str), i);
 	}
 	else
 		tmp = ft_strdup("");
