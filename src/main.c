@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/10 10:59:01 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/10 12:57:53 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_execution(todo))
 		{
 			ft_free_all(todo, env, NULL);
-			return (1); //maybe a break here could be a solution?!?!?!
+			return (1);
 		}
 		ft_free_all(todo, NULL, NULL);
 	}

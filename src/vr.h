@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/10 10:58:38 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/10 11:49:18 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int			ft_init_exe(t_cmdline **todo, int i);
 void		ft_prep_inoutenv(t_cmdline *todo, int fd_in, int fd_out);
 
 /*built ins*/
-int			ft_built_in_select(t_cmdline **todo, int i, t_envlst *env);
+void		ft_built_in_select(t_cmdline **todo, int i, t_envlst *env);
 int			ft_built_in_check(t_cmdline **todo, int i);
 int			ft_echo(t_cmdline *todo);
 int			ft_cd(t_cmdline *todo, t_envlst *env);
