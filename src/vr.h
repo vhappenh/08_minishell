@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/09 13:08:30 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/10 10:13:19 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <signal.h>
 
 # ifndef INTERACTIV
 #  define INTERACTIV 0
@@ -55,6 +56,8 @@ typedef struct s_cmdline
 	int			curr_err;
 }	t_cmdline;
 
+extern int g_error;
+
 /* main */
 int			ft_parse_env(char **envp, t_envlst **env);
 t_cmdline	**input_parse(t_envlst *env);
@@ -85,12 +88,12 @@ int			ft_lvl_up(t_envlst **lst);
 int			ft_add_shlvl(t_envlst **env);
 int			ft_free_lvl_fail(t_envlst **lst, t_envlst **env);
 int			ft_check_syntax(char *input);
-int			ft_look_for_env(char **str, t_envlst *enviroment, int err);
+int			ft_look_for_env(char **str, t_envlst *enviroment);
 int			ft_check_open_pipe(char **input);
 int			ft_search_char(char *str, char c);
 int			ft_free_threestr(char *str1, char *str2, char *str3);
 int			ft_get_pwd(char **pwd);
-char		*ft_search_return_env(char *env_name, t_envlst *enviroment, int err);
+char		*ft_search_return_env(char *env_name, t_envlst *enviroment);
 
 /*signals*/
 int			ft_switch_signals(int sig_case);

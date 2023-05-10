@@ -6,32 +6,32 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:51:15 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/09 13:14:21 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/10 10:33:33 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-static char	*ft_get_last_error(int err)
+static char	*ft_get_last_error(void)
 {
 	char	*tmp;
 
-    if (err == 4)
+    if (g_error == 2)
         tmp = ft_strdup("130");
     else
-	    tmp = ft_itoa(err);
+	    tmp = ft_itoa(g_error);
 	if (tmp == NULL)
 		return (NULL);
 	return (tmp);
 }
 
-char	*ft_search_return_env(char *env_name, t_envlst *enviroment, int err)
+char	*ft_search_return_env(char *env_name, t_envlst *enviroment)
 {
 	char	*tmp;
 
 	tmp = NULL;
 	if (!ft_strncmp(env_name, "?", ft_strlen(env_name) + 1))
-		return (ft_get_last_error(err));
+		return (ft_get_last_error());
 	while (enviroment)
 	{
 		if (!ft_strncmp(env_name, enviroment->evar, ft_strlen(env_name) + 1))
