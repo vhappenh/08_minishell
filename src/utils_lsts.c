@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:57:07 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/09 15:15:44 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/11 10:48:54 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	lst_to_ptr(t_envlst *env, char ***env_ptr)
 	i = 0;
 	while (env)
 	{
-		if (!env->indic)
+		if (!env->indic && !env->hidy)
 		{
 			(*env_ptr)[i] = ft_doublejoin(env->evar, "=", env->cont);
 			if ((*env_ptr)[i] == NULL)

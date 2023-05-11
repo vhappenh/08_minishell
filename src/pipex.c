@@ -113,6 +113,7 @@ int	ft_execution(t_cmdline **todo)
 	int	err;
 
 	i = 0;
+	err = 0;
 	if (todo[0]->cmd[0] == NULL)
 		return (0);
 	i = ft_init_exe(todo, i);

@@ -108,5 +108,4 @@ void	ft_prep_inoutenv(t_cmdline *todo, int fd_in, int fd_out)
 	else
 		todo->fd_out = fd_out;
 	lst_to_ptr(todo->enviroment, &todo->env);
-	// here we have issues with malloc. this does not get freed!
 }
