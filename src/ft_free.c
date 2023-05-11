@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/10 18:49:13 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/11 09:42:33 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,20 @@ static void	ft_free_env(t_envlst *env)
 	}
 }
 
-void	ft_free_pids_pipes(t_cmdline *todo)
-{
-	int	i;
+// void	ft_free_pids_pipes(t_cmdline *todo)
+// {
+// 	int	i;
 
-	i = 0;
-	if (todo->pids)
-			free(todo->pids);
-	if (todo->pipe_fds)
-	{
-		while (todo->pipe_fds[i])
-			free(todo->pipe_fds[i++]);
-		free(todo->pipe_fds);
-	}
-}
+// 	i = 0;
+// 	if (todo->pids)
+// 			free(todo->pids);
+// 	if (todo->pipe_fds)
+// 	{
+// 		while (todo->pipe_fds[i])
+// 			free(todo->pipe_fds[i++]);
+// 		free(todo->pipe_fds);
+// 	}
+// }
 
 void	*ft_free_all(t_cmdline **todo, t_envlst *env, char **array)
 {
