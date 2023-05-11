@@ -6,19 +6,37 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:11:43 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/05 09:34:45 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:42:58 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
+static void	ft_get_exit_code(char *cmd, int fd, int *e)
+{
+	int	j;
+
+	j = -1;
+	while (cmd[++j])
+	{
+		if (!ft_isdigit(cmd[j]))
+		{
+			ft_putendl_fd("exit", fd);
+			ft_putstr_fd("minishell: exit:", fd);
+			ft_putstr_fd(cmd, fd);
+			ft_putendl_fd(": numeric argument required", fd);
+			break ;
+		}
+		else
+			*e = (unsigned char)ft_atoi(cmd);
+	}
+}
+
 int	ft_exit(t_cmdline **todo, t_envlst *env, int i)
 {
 	int	e;
-	int	j;
 
 	e = 2;
-	j = -1;
 	if (todo[i]->cmd[1])
 	{
 		if (todo[i]->cmd[2])
@@ -28,22 +46,7 @@ int	ft_exit(t_cmdline **todo, t_envlst *env, int i)
 			return (1);
 		}
 		else
-		{
-			while (todo[i]->cmd[1][++j])
-			{
-				if (!ft_isdigit(todo[i]->cmd[1][j]))
-				{
-					ft_putendl_fd("exit", todo[i]->fd_out);
-					ft_putstr_fd("minishell: exit:", todo[i]->fd_out);
-					ft_putstr_fd(todo[i]->cmd[1], todo[i]->fd_out);
-					ft_putendl_fd(": numeric argument required",
-						todo[i]->fd_out);
-					break ;
-				}
-				else
-					e = (char)ft_atoi(todo[i]->cmd[1]);
-			}
-		}
+			ft_get_exit_code(todo[i]->cmd[1], todo[i]->fd_out, &e);
 	}
 	else
 		e = 0;

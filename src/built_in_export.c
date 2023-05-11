@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:15:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/09 15:25:41 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:29:56 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ static int	ft_export_argument(char *todocmd, t_envlst *env, int destiny)
 		if (!todocmd[ft_search_char(todocmd, '=') + 1])
 		{
 			if (ft_export_arg_execute(todocmd, "", &templst))
-				return (1);
+				return (-1);
 		}
 		else
 			if (ft_export_arg_execute(todocmd, todocmd
 					+ ft_search_char(todocmd, '=') + 1, &templst))
-				return (2);
+				return (-1);
 	}
 	else
 	{
 		templst = ft_lstnew_minishell(ft_strdup(todocmd), ft_strdup(""), true);
 		if (templst == NULL)
-			return (3);
+			return (-1);
 	}
 	ft_lstadd_back_minishell(&env, templst);
 	return (0);
@@ -116,14 +116,13 @@ int	ft_export(t_cmdline *todo, t_envlst *env)
 		while (todo->cmd[i])
 		{
 			if (ft_valid_export_cmd(todo->cmd[i], todo->fd_out))
-				errno = 1;
-			else if (ft_export_argument(todo->cmd[i], env, 0))
 				return (1);
+			else if (ft_export_argument(todo->cmd[i], env, 0))
+				return (-1);
 			i++;
 		}
 	}
 	else
-		if (ft_export_no_argument(todo, env))
-			return (2);
+		ft_export_no_argument(todo, env);
 	return (0);
 }

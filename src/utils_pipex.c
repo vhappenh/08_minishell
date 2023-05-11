@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:20:03 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/08 14:06:00 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:34:55 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_init_exe(t_cmdline **todo, int i)
 	j = 0;
 	while (todo[i])
 		i++;
-	(*todo)->pids = malloc(i * sizeof(int));
+	(*todo)->pids = malloc(i * sizeof(int)); //why int? 
 	if ((*todo)->pids == NULL)
 		return (-1);
 	(*todo)->pipe_fds = ft_calloc(i + 1, sizeof(int *));
