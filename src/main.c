@@ -6,37 +6,11 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/10 18:43:26 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/11 10:59:11 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
-
-int	g_error = 0;
-/*
-static void	ft_print_todo(t_cmdline **todo)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (todo[i])
-	{
-		j = -1;
-		printf("cmd_line %ld: ", todo[i]->nbr);
-		while (todo[i]->cmd[++j])
-			printf("'%s' ", todo[i]->cmd[j]);
-		printf("\n");
-		if (todo[i]->in_file)
-			printf("%s\n", todo[i]->in_file);
-		if (todo[i]->out_file)
-			printf("%s\n", todo[i]->out_file);
-		printf("\n");
-		i++;
-	}
-	ft_print_todo(todo);
-}
-*/
 
 int	main(int argc, char **argv, char **envp)
 {

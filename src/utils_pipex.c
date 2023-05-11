@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:20:03 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/10 20:34:55 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/11 11:00:19 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_init_exe(t_cmdline **todo, int i)
 	j = 0;
 	while (todo[i])
 		i++;
-	(*todo)->pids = malloc(i * sizeof(int)); //why int? 
+	(*todo)->pids = malloc(i * sizeof(int));
 	if ((*todo)->pids == NULL)
 		return (-1);
 	(*todo)->pipe_fds = ft_calloc(i + 1, sizeof(int *));
@@ -108,5 +108,4 @@ void	ft_prep_inoutenv(t_cmdline *todo, int fd_in, int fd_out)
 	else
 		todo->fd_out = fd_out;
 	lst_to_ptr(todo->enviroment, &todo->env);
-	// here we have issues with malloc. this does not get freed!
 }

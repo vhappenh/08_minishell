@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/10 20:19:47 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/11 11:00:40 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_close_free(t_cmdline *todo, char *err1, char *err2)
 void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 {
 	ft_prep_inoutenv(todo, fd_in, fd_out);
-	if (ft_built_in_check(&todo, 0))
+	if (!ft_built_in_check(&todo, 0))
 	{
 		ft_built_in_select(&todo, 0, todo->enviroment);
 		return (ft_close_free(todo, NULL, NULL));
@@ -113,6 +113,7 @@ int	ft_execution(t_cmdline **todo)
 	int	err;
 
 	i = 0;
+	err = 0;
 	if (todo[0]->cmd[0] == NULL)
 		return (0);
 	i = ft_init_exe(todo, i);
