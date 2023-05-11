@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/11 09:44:00 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/11 10:57:37 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,27 @@ static void	ft_close_free(t_cmdline *todo, char *err1, char *err2)
 	{
 		ft_putstr_fd(err2, 2);
 		ft_putendl_fd(": command not found", 2);
-		errno = 127;
+		g_error = 127;
 	}
 }
 
 void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 {
 	ft_prep_inoutenv(todo, fd_in, fd_out);
-	if (ft_built_in_check(&todo, 0))
+	if (!ft_built_in_check(&todo, 0))
 	{
 		ft_built_in_select(&todo, 0, todo->enviroment);
 		return (ft_close_free(todo, NULL, NULL));
 	}
 	if (todo->cmd)
 		if (ft_prep_cmd(todo))
-			return ;
+			return ft_close_free(todo, "minishell", NULL);
 	if (todo->fd_in != 0)
 		if (dup2(todo->fd_in, 0) == -1)
-			return (ft_close_free(todo, "minishell: ", NULL));
+			return (ft_close_free(todo, "minishell", NULL));
 	if (todo->fd_out != 1)
 		if (dup2(todo->fd_out, 1) == -1)
-			return (ft_close_free(todo, "minishell: ", NULL));
+			return (ft_close_free(todo, "minishell", NULL));
 	if (execve(todo->cmd[0], todo->cmd, todo->env) == -1)
 		ft_close_free(todo, NULL, todo->cmd[0]);
 }
@@ -120,9 +120,11 @@ int	ft_execution(t_cmdline **todo)
 		return (1);
 	if (i == 1 && todo[1] == NULL && !ft_built_in_check(todo, 0))
 	{
+		ft_free_exe((*todo)->pids, (*todo)->pipe_fds, i);
 		ft_prep_inoutenv(todo[0], 0, 1);
-		i = 0;
 		ft_built_in_select(todo, 0, todo[0]->enviroment);
+		ft_free_exe((*todo)->pids, (*todo)->pipe_fds, i);
+		i = 0;
 		if (g_error == -1)
 			return (-1);
 	}

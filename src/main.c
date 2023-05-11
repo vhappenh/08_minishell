@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/10 18:43:26 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/11 10:07:43 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-int	g_error = 0;
+int g_error = 0;
 /*
 static void	ft_print_todo(t_cmdline **todo)
 {
@@ -38,10 +38,10 @@ static void	ft_print_todo(t_cmdline **todo)
 }
 */
 
-int	main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
-	static t_cmdline	**todo;
-	static t_envlst		*env;
+	t_cmdline **todo;
+	static t_envlst *env;
 
 	(void)argv;
 	if (argc > 1)
