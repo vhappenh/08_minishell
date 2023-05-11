@@ -95,7 +95,6 @@ int			ft_search_char(char *str, char c);
 int			ft_free_threestr(char *str1, char *str2, char *str3);
 int			ft_get_pwd(char **pwd);
 char		*ft_search_return_env(char *env_name, t_envlst *enviroment);
-void		ft_free_pids_pipes(t_cmdline *todo);
 
 /*signals*/
 int			ft_switch_signals(int sig_case);
