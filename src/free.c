@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/11 11:00:26 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/11 15:56:55 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
-
-int	ft_free_threestr(char *str1, char *str2, char *str3)
-{
-	if (str1)
-		free(str1);
-	if (str2)
-		free(str2);
-	if (str3)
-		free(str3);
-	return (1);
-}
 
 static void	ft_free_array(char **array)
 {

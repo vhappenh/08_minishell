@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_openin.c                                     :+:      :+:    :+:   */
+/*   input_check_open_pipe.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 15:06:43 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/05 16:58:35 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/11 17:07:16 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-static int	ft_get_last_cmd(char **input, int i, char c)
+static int	ft_buffer_null(char *buffer, char c)
 {
-	char	*buffer;
-	char	*tmp;
-
-	buffer = readline("> ");
 	if (buffer == NULL)
 	{
 		if (c)
@@ -30,6 +26,17 @@ static int	ft_get_last_cmd(char **input, int i, char c)
 		ft_putendl_fd("minishell: syntax error: unexpected end of file", 2);
 		return (-1);
 	}
+	return (0);
+}
+
+static int	ft_get_last_cmd(char **input, int i, char c)
+{
+	char	*buffer;
+	char	*tmp;
+
+	buffer = readline("> ");
+	if (ft_buffer_null(buffer, c))
+		return (-1);
 	i += ft_strlen(buffer);
 	tmp = (*input);
 	if (c)

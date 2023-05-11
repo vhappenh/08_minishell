@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:57:07 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/11 10:48:54 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:21:49 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	lst_to_ptr(t_envlst *env, char ***env_ptr)
 	i = ft_lstsize_minishell(env);
 	*env_ptr = ft_calloc(sizeof(char **), i + 1);
 	if (*env_ptr == NULL)
-		return (1);
+		return (-1);
 	i = 0;
 	while (env)
 	{
@@ -87,11 +87,11 @@ int	lst_to_ptr(t_envlst *env, char ***env_ptr)
 				while ((*env_ptr)[i])
 					free ((*env_ptr)[i]);
 				free (*env_ptr);
-				return (2);
+				return (-1);
 			}
+			i++;
 		}
 		env = env->next;
-		i++;
 	}
 	return (0);
 }

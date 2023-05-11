@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_prompt.c                                     :+:      :+:    :+:   */
+/*   input_prompt.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 09:39:30 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/09 14:07:05 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/11 13:38:10 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_free_prompt(char *wd, char *manager)
 	return (NULL);
 }
 
-char	*ft_fillit(char *wd, char *user, char *manager, char *tmp)
+static char	*ft_join_prompt(char *wd, char *user, char *manager, char *tmp)
 {
 	int		len[4];
 	int		i;
@@ -96,10 +96,9 @@ char	*ft_get_prompt(void)
 	char	*prompt;
 	char	*tmp_wd;
 
-	wd = ft_calloc(1024, sizeof(char));
+	ft_get_pwd(&wd);
 	if (wd == NULL)
 		return (ft_free_prompt(NULL, NULL));
-	wd = getcwd(wd, 1024);
 	user = getenv("USER");
 	if (user == NULL)
 		return (ft_free_prompt(wd, NULL));
@@ -107,7 +106,7 @@ char	*ft_get_prompt(void)
 	if (manager == NULL)
 		return (ft_free_prompt(wd, NULL));
 	tmp_wd = ft_cut_wd(user, wd);
-	prompt = ft_fillit(tmp_wd, user, manager, wd);
+	prompt = ft_join_prompt(tmp_wd, user, manager, wd);
 	free(wd);
 	free(manager);
 	return (prompt);

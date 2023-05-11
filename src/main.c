@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/11 10:59:11 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:44:58 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-int g_error = 0;
+int	g_error = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_cmdline **todo;
-	static t_envlst *env;
+	static t_cmdline	**todo;
+	static t_envlst		*env;
 
 	(void)argv;
 	if (argc > 1)
