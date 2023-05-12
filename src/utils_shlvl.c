@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:04:03 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/09 15:09:48 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:18:52 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,6 @@ int	ft_lvl_up(t_envlst **lst)
 	if (cont == NULL)
 		return (2);
 	(*lst)->cont = cont;
-	return (0);
-}
-
-int	ft_free_lvl_fail(t_envlst **lst, t_envlst **env)
-{
-	free ((*lst)->evar);
-	free ((*lst)->cont);
-	free (*lst);
-	ft_free_all(NULL, *env, NULL);
 	return (0);
 }
 

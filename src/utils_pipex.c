@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:20:03 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/11 16:22:12 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/12 09:37:31 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_init_exe(t_cmdline **todo, int i)
 	j = 0;
 	while (todo[i])
 		i++;
-	(*todo)->pids = malloc(i * sizeof(pid_t)); //why int? good question ^^
+	(*todo)->pids = malloc(i * sizeof(pid_t));
 	if ((*todo)->pids == NULL)
 		return (-1);
 	(*todo)->pipe_fds = ft_calloc(i + 1, sizeof(int *));
@@ -85,19 +85,7 @@ int	ft_init_exe(t_cmdline **todo, int i)
 	return (i);
 }
 
-void	ft_free_exe(pid_t *pids, int **pipe_fds, int i)
-{
-	int	j;
-
-	j = 0;
-	if (pipe_fds[j])
-		while (j <= i)
-			free(pipe_fds[j++]);
-	free(pipe_fds);
-	free(pids);
-}
-
-void	ft_prep_inoutenv(t_cmdline *todo, int fd_in, int fd_out)
+void	ft_prep_exe(t_cmdline *todo, int fd_in, int fd_out)
 {
 	if (todo->in_file)
 		todo->fd_in = open(todo->in_file, O_RDONLY);

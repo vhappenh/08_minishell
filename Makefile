@@ -11,33 +11,35 @@ ARCH := ./src/libft_ultra/libft.a
 OBJ_P := ./obj/
 
 SRC :=	main.c\
-		env_parse.c\
-		input_parse.c\
-		ft_free.c\
-		built_ins.c\
 		built_in_cd.c\
 		built_in_echo.c\
 		built_in_env.c\
 		built_in_exit.c\
-		built_in_export.c\
 		built_in_export_utils.c\
+		built_in_export.c\
 		built_in_pwd.c\
 		built_in_unset.c\
-		utils_shlvl.c\
-		utils_lsts.c\
-		utils_prompt.c\
-		utils_input.c\
-		input_files.c\
-		input_token.c\
-		utils_universal.c\
-		input_heredoc.c\
-		syntax_check.c\
+		built_ins.c\
+		env_parse.c\
+		free_utils.c\
+		free.c\
 		input_check_for_env.c\
-		utils_check_for_env.c\
 		input_check_open_pipe.c\
-		signals.c\
+		input_files.c\
+		input_heredoc_utils.c\
+		input_heredoc.c\
+		input_parse.c\
+		input_prompt.c\
+		input_token.c\
 		pipex.c\
-		utils_pipex.c
+		signals.c\
+		syntax_check.c\
+		utils_check_for_env.c\
+		utils_input.c\
+		utils_lsts.c\
+		utils_pipex.c\
+		utils_shlvl.c\
+		utils_universal.c
 
 OBJ := $(SRC:%.c=$(OBJ_P)%.o)
 
