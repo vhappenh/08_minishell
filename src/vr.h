@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/10 19:13:03 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/12 09:34:34 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ extern int	g_error;
 /* main */
 int			ft_parse_env(char **envp, t_envlst **env);
 t_cmdline	**input_parse(t_envlst *env);
-int			execute(t_cmdline **todo, t_envlst*env);
+//int			execute(t_cmdline **todo, t_envlst*env);
 void		*ft_free_all(t_cmdline **todo, t_envlst *env, char **array);
 
 /* get_env */

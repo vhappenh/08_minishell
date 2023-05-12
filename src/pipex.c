@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/11 10:57:37 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/12 09:34:34 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 		ft_built_in_select(&todo, 0, todo->enviroment);
 		return (ft_close_free(todo, NULL, NULL));
 	}
+	lst_to_ptr(todo->enviroment, &todo->env);
 	if (todo->cmd)
 		if (ft_prep_cmd(todo))
 			return ft_close_free(todo, "minishell", NULL);
@@ -113,6 +114,7 @@ int	ft_execution(t_cmdline **todo)
 	int	err;
 
 	i = 0;
+	err = 0;
 	if (todo[0]->cmd[0] == NULL)
 		return (0);
 	i = ft_init_exe(todo, i);

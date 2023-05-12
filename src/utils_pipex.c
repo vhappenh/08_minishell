@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:20:03 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/11 10:54:43 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/11 16:22:12 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,4 @@ void	ft_prep_inoutenv(t_cmdline *todo, int fd_in, int fd_out)
 		todo->fd_out = open(todo->out_file, O_WRONLY | O_APPEND);
 	else
 		todo->fd_out = fd_out;
-	lst_to_ptr(todo->enviroment, &todo->env);
-	// here we have issues with malloc. this does not get freed!
 }
