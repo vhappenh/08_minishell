@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/11 15:56:55 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/12 10:35:46 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void	ft_free_cmd(t_cmdline **todo)
 				free(todo[i]->cmd[j++]);
 			free(todo[i]->cmd);
 		}
-		ft_free_array(todo[i]->env);
 		free(todo[i++]);
 	}
 	free(todo);

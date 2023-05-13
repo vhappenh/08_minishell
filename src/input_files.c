@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_files.c                                      :+:      :+:    :+:   */
+/*   input_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/29 12:41:21 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/12 11:52:56 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	ft_create(char *out_file, int trunc)
 	int	fd;
 
 	fd = 0;
-	if (!trunc)
+	if (trunc)
 	{
 		fd = open(out_file, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		if (fd == -1)
@@ -87,9 +87,9 @@ static int	ft_filloutfile(t_cmdline **todo, char *input, int *i)
 	int	trunc;
 
 	trunc = 0;
+	j = (*i);
 	while (input[(*i)] == '>')
 		(*i)++;
-	j = (*i);
 	if ((*i) - j == 0)
 		trunc = 1;
 	while (input[(*i)] == ' ')

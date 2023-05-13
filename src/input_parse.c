@@ -6,23 +6,23 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/10 10:14:25 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/12 11:39:15 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-static int	ft_count_args(char *input)
+static int	ft_count_args(char *input, int i)
 {
-	int	i;
 	int	count;
 
-	i = 0;
 	count = 0;
 	while (input[i])
 	{
 		if (input[i] && (input[i] == '<' || input[i] == '>'))
 		{
+			while (input[i] && input[i] == '<' && input[i] == '>')
+				i++;
 			while (input[i] && input[i] == ' ')
 				i++;
 			while (input[i] && input[i] != ' ')
@@ -47,7 +47,7 @@ static int	ft_fill_cmd(t_cmdline **todo, char *input, int nbr, t_envlst *env)
 
 	i = -1;
 	k = 0;
-	(*todo)->cmd = ft_calloc(ft_count_args(input) + 1, sizeof(char *));
+	(*todo)->cmd = ft_calloc(ft_count_args(input, 0) + 1, sizeof(char *));
 	if ((*todo)->cmd == NULL)
 		return (1);
 	(*todo)->nbr = nbr;
@@ -109,13 +109,16 @@ t_cmdline	**ft_check_prep_todo(char *input, t_envlst *env)
 	}
 	if (ft_check_open_pipe(&input))
 	{
+		add_history(input);
 		free(input);
-		return (NULL);
+		todo = ft_calloc(1, sizeof(t_cmdline *));
+		return (todo);
 	}
 	add_history(input);
 	if (ft_look_for_env(&input, env))
 		return (NULL);
 	todo = ft_split_input(&input, env);
+	free(input);
 	return (todo);
 }
 

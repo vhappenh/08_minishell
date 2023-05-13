@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_token.c                                      :+:      :+:    :+:   */
+/*   input_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 09:42:16 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/06 15:13:06 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:36:38 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
-
-int	ft_count_token(char *input)
-{
-	int	i;
-	int	tokens;
-
-	i = 0;
-	tokens = 1;
-	while (input[i])
-		if (input[i++] == '|')
-			tokens++;
-	return (tokens);
-}
 
 static int	ft_jump_quotes(char *input, int i)
 {
@@ -33,6 +20,25 @@ static int	ft_jump_quotes(char *input, int i)
 	while (input[i] && input[i] != c)
 		i++;
 	return (i);
+}
+
+int	ft_count_token(char *input)
+{
+	int		i;
+	int		tokens;
+
+	i = 0;
+	tokens = 1;
+	while (input[i])
+	{
+		if (input[i] == '"' || input[i] == '\'')
+			i = ft_jump_quotes(input, i);
+		if (input[i] == '|')
+			tokens++;
+		if (input[i])
+			i++;
+	}
+	return (tokens);
 }
 
 static int	ft_get_length(char *input, int i)

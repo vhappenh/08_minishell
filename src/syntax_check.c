@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_syntax.c                                     :+:      :+:    :+:   */
+/*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/17 13:37:41 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:48:50 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,18 @@ static int	ft_checkbefor(char *input, int i)
 
 int	ft_check_syntax(char *input)
 {
-	int	i;
+	int		i;
+	char	c;
 
 	i = 0;
 	while (1)
 	{
+		if (input[i] == '\'' || input[i] == '"')
+		{
+			c = input[i++];
+			while (input[i] && input[i] != c)
+				i++;
+		}
 		if (input[i] == '|' || input[i] == '<'
 			|| input[i] == '>' || input[i] == '\0')
 			if (ft_checkbefor(input, i))

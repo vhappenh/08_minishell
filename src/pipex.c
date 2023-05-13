@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/11 17:21:40 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/12 11:05:01 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	ft_child(t_cmdline **t, int i, int j)
 	else
 		ft_execute(t[i], (*t)->pipe_fds[i - 1][0], (*t)->pipe_fds[i][1]);
 	ft_free_exe((*t)->pids, (*t)->pipe_fds, j);
+	ft_free_all(t, t[0]->enviroment, NULL);
 	exit(g_error);
 }
 
@@ -109,6 +110,8 @@ static int	ft_wait_for_children(t_cmdline **todo, int i)
 		g_error = WEXITSTATUS(err);
 	else if (WTERMSIG(err))
 		g_error = WTERMSIG(err);
+	else
+		g_error = 0;
 	if (i)
 		ft_free_exe((*todo)->pids, (*todo)->pipe_fds, i);
 	return (0);
@@ -119,7 +122,7 @@ int	ft_execution(t_cmdline **todo)
 	int	i;
 
 	i = 0;
-	if (todo[0]->cmd[0] == NULL)
+	if ((*todo) == NULL || todo[0]->cmd[0] == NULL)
 		return (0);
 	i = ft_init_exe(todo, i);
 	if (i == -1)

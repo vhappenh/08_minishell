@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:51:40 by rrupp             #+#    #+#             */
-/*   Updated: 2023/04/18 11:08:37 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/12 13:08:01 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strncopy(char *str, unsigned int i)
 	char			*cpy;
 
 	j = -1;
-	if (str == NULL || i < 1)
+	if (str == NULL || i < 0)
 		return (NULL);
 	cpy = ft_calloc(i + 1, sizeof(char));
 	if (cpy == NULL)

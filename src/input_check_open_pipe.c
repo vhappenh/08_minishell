@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_check_open_pipe.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 15:06:43 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/11 17:07:16 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/12 11:06:07 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	ft_buffer_null(char *buffer, char c)
 			ft_putchar_fd(c, 2);
 			ft_putendl_fd("'", 2);
 		}
-		ft_putendl_fd("minishell: syntax error: unexpected end of file", 2);
+		else
+			ft_putendl_fd("minishell: syntax error: unexpected EOF", 2);
 		return (-1);
 	}
 	return (0);
@@ -98,7 +99,8 @@ int	ft_check_open_pipe(char **input)
 		if ((*input)[i] == '|')
 		{
 			i++;
-			if (ft_get_last_cmd(input, i, 0) == -1)
+			i = ft_get_last_cmd(input, i, 0);
+			if (i == -1)
 				return (1);
 		}
 		else if ((*input)[i] != ' ')

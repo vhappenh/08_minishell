@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:16:44 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/11 13:25:52 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/12 10:19:26 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_free_close(t_cmdline *todo, char *err1, char *err2)
 		close(todo->fd_in);
 	if (todo->fd_out != 1)
 		close(todo->fd_out);
-	ft_free_all(NULL, todo->enviroment, todo->env);
+	ft_free_all(NULL, NULL, todo->env);
 	if (err1)
 	{
 		perror(err1);
