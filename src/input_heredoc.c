@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:25:38 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/11 13:07:50 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/12 11:27:55 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_heredoc(char *input, int *i, t_cmdline **todo, int nbr)
 	if (ft_fillfile(doc_file, del))
 	{
 		free(doc_file);
-		return (1);
+		return (0);
 	}
 	return (ft_fillit(todo, doc_file));
 }

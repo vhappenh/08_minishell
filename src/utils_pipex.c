@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:20:03 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/12 09:37:31 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/12 10:01:47 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ int	ft_prep_cmd(t_cmdline *todo)
 	{
 		path = ft_split(&todo->env[i][5], ':');
 		todo->cmd[0] = ft_get_path(todo->cmd[0], path);
+		i = 0;
+		while (path[i])
+			free(path[i++]);
+		free(path);
 		if (todo->cmd[0] == NULL)
 		{
 			todo->cmd[0] = ft_strdup("");

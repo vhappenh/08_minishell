@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_check_for_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/10 18:43:13 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:56:55 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ static int	ft_get_env(char **str, int i, t_envlst *enviroment)
 
 	env_name = ft_get_env_name(str, i);
 	if (env_name == NULL)
-		return (ft_free_threestr(NULL, NULL, (*str)));
-	env = ft_search_return_env(env_name, enviroment);
+		env = ft_strdup("$");
+	else
+		env = ft_search_return_env(env_name, enviroment);
 	if (env == NULL)
 		return (1);
 	(*str) = ft_rejoin_input(str, i, i + ft_strlen(env_name), env);
