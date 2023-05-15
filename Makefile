@@ -66,7 +66,7 @@ clean:
 	rm -f $(OBJ)
 	rm -f -rd $(OBJ_P)
 	$(MAKE) -s clean -C $(LIBFT)
-	echo "The minishell o_files where removed!"
+	echo "The minishell o_files were removed!"
 
 fclean:	clean
 	rm -f $(NAME)

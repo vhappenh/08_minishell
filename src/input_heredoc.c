@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:25:38 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/12 11:27:55 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/13 13:54:36 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	ft_heredoc(char *input, int *i, t_cmdline **todo, int nbr)
 
 	del = ft_getdel(input, i);
 	if (del == NULL)
-		return (1);
+		return (-1);
 	doc_file = ft_get_docfile(nbr);
 	if (doc_file == NULL)
 	{
 		free(del);
-		return (1);
+		return (-1);
 	}
 	if (ft_fillfile(doc_file, del))
 	{

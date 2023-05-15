@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_heredoc_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:07:37 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/12 11:29:02 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/13 14:02:57 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ static int	ft_readline_fillfile(char *del, int fd)
 		free(new_input);
 		return (2);
 	}
-	write(fd, new_input, ft_strlen(new_input));
-	write(fd, "\n", 1);
+	ft_putendl_fd(new_input, fd);
 	free(new_input);
 	return (0);
 }
@@ -86,7 +85,7 @@ int	ft_fillfile(char *doc_file, char *del)
 		{
 			free(del);
 			close (fd);
-			return (1);
+			return (0);
 		}
 		else if (destiny == 2)
 			break ;

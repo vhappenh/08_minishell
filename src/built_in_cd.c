@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:03:44 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/10 12:01:52 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:35:47 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	ft_cd_select(char **pwd, char **new_path, t_cmdline *todo)
 		*new_path = ft_doublejoin(*pwd, "/", todo->cmd[1]);
 	else
 	{
-		ft_putendl_fd("minishell: cd: too many arguments", todo->fd_out);
+		ft_putendl_fd("minishell: cd: too many arguments", 2);
 		return (1);
 	}
 	if (*new_path == NULL)

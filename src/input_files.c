@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/12 11:52:56 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/13 14:01:23 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,7 @@ int	ft_get_infile(char *input, int *i, t_cmdline **todo, int nbr)
 	while (input[(*i)] == '<')
 		(*i)++;
 	if ((*i) - j == 1)
-	{
-		if (ft_heredoc(input, i, todo, nbr))
-			return (1);
-		else
-			return (0);
-	}
+		return (ft_heredoc(input, i, todo, nbr));
 	while (input[(*i)] == ' ')
 		(*i)++;
 	j = (*i);
