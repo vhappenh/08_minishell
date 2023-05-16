@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:11:43 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/11 10:58:17 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/16 10:19:56 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,11 @@ int	ft_exit(t_cmdline **todo, t_envlst *env, int i)
 	{
 		if (todo[i]->cmd[2])
 		{
-			ft_putendl_fd("minishell: exit: too many arguments",
-				todo[i]->fd_out);
+			ft_putendl_fd("minishell: exit: too many arguments", 2);
 			return (1);
 		}
 		else
-			ft_get_exit_code(todo[i]->cmd[1], todo[i]->fd_out, &e);
+			ft_get_exit_code(todo[i]->cmd[1], 2, &e);
 	}
 	else
 		e = 0;
