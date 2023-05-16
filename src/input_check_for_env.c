@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/12 17:56:55 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/16 11:58:44 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static char	*ft_get_env_name(char **str, int i)
 	char	*env_name;
 
 	j = i;
-	if ((*str)[j] && !ft_isalpha((*str)[j]) &&
-		(*str)[j] != '_' && (*str)[j] != '?' && (*str)[j] != '~')
+	if ((*str)[j] == '\0' || (!ft_isalpha((*str)[j]) &&
+		(*str)[j] != '_' && (*str)[j] != '?' && (*str)[j] != '~'))
 		return (NULL);
 	if ((*str)[j] == '?' || (*str)[j] == '~')
 	{
@@ -36,7 +36,7 @@ static char	*ft_get_env_name(char **str, int i)
 	return (env_name);
 }
 
-static char	*ft_rejoin_input(char **str, int i, int j, char *env)
+static void	ft_rejoin_input(char **str, int i, int j, char *env)
 {
 	char	*tmp;
 	char	*result;
@@ -53,28 +53,36 @@ static char	*ft_rejoin_input(char **str, int i, int j, char *env)
 	if (tmp == NULL)
 	{
 		ft_free_threestr(env, (*str), NULL);
-		return (NULL);
+		(*str) = (NULL);
+		return ;
 	}
 	result = ft_doublejoin(tmp, env, &(*str)[j]);
 	ft_free_threestr(tmp, env, (*str));
+	(*str) = result;
 	if (result == NULL)
-		return (NULL);
-	return (result);
+		return ;
 }
 
 static int	ft_get_env(char **str, int i, t_envlst *enviroment)
 {
 	char	*env;
 	char	*env_name;
+	int		len;
 
 	env_name = ft_get_env_name(str, i);
 	if (env_name == NULL)
+	{
 		env = ft_strdup("$");
+		len = 0;
+	}
 	else
+	{
+		len = ft_strlen(env_name);
 		env = ft_search_return_env(env_name, enviroment);
+	}
 	if (env == NULL)
 		return (1);
-	(*str) = ft_rejoin_input(str, i, i + ft_strlen(env_name), env);
+	ft_rejoin_input(str, i, i + len, env);
 	free(env_name);
 	if ((*str) == NULL)
 		return (1);
