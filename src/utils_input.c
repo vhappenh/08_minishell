@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:54:57 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/16 15:29:47 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/16 15:50:43 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,18 @@ int	ft_get_quotes(char *input, int *i, t_cmdline **todo, int *k)
 	d = 0;
 	while (input[j] && input[j] != c)
 		j++;
+	// while (input[j] && input[j] != ' ')
+	// 	j++;
 	(*todo)->cmd[(*k)] = ft_calloc(j - (*i) + 1, sizeof(char));
 	if ((*todo)->cmd[(*k)] == NULL)
 		return (1);
 	while ((*i) < j)
-		(*todo)->cmd[(*k)][d++] = input[(*i)++];
+	{
+		// if (input[(*i)] == '"' || input[(*i)] == '\'')
+		// 	(*i)++;
+		// else
+			(*todo)->cmd[(*k)][d++] = input[(*i)++];
+	}
 	if (input[(*i)])
 		(*i)++;
 	(*k)++;

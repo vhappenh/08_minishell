@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/13 14:01:23 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:40:31 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ static int	ft_fillinfile(t_cmdline **todo, char *input, int *i, int j)
 		return (1);
 	d = 0;
 	while ((*i) < j)
-		(*todo)->in_file[d++] = input[(*i)++];
+	{
+		if (input[(*i)] == '\'' || input[(*i)] == '"')
+			(*i)++;
+		else
+			(*todo)->in_file[d++] = input[(*i)++];
+	}
 	return (0);
 }
 
@@ -97,7 +102,12 @@ static int	ft_filloutfile(t_cmdline **todo, char *input, int *i)
 		return (1);
 	d = 0;
 	while ((*i) < j)
-		(*todo)->out_file[d++] = input[(*i)++];
+	{
+		if (input[(*i)] == '\'' || input[(*i)] == '"')
+			(*i)++;
+		else
+			(*todo)->out_file[d++] = input[(*i)++];
+	}
 	if (ft_create((*todo)->out_file, trunc))
 		return (1);
 	return (0);
