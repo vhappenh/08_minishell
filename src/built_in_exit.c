@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:11:43 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/16 10:19:56 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/16 15:40:47 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	ft_get_exit_code(char *cmd, int fd, int *e)
 	j = -1;
 	while (cmd[++j])
 	{
+		if (cmd[0] == '+' || cmd [0] == '-')
+			j++;
 		if (!ft_isdigit(cmd[j]))
 		{
 			ft_putendl_fd("exit", fd);
@@ -28,7 +30,7 @@ static void	ft_get_exit_code(char *cmd, int fd, int *e)
 			break ;
 		}
 		else
-			*e = (unsigned char)ft_atoi(cmd);
+			*e = (unsigned char)ft_atoi_long(cmd);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_universal.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:51:40 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/12 13:08:01 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/16 15:24:44 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,31 @@ int	ft_search_char(char *str, char c)
 		return (i);
 	else
 		return (0);
+}
+
+long	ft_atoi_long(const char *nptr)
+{
+	long			sum;
+	int				i;
+	int				sign;
+
+	i = 0;
+	sum = 0;
+	sign = 1;
+	while ((nptr[i] <= 13 && nptr[i] > 8) || nptr[i] == 32)
+		i++;
+	if (nptr[i] == '+' || nptr[i] == '-')
+	{
+		if (nptr[i] == '-')
+			sign = sign * -1;
+		i++;
+	}
+	if (!(nptr[i] >= '0' && nptr[i] <= '9'))
+		return (0);
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		sum = sum * 10 + nptr[i] - '0';
+		i++;
+	}
+	return (sum * sign);
 }

@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:03:44 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/11 17:35:47 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:17:30 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ int	ft_cd(t_cmdline *todo, t_envlst *env)
 		return (-1);
 	if (chdir(new_path))
 	{
-		printf("minishell: cd: %s: No such file or directory\n", new_path);
+		ft_putstr_fd("minishell: cd:", 2);
+		ft_putstr_fd(new_path, 2);
+		ft_putendl_fd(": No such file or directory", 2);
 		free (new_path);
 		return (1);
 	}

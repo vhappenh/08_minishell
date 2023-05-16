@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/12 11:05:01 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/16 14:56:11 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int	ft_execution(t_cmdline **todo)
 	else
 		if (ft_fork_it(todo, i))
 			return (1);
-	if (ft_wait_for_children(todo, i) == -1)
+	if (i > 0 && ft_wait_for_children(todo, i) == -1)
 		return (-1);
 	return (0);
 }

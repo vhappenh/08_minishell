@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:21 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/10 18:29:18 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:10:36 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ int	ft_export_arg_execute(char *str1, char *str2, t_envlst **temp)
 	return (0);
 }
 
-int	ft_valid_export_cmd(char *cmd, int fd)
+int	ft_valid_export_cmd(char *cmd)
 {
 	int	i;
 	int	destiny;
 
 	destiny = 0;
 	i = -1;
-	if (ft_isdigit(cmd[0]) || cmd[0] == '+')
+	if (ft_isdigit(cmd[0]) || cmd[0] == '+' || cmd[0] == '=')
 		destiny = 1;
 	while (cmd[++i] && cmd[i] != '=')
 	{
@@ -94,9 +94,9 @@ int	ft_valid_export_cmd(char *cmd, int fd)
 	}
 	if (destiny)
 	{
-		ft_putstr_fd("bash: export: `", fd);
-		ft_putstr_fd(cmd, fd);
-		ft_putendl_fd("': not a valid identifier", fd);
+		ft_putstr_fd("bash: export: `", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putendl_fd("': not a valid identifier", 2);
 	}
 	return (destiny);
 }
