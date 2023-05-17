@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/16 15:24:59 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:09:31 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int			ft_check_syntax(char *input);
 int			ft_look_for_env(char **str, t_envlst *enviroment);
 int			ft_check_open_pipe(char **input);
 char		*ft_search_return_env(char *env_name, t_envlst *enviroment);
+int			ft_get_parse_len(char *input, int j);
+void		ft_get_parse_str(char *input, char *dest, int *i);
 
 /* files */
 int			ft_get_file(char *input, int *i, t_cmdline **todo, int nbr);

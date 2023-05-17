@@ -6,31 +6,58 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:54:57 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/16 15:50:43 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/17 11:09:56 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
+int	ft_get_parse_len(char *input, int j)
+{
+	char	c;
+
+	while (input[j] && input[j] != ' ')
+	{
+		if (input[j] == '\'' || input[j] == '"')
+		{
+			c = input[j++];
+			while (input[j] != c)
+				j++;
+		}
+		j++;
+	}
+	return (j);
+}
+
+void	ft_get_parse_str(char *input, char *dest, int *i)
+{
+	char	c;
+	int		d;
+
+	d = 0;
+	while (input[(*i)] && input[(*i)] != ' ')
+	{
+		if (input[(*i)] == '\'' || input[(*i)] == '"')
+		{
+			c = input[(*i)++];
+			while (input[(*i)] != c)
+				dest[d++] = input[(*i)++];
+			(*i)++;
+		}
+		else
+			dest[d++] = input[(*i)++];
+	}
+}
+
 int	ft_get_cmd(char *input, int *i, t_cmdline **todo, int *k)
 {
 	int	j;
-	int	d;
 
-	j = (*i);
-	while (input[j] && input[j] != ' ')
-		j++;
+	j = ft_get_parse_len(input, (*i));
 	(*todo)->cmd[(*k)] = ft_calloc(j - (*i) + 1, sizeof(char));
 	if ((*todo)->cmd[(*k)] == NULL)
 		return (1);
-	d = 0;
-	while ((*i) < j)
-	{
-		if (input[(*i)] == '"' || input[(*i)] == '\'')
-			(*i)++;
-		else
-			(*todo)->cmd[(*k)][d++] = input[(*i)++];
-	}
+	ft_get_parse_str(input, (*todo)->cmd[(*k)], i);
 	(*k)++;
 	return (0);
 }
@@ -38,29 +65,14 @@ int	ft_get_cmd(char *input, int *i, t_cmdline **todo, int *k)
 int	ft_get_quotes(char *input, int *i, t_cmdline **todo, int *k)
 {
 	int		j;
-	int		d;
 	char	c;
 
 	c = input[(*i)];
-	(*i)++;
-	j = (*i);
-	d = 0;
-	while (input[j] && input[j] != c)
-		j++;
-	// while (input[j] && input[j] != ' ')
-	// 	j++;
+	j = ft_get_parse_len(input, (*i));
 	(*todo)->cmd[(*k)] = ft_calloc(j - (*i) + 1, sizeof(char));
 	if ((*todo)->cmd[(*k)] == NULL)
 		return (1);
-	while ((*i) < j)
-	{
-		// if (input[(*i)] == '"' || input[(*i)] == '\'')
-		// 	(*i)++;
-		// else
-			(*todo)->cmd[(*k)][d++] = input[(*i)++];
-	}
-	if (input[(*i)])
-		(*i)++;
+	ft_get_parse_str(input, (*todo)->cmd[(*k)], i);
 	(*k)++;
 	return (0);
 }
