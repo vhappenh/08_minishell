@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/17 11:08:37 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/17 14:27:12 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,21 @@
 
 static int	ft_fillinfile(t_cmdline **todo, char *input, int *i, int j)
 {
-	if ((*todo)->in_file)
+	if ((*todo)->in_file || (*todo)->out_file)
 	{
-		if (access((*todo)->in_file, O_RDONLY) == -1)
+		if ((*todo)->in_file && access((*todo)->in_file, R_OK) == -1)
+		{
+			(*i) = j;
+			return (0);
+		}
+		else if ((*todo)->out_file && access((*todo)->out_file, W_OK) == -1)
 		{
 			(*i) = j;
 			return (0);
 		}
 		else
 		{
-			if (!strncmp((*todo)->in_file, ".heredoc", 8))
+			if ((*todo)->in_file && !strncmp((*todo)->in_file, ".heredoc", 8))
 				unlink((*todo)->in_file);
 			free((*todo)->in_file);
 		}
@@ -59,13 +64,13 @@ static int	ft_create(char *out_file, int trunc)
 	{
 		fd = open(out_file, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		if (fd == -1)
-			return (1);
+			return (0);
 	}
 	else
 	{
 		fd = open(out_file, O_WRONLY | O_APPEND | O_CREAT, 0644);
 		if (fd == -1)
-			return (1);
+			return (0);
 	}
 	if (close(fd) == -1)
 		return (1);
@@ -97,9 +102,18 @@ static int	ft_filloutfile(t_cmdline **todo, char *input, int *i)
 
 int	ft_get_outfile(char *input, int *i, t_cmdline **todo)
 {
-	if ((*todo)->in_file)
+	if ((*todo)->in_file || (*todo)->out_file)
 	{
-		if (access((*todo)->in_file, F_OK) == -1)
+		if ((*todo)->in_file && access((*todo)->in_file, R_OK) == -1)
+		{
+			while (input[(*i)] && input[(*i)] == '>')
+				(*i)++;
+			while (input[(*i)] && input[(*i)] == ' ')
+				(*i)++;
+			(*i) = ft_get_parse_len(input, (*i));
+			return (0);
+		}
+		if ((*todo)->out_file && access((*todo)->out_file, W_OK) == -1)
 		{
 			while (input[(*i)] && input[(*i)] == '>')
 				(*i)++;

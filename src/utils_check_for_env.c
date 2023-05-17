@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_check_for_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:51:15 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/10 18:45:22 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:21:04 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@ static char	*ft_get_last_error(void)
 {
 	char	*tmp;
 
-	if (g_error == 2)
-		tmp = ft_strdup("130");
-	else
-		tmp = ft_itoa(g_error);
+	tmp = ft_itoa(g_error);
 	if (tmp == NULL)
 		return (NULL);
 	return (tmp);

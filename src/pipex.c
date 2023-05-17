@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/16 14:56:11 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/17 14:32:25 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 {
 	ft_prep_exe(todo, fd_in, fd_out);
+	if (todo->fd_in == -1 || todo->fd_out == -1)
+		return (ft_free_close(todo, NULL, NULL));
 	if (!ft_built_in_check(&todo, 0))
 	{
 		ft_built_in_select(&todo, 0, todo->enviroment);
@@ -25,6 +27,9 @@ void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 	if (todo->cmd)
 		if (ft_prep_cmd(todo))
 			return (ft_free_close(todo, "minishell", NULL));
+	if ((todo->cmd[0][0] == '/' || todo->cmd[0][0] == '.')
+		&& access(todo->cmd[0], F_OK) == -1)
+		return (ft_free_close(todo, "minishell", NULL));
 	if (todo->fd_in != 0)
 		if (dup2(todo->fd_in, 0) == -1)
 			return (ft_free_close(todo, "minishell", NULL));
@@ -109,7 +114,7 @@ static int	ft_wait_for_children(t_cmdline **todo, int i)
 	if (WEXITSTATUS(err))
 		g_error = WEXITSTATUS(err);
 	else if (WTERMSIG(err))
-		g_error = WTERMSIG(err);
+		g_error = WTERMSIG(err) + 128;
 	else
 		g_error = 0;
 	if (i)

@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/12 11:39:15 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/17 11:17:39 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ t_cmdline	**ft_check_prep_todo(char *input, t_envlst *env)
 
 	if (ft_check_syntax(input))
 	{
+		g_error = 2;
 		add_history(input);
 		todo = ft_calloc(1, sizeof(t_cmdline *));
 		if (todo == NULL)

@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/16 11:41:11 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/17 15:38:36 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	static t_cmdline	**todo;
 	static t_envlst		*env;
 
-	(void)argv;
-	if (argc > 1)
+	if (argc > 1 || argv[1])
 		return (1);
 	ft_switch_signals(INTERACTIV);
 	if (ft_parse_env(envp, &env))
@@ -38,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_free_all(todo, env, NULL);
 			return (errno);
 		}
+		env = (*todo)->enviroment;
 		ft_free_all(todo, NULL, NULL);
 	}
 	return (0);
