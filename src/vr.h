@@ -20,6 +20,7 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include <signal.h>
+# include <limits.h>
 
 # ifndef INTERACTIV
 #  define INTERACTIV 0
@@ -123,7 +124,7 @@ int			ft_exit(t_cmdline **todo, t_envlst *env, int i);
 /* utils */
 char		*ft_doublejoin(char *str1, char *str2, char *str3);
 char		*ft_strncopy(char *str, unsigned int i);
-long		ft_atoi_long(const char *nptr);
+long		ft_atoi_long(const char *nptr, int *j);
 int			ft_search_char(char *str, char c);
 int			ft_get_pwd(char **pwd);
 

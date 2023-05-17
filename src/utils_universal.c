@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:51:40 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/16 15:24:44 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/17 10:58:54 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,28 +61,38 @@ int	ft_search_char(char *str, char c)
 		return (0);
 }
 
-long	ft_atoi_long(const char *nptr)
+static void	ft_atoi_helper(const char *nptr, int *sign, int *i)
+{
+	while ((nptr[*i] <= 13 && nptr[*i] > 8) || nptr[*i] == 32)
+		(*i)++;
+	if (nptr[*i] == '+' || nptr[*i] == '-')
+	{
+		if (nptr[*i] == '-')
+			*sign = *sign * -1;
+		(*i)++;
+	}
+}
+
+long	ft_atoi_long(const char *nptr, int *j)
 {
 	long			sum;
 	int				i;
 	int				sign;
+	long			temp;
 
 	i = 0;
 	sum = 0;
 	sign = 1;
-	while ((nptr[i] <= 13 && nptr[i] > 8) || nptr[i] == 32)
-		i++;
-	if (nptr[i] == '+' || nptr[i] == '-')
-	{
-		if (nptr[i] == '-')
-			sign = sign * -1;
-		i++;
-	}
+	ft_atoi_helper(nptr, &sign, &i);
 	if (!(nptr[i] >= '0' && nptr[i] <= '9'))
 		return (0);
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
+		temp = sum;
 		sum = sum * 10 + nptr[i] - '0';
+		if (sum < temp && ((sum != LONG_MIN && sign == -1)
+				|| (sum == LONG_MIN && sign != -1)))
+			*j = -1;
 		i++;
 	}
 	return (sum * sign);
