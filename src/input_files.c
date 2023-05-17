@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/16 15:40:31 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/17 11:08:37 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 static int	ft_fillinfile(t_cmdline **todo, char *input, int *i, int j)
 {
-	int	d;
-
 	if ((*todo)->in_file)
 	{
 		if (access((*todo)->in_file, O_RDONLY) == -1)
+		{
+			(*i) = j;
 			return (0);
+		}
 		else
 		{
 			if (!strncmp((*todo)->in_file, ".heredoc", 8))
@@ -30,14 +31,7 @@ static int	ft_fillinfile(t_cmdline **todo, char *input, int *i, int j)
 	(*todo)->in_file = ft_calloc(j - (*i) + 1, sizeof(char));
 	if ((*todo)->in_file == NULL)
 		return (1);
-	d = 0;
-	while ((*i) < j)
-	{
-		if (input[(*i)] == '\'' || input[(*i)] == '"')
-			(*i)++;
-		else
-			(*todo)->in_file[d++] = input[(*i)++];
-	}
+	ft_get_parse_str(input, (*todo)->in_file, i);
 	return (0);
 }
 
@@ -52,9 +46,7 @@ int	ft_get_infile(char *input, int *i, t_cmdline **todo, int nbr)
 		return (ft_heredoc(input, i, todo, nbr));
 	while (input[(*i)] == ' ')
 		(*i)++;
-	j = (*i);
-	while (input[j] && input[j] != ' ')
-		j++;
+	j = ft_get_parse_len(input, (*i));
 	return (ft_fillinfile(todo, input, i, j));
 }
 
@@ -83,7 +75,6 @@ static int	ft_create(char *out_file, int trunc)
 static int	ft_filloutfile(t_cmdline **todo, char *input, int *i)
 {
 	int	j;
-	int	d;
 	int	trunc;
 
 	trunc = 0;
@@ -94,20 +85,11 @@ static int	ft_filloutfile(t_cmdline **todo, char *input, int *i)
 		trunc = 1;
 	while (input[(*i)] == ' ')
 		(*i)++;
-	j = (*i);
-	while (input[j] && input[j] != ' ')
-		j++;
+	j = ft_get_parse_len(input, (*i));
 	(*todo)->out_file = ft_calloc(j - (*i) + 1, sizeof(char));
 	if ((*todo)->out_file == NULL)
 		return (1);
-	d = 0;
-	while ((*i) < j)
-	{
-		if (input[(*i)] == '\'' || input[(*i)] == '"')
-			(*i)++;
-		else
-			(*todo)->out_file[d++] = input[(*i)++];
-	}
+	ft_get_parse_str(input, (*todo)->out_file, i);
 	if (ft_create((*todo)->out_file, trunc))
 		return (1);
 	return (0);
@@ -123,8 +105,7 @@ int	ft_get_outfile(char *input, int *i, t_cmdline **todo)
 				(*i)++;
 			while (input[(*i)] && input[(*i)] == ' ')
 				(*i)++;
-			while (input[(*i)] && input[(*i)] != ' ')
-				(*i)++;
+			(*i) = ft_get_parse_len(input, (*i));
 			return (0);
 		}
 	}
