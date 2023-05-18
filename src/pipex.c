@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/17 14:32:25 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/18 13:11:25 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ static void	ft_child(t_cmdline **t, int i, int j)
 	ft_switch_signals(CHILD);
 	if (i == 0 && t[i + 1] == NULL)
 	{
-		close ((*t)->pipe_fds[i][0]);
-		close ((*t)->pipe_fds[i][1]);
+		ft_close_pipes((*t)->pipe_fds[i][0], (*t)->pipe_fds[i][1]);
 		ft_execute(t[i], 0, 1);
 	}
 	else if (i == 0)
@@ -56,11 +55,14 @@ static void	ft_child(t_cmdline **t, int i, int j)
 	}
 	else if (t[i + 1] == NULL)
 	{
-		close((*t)->pipe_fds[i][1]);
+		ft_close_pipes((*t)->pipe_fds[i][1], (*t)->pipe_fds[i][0]);
 		ft_execute(t[i], (*t)->pipe_fds[i - 1][0], 1);
 	}
 	else
+	{
+		close((*t)->pipe_fds[i][0]);
 		ft_execute(t[i], (*t)->pipe_fds[i - 1][0], (*t)->pipe_fds[i][1]);
+	}
 	ft_free_exe((*t)->pids, (*t)->pipe_fds, j);
 	ft_free_all(t, t[0]->enviroment, NULL);
 	exit(g_error);
