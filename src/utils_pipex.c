@@ -6,12 +6,12 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:20:03 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/17 14:34:16 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/18 13:11:18 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
-//check here if it is a directory or not!!
+
 static char	*ft_get_path(char *arg, char *path[])
 {
 	char	*fin;
@@ -113,4 +113,10 @@ void	ft_prep_exe(t_cmdline *todo, int fd_in, int fd_out)
 	}
 	else
 		todo->fd_out = fd_out;
+}
+
+void	ft_close_pipes(int pipe1, int pipe2)
+{
+	close(pipe1);
+	close(pipe2);
 }

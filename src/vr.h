@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/17 15:16:11 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/18 13:11:01 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int			ft_execution(t_cmdline **todo);
 int			ft_prep_cmd(t_cmdline *todo);
 int			ft_init_exe(t_cmdline **todo, int i);
 void		ft_prep_exe(t_cmdline *todo, int fd_in, int fd_out);
+void		ft_close_pipes(int pipe1, int pipe2);
 
 /* built ins */
 void		ft_built_in_select(t_cmdline **todo, int i, t_envlst *env);

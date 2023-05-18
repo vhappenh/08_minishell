@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/18 11:29:43 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/18 13:12:10 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static int	ft_count_args(char *input, int i)
 		if (input[i] && input[i] != ' ' && input[i] != '<' && input[i] != '>')
 		{
 			count++;
-			while (input[i] && input[i] != ' ' && input[i] != '<' && input[i] != '>')
+			while (input[i] && input[i] != ' '
+				&& input[i] != '<' && input[i] != '>')
 				i++;
 		}
 		if (input[i] != '\0')
