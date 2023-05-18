@@ -6,12 +6,12 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:20:03 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/12 10:01:47 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/17 14:34:16 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
-
+//check here if it is a directory or not!!
 static char	*ft_get_path(char *arg, char *path[])
 {
 	char	*fin;
@@ -92,11 +92,25 @@ int	ft_init_exe(t_cmdline **todo, int i)
 void	ft_prep_exe(t_cmdline *todo, int fd_in, int fd_out)
 {
 	if (todo->in_file)
+	{
 		todo->fd_in = open(todo->in_file, O_RDONLY);
+		if (todo->fd_in == -1)
+		{
+			g_error = 1;
+			perror("minishell");
+		}
+	}
 	else
 		todo->fd_in = fd_in;
 	if (todo->out_file)
+	{
 		todo->fd_out = open(todo->out_file, O_WRONLY | O_APPEND);
+		if (todo->fd_out == -1)
+		{
+			g_error = 1;
+			perror("minishell");
+		}
+	}
 	else
 		todo->fd_out = fd_out;
 }

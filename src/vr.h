@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/17 11:09:31 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/17 15:16:11 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int			ft_export(t_cmdline *todo, t_envlst *env);
 int			ft_search_and_replace(char *todocmd, t_envlst *env);
 int			ft_export_arg_execute(char *str1, char *str2, t_envlst **temp);
 int			ft_valid_export_cmd(char *cmd);
-int			ft_unset(t_cmdline *todo, t_envlst *env);
+int			ft_unset(t_cmdline *todo, t_envlst **env);
 int			ft_env(t_envlst *env, t_cmdline *todo);
 int			ft_exit(t_cmdline **todo, t_envlst *env, int i);
 
