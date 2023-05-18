@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:54:57 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/17 11:09:56 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/18 11:34:54 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_get_parse_len(char *input, int j)
 {
 	char	c;
 
-	while (input[j] && input[j] != ' ')
+	while (input[j] && input[j] != ' ' && input[j] != '>' && input[j] != '<')
 	{
 		if (input[j] == '\'' || input[j] == '"')
 		{
@@ -35,7 +35,8 @@ void	ft_get_parse_str(char *input, char *dest, int *i)
 	int		d;
 
 	d = 0;
-	while (input[(*i)] && input[(*i)] != ' ')
+	while (input[(*i)] && input[(*i)] != ' '
+		&& input[(*i)] != '<' && input[(*i)] != '>')
 	{
 		if (input[(*i)] == '\'' || input[(*i)] == '"')
 		{
@@ -81,14 +82,22 @@ int	ft_get_file(char *input, int *i, t_cmdline **todo, int nbr)
 {
 	char	c;
 
-	c = input[(*i)++];
+	c = input[(*i)];
+	if (c == '<' || c == '>')
+		(*i)++;
 	if (c == '<')
 	{
 		if (ft_get_infile(input, i, todo, nbr))
 			return (1);
+		else
+			ft_get_file(input, i, todo, nbr);
 	}
-	else
+	else if (c == '>')
+	{
 		if (ft_get_outfile(input, i, todo))
 			return (1);
+		else
+			ft_get_file(input, i, todo, nbr);
+	}
 	return (0);
 }
