@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:21 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/16 15:10:36 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:54:33 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,14 @@ int	ft_export_arg_execute(char *str1, char *str2, t_envlst **temp)
 {
 	char	*temp1;
 	char	*temp2;
+	int		r;
 
-	temp1 = ft_strncopy(str1, ft_search_char(str1, '='));
+	if (ft_search_char(str1, '+') < ft_search_char(str1, '=')
+		&& ft_search_char(str1, '+') > 0)
+		r = '+';
+	else
+		r = '=';
+	temp1 = ft_strncopy(str1, ft_search_char(str1, r));
 	temp2 = ft_strdup(str2);
 	*temp = ft_lstnew_minishell(temp1, temp2, false);
 	if (*temp == NULL)
