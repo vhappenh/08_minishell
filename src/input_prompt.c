@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 09:39:30 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/11 13:38:10 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:16:29 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*ft_join_prompt(char *wd, char *user, char *manager, char *tmp)
 	len[3] = len[0] + len[1] + len[2] + 2;
 	prompt = ft_calloc(len[3] + 1, sizeof(char));
 	if (prompt == NULL)
-		ft_free_prompt(tmp, manager);
+		return (ft_free_prompt(tmp, manager));
 	i = 0;
 	j = 0;
 	while (j < len[1])
@@ -104,7 +104,7 @@ char	*ft_get_prompt(void)
 		return (ft_free_prompt(wd, NULL));
 	manager = ft_get_manager(getenv("SESSION_MANAGER"));
 	if (manager == NULL)
-		return (ft_free_prompt(wd, NULL));
+		return (ft_free_prompt(wd, user));
 	tmp_wd = ft_cut_wd(user, wd);
 	prompt = ft_join_prompt(tmp_wd, user, manager, wd);
 	free(wd);
