@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 13:51:43 by vhappenh          #+#    #+#             */
-/*   Updated: 2022/10/28 11:12:04 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:58:43 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	int		count;
 	char	*ptr;
 
-	i = 0;
 	count = 0;
 	while (s1[count] && ft_strchr(set, s1[count]))
 		count++;

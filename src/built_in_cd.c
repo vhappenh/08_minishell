@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:03:44 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/16 15:17:30 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:46:58 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	cd_dot_dot(char *pwd, char **new_path)
 	int	new_len;
 
 	i = -1;
+	new_len = 0;
 	while (pwd[++i])
 		if (pwd[i] == '/')
 			new_len = i;

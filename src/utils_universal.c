@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:51:40 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/17 10:58:54 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:52:10 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strncopy(char *str, unsigned int i)
 	char			*cpy;
 
 	j = -1;
-	if (str == NULL || i < 0)
+	if (str == NULL)
 		return (NULL);
 	cpy = ft_calloc(i + 1, sizeof(char));
 	if (cpy == NULL)

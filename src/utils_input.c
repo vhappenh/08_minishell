@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:54:57 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/18 11:34:54 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/23 13:45:29 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ int	ft_get_cmd(char *input, int *i, t_cmdline **todo, int *k)
 int	ft_get_quotes(char *input, int *i, t_cmdline **todo, int *k)
 {
 	int		j;
-	char	c;
 
-	c = input[(*i)];
 	j = ft_get_parse_len(input, (*i));
 	(*todo)->cmd[(*k)] = ft_calloc(j - (*i) + 1, sizeof(char));
 	if ((*todo)->cmd[(*k)] == NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 11:27:11 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/17 14:27:12 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/23 13:50:50 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	ft_fillinfile(t_cmdline **todo, char *input, int *i, int j)
 		}
 		else
 		{
-			if ((*todo)->in_file && !strncmp((*todo)->in_file, ".heredoc", 8))
+			if ((*todo)->in_file && !ft_strncmp((*todo)->in_file,
+					".heredoc", 8))
 				unlink((*todo)->in_file);
 			free((*todo)->in_file);
 		}
@@ -59,7 +60,6 @@ static int	ft_create(char *out_file, int trunc)
 {
 	int	fd;
 
-	fd = 0;
 	if (trunc)
 	{
 		fd = open(out_file, O_WRONLY | O_TRUNC | O_CREAT, 0644);

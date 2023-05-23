@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 14:49:55 by vhappenh          #+#    #+#             */
-/*   Updated: 2022/12/03 10:01:05 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:00:07 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	ft_printf(const char *input, ...)
 
 	va_start(args, input);
 	i = 0;
-	temp = 0;
 	count = 0;
 	while (input[i])
 	{
