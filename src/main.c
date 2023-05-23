@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/18 15:01:20 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:36:30 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	static t_cmdline	**todo;
 	static t_envlst		*env;
 
-	if (argc > 1 || argv[1])
+	if (argc > 1 || argv[1] || isatty(0) == 0)
 		return (1);
 	ft_switch_signals(INTERACTIV);
 	if (ft_parse_env(envp, &env))

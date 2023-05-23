@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/18 15:01:43 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:34:02 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 	if (todo->cmd)
 		if (ft_prep_cmd(todo))
 			return (ft_free_close(todo, "minishell", NULL));
-	if ((todo->cmd[0][0] == '/' || todo->cmd[0][0] == '.')
+	if (todo->cmd && (todo->cmd[0][0] == '/' || todo->cmd[0][0] == '.')
 		&& access(todo->cmd[0], F_OK) == -1)
 		return (ft_free_close(todo, "minishell", NULL));
 	if (todo->fd_in != 0)
@@ -36,7 +36,7 @@ void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 	if (todo->fd_out != 1)
 		if (dup2(todo->fd_out, 1) == -1)
 			return (ft_free_close(todo, "minishell", NULL));
-	if (execve(todo->cmd[0], todo->cmd, todo->env) == -1)
+	if (todo->cmd && execve(todo->cmd[0], todo->cmd, todo->env) == -1)
 		ft_free_close(todo, NULL, todo->cmd[0]);
 }
 
@@ -92,7 +92,7 @@ static int	ft_fork_it(t_cmdline **todo, int j)
 		ft_free_all(NULL, NULL, todo[i]->env);
 		i++;
 	}
-	if ((*todo)->pipe_fds[i][0])
+	if (*todo && (*todo)->pipe_fds && (*todo)->pipe_fds[i][0])
 		close((*todo)->pipe_fds[i][0]);
 	return (0);
 }

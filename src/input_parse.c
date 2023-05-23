@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/18 13:12:10 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/23 14:22:11 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,11 @@ t_cmdline	**input_parse(t_envlst *env)
 
 	prompt = ft_get_prompt();
 	if (prompt == NULL)
-		prompt = "minishell: ";
+		prompt = ft_strdup("minishell: ");
+	if (prompt == NULL)
+		return (NULL);
 	input = readline(prompt);
-	if (ft_strncmp(prompt, "minishell: ", sizeof(prompt)))
-		free(prompt);
+	free(prompt);
 	if (input == NULL)
 	{
 		write(1, "exit\n", 5);
