@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:29 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/23 14:22:11 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:38:33 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_cmdline	**ft_check_prep_todo(char *input, t_envlst *env)
 		return (todo);
 	}
 	add_history(input);
-	if (ft_look_for_env(&input, env))
+	if (ft_look_for_env(&input, env, 0))
 		return (NULL);
 	todo = ft_split_input(&input, env);
 	free(input);

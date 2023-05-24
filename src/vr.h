@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/18 15:01:25 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:38:03 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int			ft_get_quotes(char *input, int *i, t_cmdline **todo, int *k);
 int			ft_count_token(char *input);
 char		*ft_get_token(char **input, int check);
 int			ft_check_syntax(char *input);
-int			ft_look_for_env(char **str, t_envlst *enviroment);
+int			ft_look_for_env(char **str, t_envlst *enviroment, int i);
 int			ft_check_open_pipe(char **input);
 char		*ft_search_return_env(char *env_name, t_envlst *enviroment);
 int			ft_get_parse_len(char *input, int j);

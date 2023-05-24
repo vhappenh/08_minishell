@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_check_for_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/24 11:45:56 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/24 13:38:45 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,8 @@ static int	ft_env_double_quotes(char **str, t_envlst *enviroment, int *i)
 	return (0);
 }
 
-int	ft_look_for_env(char **str, t_envlst *enviroment)
+int	ft_look_for_env(char **str, t_envlst *enviroment, int i)
 {
-	int		i;
-
-	i = 0;
 	while ((*str)[i])
 	{
 		if ((*str)[i] == '\'')
@@ -127,7 +124,8 @@ int	ft_look_for_env(char **str, t_envlst *enviroment)
 				return (1);
 		if ((*str)[i] != '\0' && (*str)[i] != '$')
 			i++;
-		else if ((*str)[i] == '$' && ((*str)[i + 1] == '\0' || (*str)[i + 1] == ' '))
+		else if ((*str)[i] == '$' && ((*str)[i + 1] == '\0'
+			|| (*str)[i + 1] == ' '))
 			i++;
 	}
 	return (0);
