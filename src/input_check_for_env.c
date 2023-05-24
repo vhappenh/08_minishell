@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/24 13:49:14 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:21:29 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ static char	*ft_get_env_name(char **str, int i)
 	char	*env_name;
 
 	j = i;
-	if ((*str)[j] == '\0' || (!ft_isalpha((*str)[j]) &&
-		(*str)[j] != '_' && (*str)[j] != '?' && (*str)[j] != '~'))
-		return (NULL);
+	// if ((*str)[j] == '\0' || (!ft_isalpha((*str)[j]) &&
+	// 	(*str)[j] != '_' && (*str)[j] != '?' && (*str)[j] != '~'
+	// 	&& (*str)[j] != '(' && (*str)[j] != ')'))
+	// 	return (NULL);
 	if ((*str)[j] == '?' || (*str)[j] == '~')
 	{
 		env_name = ft_strncopy(&(*str)[j], 1);
