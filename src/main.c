@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/23 14:36:30 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/24 10:41:47 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	static t_cmdline	**todo;
 	static t_envlst		*env;
 
-	if (argc > 1 || argv[1] || isatty(0) == 0)
+	if (argc > 1 || argv[1]/* || isatty(0) == 0*/)
 		return (1);
 	ft_switch_signals(INTERACTIV);
 	if (ft_parse_env(envp, &env))
