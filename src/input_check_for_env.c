@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_check_for_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/24 17:21:29 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:16:52 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ static char	*ft_get_env_name(char **str, int i)
 	char	*env_name;
 
 	j = i;
-	// if ((*str)[j] == '\0' || (!ft_isalpha((*str)[j]) &&
-	// 	(*str)[j] != '_' && (*str)[j] != '?' && (*str)[j] != '~'
-	// 	&& (*str)[j] != '(' && (*str)[j] != ')'))
-	// 	return (NULL);
+	if ((*str)[j] == '\0' || (!ft_isalpha((*str)[j]) &&
+		(*str)[j] != '_' && (*str)[j] != '?' && (*str)[j] != '~'))
+		return (NULL);
 	if ((*str)[j] == '?' || (*str)[j] == '~')
 	{
 		env_name = ft_strncopy(&(*str)[j], 1);
@@ -108,12 +107,8 @@ int	ft_look_for_env(char **str, t_envlst *enviroment, int i)
 {
 	while ((*str)[i])
 	{
-		if ((*str)[i] == '\'')
-		{
-			i++;
-			while ((*str)[i] && (*str)[i] != '\'')
-				i++;
-		}
+		if ((*str)[i] == '\'' || ((*str)[i] == '<' && (*str)[i + 1] == '<'))
+			ft_skip_env(str, &i);
 		if ((*str)[i] == '"')
 			if (ft_env_double_quotes(str, enviroment, &i))
 				return (1);
@@ -125,8 +120,9 @@ int	ft_look_for_env(char **str, t_envlst *enviroment, int i)
 				return (1);
 		if ((*str)[i] != '\0' && (*str)[i] != '$')
 			i++;
-		else if ((*str)[i] == '$' && ((*str)[i + 1] == '\0'
-			|| (*str)[i + 1] == ' ' || (*str)[i + 1] == '$'))
+		else if ((*str)[i] == '$' && (!ft_isalpha((*str)[i + 1])
+			&& (*str)[i + 1] != '_' && (*str)[i + 1] != '?'
+			&& (*str)[i + 1] != '~'))
 			i++;
 	}
 	return (0);

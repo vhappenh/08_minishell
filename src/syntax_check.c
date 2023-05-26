@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/12 13:48:50 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/26 10:39:32 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ static int	ft_checkbefor(char *input, int i)
 		j--;
 	if ((input[j] == '<' || input[j] == '>') && &input[j] != &input[i])
 		return (ft_print_syntax(input, i));
-	if (input[i] == '|' && j == 0
-		&& (input[j] == ' ' || &input[i] == &input[j]))
+	if (input[j] == '|' && input[i] == '|' && &input[j] != &input[i])
+		return (ft_print_syntax(input, i));
+	if (input[j] == '|' && j == 0 && &input[i] == &input[j])
 		return (ft_print_syntax(input, i));
 	return (0);
 }

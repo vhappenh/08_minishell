@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:51:15 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/17 11:21:04 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/26 11:10:57 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,21 @@ char	*ft_search_return_env(char *env_name, t_envlst *env)
 			return (NULL);
 	}
 	return (tmp);
+}
+
+void	ft_skip_env(char **str, int *i)
+{
+	if ((*str)[(*i)] == '\'')
+	{
+		(*i)++;
+		while ((*str)[(*i)] && (*str)[(*i)] != '\'')
+			(*i)++;
+	}
+	else
+	{
+		(*i) += 2;
+		while ((*str)[(*i)] == ' ')
+			(*i)++;
+		(*i) = ft_get_parse_len(*str, (*i));
+	}
 }

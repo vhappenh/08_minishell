@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/24 13:38:03 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:16:35 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ char		*ft_strncopy(char *str, unsigned int i);
 long		ft_atoi_long(const char *nptr, int *j);
 int			ft_search_char(char *str, char c);
 int			ft_get_pwd(char **pwd);
+void		ft_skip_env(char **str, int *i);
 
 /* free */
 void		*ft_free_all(t_cmdline **todo, t_envlst *env, char **array);
