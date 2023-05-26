@@ -6,7 +6,7 @@
 /*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/26 10:11:51 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/26 11:16:52 by rrupp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,8 @@ int	ft_look_for_env(char **str, t_envlst *enviroment, int i)
 {
 	while ((*str)[i])
 	{
-		if ((*str)[i] == '\'')
-		{
-			i++;
-			while ((*str)[i] && (*str)[i] != '\'')
-				i++;
-		}
+		if ((*str)[i] == '\'' || ((*str)[i] == '<' && (*str)[i + 1] == '<'))
+			ft_skip_env(str, &i);
 		if ((*str)[i] == '"')
 			if (ft_env_double_quotes(str, enviroment, &i))
 				return (1);
@@ -124,8 +120,9 @@ int	ft_look_for_env(char **str, t_envlst *enviroment, int i)
 				return (1);
 		if ((*str)[i] != '\0' && (*str)[i] != '$')
 			i++;
-		else if ((*str)[i] == '$' && (!ft_isalpha((*str)[i + 1]) &&
-			(*str)[i + 1] != '_' && (*str)[i + 1] != '?' && (*str)[i + 1] != '~'))
+		else if ((*str)[i] == '$' && (!ft_isalpha((*str)[i + 1])
+			&& (*str)[i + 1] != '_' && (*str)[i + 1] != '?'
+			&& (*str)[i + 1] != '~'))
 			i++;
 	}
 	return (0);
