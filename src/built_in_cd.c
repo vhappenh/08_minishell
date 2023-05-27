@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:03:44 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/27 14:51:08 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/27 15:37:52 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static int	ft_cd_select(char **pwd, char **new_path, t_cmdline *todo)
 		return (cd_dot_dot(*pwd, new_path));
 	else if (todo->cmd[1][0] == '/' && !todo->cmd[2])
 		*new_path = ft_strdup(todo->cmd[1]);
+	else if (!ft_strncmp(todo->cmd[1], "-", 2) && !todo->cmd[2])
+		*new_path = ft_search_return_env("OLDPWD", todo->enviroment);
 	else if (!todo->cmd[2])
 		*new_path = ft_doublejoin(*pwd, "/", todo->cmd[1]);
 	else
