@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_check_for_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/26 11:16:52 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/27 17:15:54 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ static char	*ft_get_env_name(char **str, int i)
 		return (NULL);
 	if ((*str)[j] == '?' || (*str)[j] == '~')
 	{
-		env_name = ft_strncopy(&(*str)[j], 1);
+		if ((*str)[j] == '~' && ((*str)[j + 1] == '+' || (*str)[j + 1] == '-'))
+			env_name = ft_strncopy(&(*str)[j], 2);
+		else
+			env_name = ft_strncopy(&(*str)[j], 1);
 		if (env_name == NULL)
 			return (NULL);
 		return (env_name);

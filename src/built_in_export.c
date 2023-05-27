@@ -6,13 +6,13 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:15:40 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/16 14:57:55 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/27 16:49:24 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vr.h"
 
-static int	ft_export_argument(char *todocmd, t_envlst *env, int destiny)
+int	ft_export_argument(char *todocmd, t_envlst *env, int destiny)
 {
 	t_envlst	*templst;
 

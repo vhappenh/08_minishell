@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:03:44 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/27 15:37:52 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/27 16:52:57 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,14 @@ static int	cd_dot_dot(char *pwd, char **new_path)
 
 static int	ft_save_pwd(t_envlst *env, char *pwd, char *evar)
 {
-	while (env)
-	{
-		if (!ft_strncmp(env->evar, evar, ft_strlen(evar) + 1))
-		{
-			free (env->cont);
-			env->cont = ft_strdup(pwd);
-			if (env->cont == NULL)
-			{
-				free (pwd);
-				return (-1);
-			}
-			break ;
-		}
-		env = env->next;
-	}
+	char		*temp;
+
+	temp = ft_doublejoin(evar, "=", pwd);
+	if (temp == NULL)
+		return (1);
+	if (ft_export_argument(temp, env, 0))
+		return (-1);
+	free (temp);
 	free (pwd);
 	return (0);
 }
@@ -63,7 +56,7 @@ static int	ft_save_pwd(t_envlst *env, char *pwd, char *evar)
 static int	ft_cd_select(char **pwd, char **new_path, t_cmdline *todo)
 {
 	if (!todo->cmd[1])
-		*new_path = ft_strdup(getenv("HOME"));
+		*new_path = ft_search_return_env("~", todo->enviroment);
 	else if (!ft_strncmp(todo->cmd[1], "..", 3) && !todo->cmd[2])
 		return (cd_dot_dot(*pwd, new_path));
 	else if (todo->cmd[1][0] == '/' && !todo->cmd[2])

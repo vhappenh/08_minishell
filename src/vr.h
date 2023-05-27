@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/27 15:14:07 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/27 16:49:55 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int			ft_echo(t_cmdline *todo);
 int			ft_cd(t_cmdline *todo, t_envlst *env);
 int			ft_pwd(int fd);
 int			ft_export(t_cmdline *todo, t_envlst *env);
+int			ft_export_argument(char *todocmd, t_envlst *env, int destiny);
 int			ft_search_and_replace(char *todocmd, t_envlst *env);
 int			ft_export_arg_execute(char *str1, char *str2, t_envlst **temp);
 int			ft_valid_export_cmd(char *cmd);

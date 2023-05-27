@@ -23,21 +23,21 @@ SRC :=	main.c\
 		env_parse.c\
 		free_utils.c\
 		free.c\
+		input_check_for_env_utils.c\
 		input_check_for_env.c\
 		input_check_open_pipe.c\
 		input_files.c\
 		input_heredoc_utils.c\
 		input_heredoc.c\
+		input_parse_utils.c\
 		input_parse.c\
 		input_prompt.c\
 		input_token.c\
+		pipex_utils.c\
 		pipex.c\
 		signals.c\
 		syntax_check.c\
-		utils_check_for_env.c\
-		utils_input.c\
 		utils_lsts.c\
-		utils_pipex.c\
 		utils_shlvl.c\
 		utils_universal.c
 
@@ -79,4 +79,4 @@ norm:
 	norminette -R CheckForbiddenSourceHeader src/*.c src/vr.h
 
 val: all
-	valgrind -s --leak-check=full --show-leak-kinds=all --suppressions=./minishell.supp ./minishell
+	env -i valgrind -s --leak-check=full --show-leak-kinds=all --suppressions=./minishell.supp ./minishell
