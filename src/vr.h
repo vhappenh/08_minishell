@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vr.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/26 11:16:35 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/27 15:14:07 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ extern int	g_error;
 int			ft_switch_signals(int sig_case);
 
 /* env */
-int			ft_parse_env(char **envp, t_envlst **env);
+int			ft_parse_env(char **envp, t_envlst **env, int i);
 int			ft_lvl_up(t_envlst **lst);
 int			ft_add_shlvl(t_envlst **env);
 int			ft_change_lvl(char **line);

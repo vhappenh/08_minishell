@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:20 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/24 17:17:47 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/27 15:13:48 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_miniprep(int argc, char **argv, char **envp, t_envlst **env)
 	if (argc > 1 || argv[1])
 		return (1);
 	ft_switch_signals(INTERACTIV);
-	if (ft_parse_env(envp, env))
+	if (ft_parse_env(envp, env, -1))
 		return (1);
 	return (0);
 }
