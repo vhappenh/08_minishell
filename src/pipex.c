@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/23 14:34:02 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/28 16:36:01 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 	if (todo->fd_out != 1)
 		if (dup2(todo->fd_out, 1) == -1)
 			return (ft_free_close(todo, "minishell", NULL));
+	if (todo->fd_out != 1)		
+		close (todo->fd_out);
+	if (todo->fd_in != 0)	
+		close (todo->fd_in);
 	if (todo->cmd && execve(todo->cmd[0], todo->cmd, todo->env) == -1)
 		ft_free_close(todo, NULL, todo->cmd[0]);
 }
@@ -92,7 +96,7 @@ static int	ft_fork_it(t_cmdline **todo, int j)
 		ft_free_all(NULL, NULL, todo[i]->env);
 		i++;
 	}
-	if (*todo && (*todo)->pipe_fds && (*todo)->pipe_fds[i][0])
+	if (*todo && (*todo)->pipe_fds && (*todo)->pipe_fds[i][0]) // I do not know!?!?!?!?!?!
 		close((*todo)->pipe_fds[i][0]);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 11:32:10 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/27 17:15:54 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/28 15:07:13 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,21 @@ int	ft_look_for_env(char **str, t_envlst *enviroment, int i)
 		if ((*str)[i] == '"')
 			if (ft_env_double_quotes(str, enviroment, &i))
 				return (1);
-		if ((*str)[i] == '$')
+		if ((*str)[i] == '$' && (*str)[i + 1] == '~')
+			i += 2;
+		else if ((*str)[i] == '$')
 			if (ft_get_env(str, i + 1, enviroment))
 				return (1);
-		if ((*str)[i] == '~')
+		if ((*str)[i] == '~' && (*str)[i + 1] != ' '
+			&& (*str)[i + 1] != '/' && (*str)[i + 1] != '\0'
+			&& (*str)[i + 1] != '+' && (*str)[i + 1] != '-')
+			;
+		else if ((*str)[i] == '~' && i > 0 && (*str)[i - 1] != ' ')
+			;
+		else if ((*str)[i] == '~')
 			if (ft_get_env(str, i, enviroment))
 				return (1);
-		if ((*str)[i] != '\0' && (*str)[i] != '$')
-			i++;
-		else if ((*str)[i] == '$' && (!ft_isalpha((*str)[i + 1])
-			&& (*str)[i + 1] != '_' && (*str)[i + 1] != '?'
-			&& (*str)[i + 1] != '~'))
+		if ((*str)[i] != '\0')
 			i++;
 	}
 	return (0);

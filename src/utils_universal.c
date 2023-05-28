@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:51:40 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/23 13:52:10 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/28 13:56:47 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,10 @@ long	ft_atoi_long(const char *nptr, int *j)
 	{
 		temp = sum;
 		sum = sum * 10 + nptr[i] - '0';
-		if (sum < temp && ((sum != LONG_MIN && sign == -1)
-				|| (sum == LONG_MIN && sign != -1)))
+		if (sum < temp)
 			*j = -1;
+		if (sum < temp && sum == LONG_MIN && sign == -1)
+			*j = 0;
 		i++;
 	}
 	return (sum * sign);

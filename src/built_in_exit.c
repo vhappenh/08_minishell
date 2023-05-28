@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:11:43 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/17 10:28:00 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/28 15:16:07 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,19 @@ static void	ft_get_exit_code(char *cmd, int fd, int *e)
 	}
 }
 
+static int	ft_exit_destiny(t_cmdline **todo, t_envlst *env)
+{
+	if (!todo[1])
+	{
+		write (1, "exit\n", 5);
+		ft_free_all(todo, env, NULL);
+		clear_history();
+	}
+	else
+		return (0);
+	return (1);
+}
+
 int	ft_exit(t_cmdline **todo, t_envlst *env, int i)
 {
 	int	e;
@@ -59,8 +72,8 @@ int	ft_exit(t_cmdline **todo, t_envlst *env, int i)
 	}
 	else
 		e = 0;
-	ft_free_all(todo, env, NULL);
-	clear_history();
+	if (!ft_exit_destiny(todo, env))
+		return (e);
 	if (e)
 		exit (e);
 	exit (g_error);

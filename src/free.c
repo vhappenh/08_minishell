@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:29:17 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/12 10:35:46 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/28 14:33:41 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,38 @@ static void	ft_free_array(char **array)
 	}
 }
 
+void	ft_free_each_cmd(t_cmdline *todo)
+{
+	int	j;
+
+	if (todo)
+	{
+		if (todo->in_file)
+		{
+			if (!ft_strncmp(todo->in_file, ".heredoc", 8))
+				unlink(todo->in_file);
+			free(todo->in_file);
+		}
+		if (todo->out_file)
+			free(todo->out_file);
+		if (todo->cmd)
+		{
+			j = 0;
+			while (todo->cmd[j])
+				free(todo->cmd[j++]);
+			free(todo->cmd);
+		}
+		free(todo);
+	}
+}
+
 static void	ft_free_cmd(t_cmdline **todo)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (todo[i])
-	{
-		if (todo[i]->in_file)
-		{
-			if (!ft_strncmp(todo[i]->in_file, ".heredoc", 8))
-				unlink(todo[i]->in_file);
-			free(todo[i]->in_file);
-		}
-		if (todo[i]->out_file)
-			free(todo[i]->out_file);
-		if (todo[i]->cmd)
-		{
-			j = 0;
-			while (todo[i]->cmd[j])
-				free(todo[i]->cmd[j++]);
-			free(todo[i]->cmd);
-		}
-		free(todo[i++]);
-	}
+		ft_free_each_cmd(todo[i++]);
 	free(todo);
 }
 

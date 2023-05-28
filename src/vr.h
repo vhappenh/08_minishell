@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:11:19 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/27 16:49:55 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/28 14:20:53 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_cmdline
 	pid_t		*pids;
 	int			**pipe_fds;
 	int			curr_err;
+	pid_t		parent;
 }	t_cmdline;
 
 extern int	g_error;
@@ -137,4 +138,6 @@ void		ft_free_close(t_cmdline *todo, char *err1, char *err2);
 int			ft_free_lvl_fail(t_envlst **lst, t_envlst **env);
 int			ft_free_threestr(char *str1, char *str2, char *str3);
 void		ft_free_exe(pid_t *pids, int **pipe_fds, int i);
+void		ft_free_each_cmd(t_cmdline *todo);
+
 #endif

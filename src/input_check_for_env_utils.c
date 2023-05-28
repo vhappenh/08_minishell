@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_check_for_env.c                              :+:      :+:    :+:   */
+/*   input_check_for_env_utils.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrupp <rrupp@student.42vienna.com>         +#+  +:+       +#+        */
+/*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:51:15 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/26 11:10:57 by rrupp            ###   ########.fr       */
+/*   Updated: 2023/05/28 15:11:15 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,38 @@ static char	*ft_get_last_error(void)
 	return (tmp);
 }
 
-char	*ft_search_return_env(char *env_name, t_envlst *env)
+static char	*ft_get_tilde(char *env_name, t_envlst *env)
+{
+	char	*ret;
+
+	if (!ft_strncmp(env_name, "~+", 3))
+	{
+		ret = ft_search_return_env("PWD", env);
+		if (ret && *ret == '\0')
+		{
+			free(ret);
+			ret = ft_strdup("~+");
+		}
+	}
+	else
+	{
+		ret = ft_search_return_env("OLDPWD", env);
+		if (ret && *ret == '\0')
+		{
+			free(ret);
+			ret = ft_strdup("~-");
+		}		
+	}
+	if (ret == NULL)
+		return (NULL);
+	return (ret);
+}
+
+static char	*ft_search_for_real(char *env_name, t_envlst *env)
 {
 	char	*tmp;
 
 	tmp = NULL;
-	if (!ft_strncmp(env_name, "?", ft_strlen(env_name) + 1))
-		return (ft_get_last_error());
 	while (env)
 	{
 		if (!ft_strncmp(env_name, env->evar, ft_strlen(env_name) + 1))
@@ -47,6 +72,20 @@ char	*ft_search_return_env(char *env_name, t_envlst *env)
 		if (tmp == NULL)
 			return (NULL);
 	}
+	return (tmp);
+}
+
+char	*ft_search_return_env(char *env_name, t_envlst *env)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (!ft_strncmp(env_name, "?", ft_strlen(env_name) + 1))
+		return (ft_get_last_error());
+	else if (!ft_strncmp(env_name, "~+", 3) || !ft_strncmp(env_name, "~-", 3))
+		return (ft_get_tilde(env_name, env));
+	else
+		tmp = ft_search_for_real(env_name, env);
 	return (tmp);
 }
 

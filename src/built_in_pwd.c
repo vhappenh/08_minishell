@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:05:05 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/10 11:52:06 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/28 16:14:29 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 int	ft_get_pwd(char **pwd)
 {
+	char	*temp;
+
 	*pwd = ft_calloc(sizeof(char), 10000);
 	if (*pwd == NULL)
 		return (-1);
+	temp = *pwd;
 	*pwd = getcwd(*pwd, 9999);
 	if (*pwd == NULL)
 	{
+		free (temp);
 		perror("minishell");
 		return (-1);
 	}
