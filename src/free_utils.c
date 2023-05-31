@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:16:44 by vhappenh          #+#    #+#             */
-/*   Updated: 2023/05/28 16:26:18 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/31 10:34:41 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	ft_free_close(t_cmdline *todo, char *err1, char *err2)
 	}
 	if (err2)
 		ft_custom_perror(todo, err2);
-//	if (todo->fd_in != 0)
-//		close(todo->fd_in);
-//	if (todo->fd_out != 1)
-//		close(todo->fd_out);
+	if (todo->fd_in != 0)
+		close(todo->fd_in);
+	if (todo->fd_out != 1)
+		close(todo->fd_out);
 	ft_free_all(NULL, NULL, todo->env);
 }

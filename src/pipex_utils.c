@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_pipex.c                                      :+:      :+:    :+:   */
+/*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:20:03 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/23 13:57:38 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/31 10:21:34 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_init_exe(t_cmdline **todo, int i)
 		free ((*todo)->pids);
 		return (-1);
 	}
-	while (j <= i)
+	while (j < i)
 	{
 		((*todo)->pipe_fds)[j] = ft_calloc(2, sizeof(int));
 		if (((*todo)->pipe_fds)[j] == NULL)

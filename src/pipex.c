@@ -6,7 +6,7 @@
 /*   By: vhappenh <vhappenh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:06:45 by rrupp             #+#    #+#             */
-/*   Updated: 2023/05/28 16:36:01 by vhappenh         ###   ########.fr       */
+/*   Updated: 2023/05/31 10:35:40 by vhappenh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,15 @@ void	ft_execute(t_cmdline *todo, int fd_in, int fd_out)
 	if (todo->fd_out != 1)
 		if (dup2(todo->fd_out, 1) == -1)
 			return (ft_free_close(todo, "minishell", NULL));
-	if (todo->fd_out != 1)		
-		close (todo->fd_out);
-	if (todo->fd_in != 0)	
-		close (todo->fd_in);
 	if (todo->cmd && execve(todo->cmd[0], todo->cmd, todo->env) == -1)
 		ft_free_close(todo, NULL, todo->cmd[0]);
 }
 
 static void	ft_child(t_cmdline **t, int i, int j)
 {
-	ft_switch_signals(CHILD);
-	if (i == 0 && t[i + 1] == NULL)
+	if (!t[i]->cmd[0])
+		ft_close_pipes((*t)->pipe_fds[i][0], (*t)->pipe_fds[i][1]);
+	else if (i == 0 && t[i + 1] == NULL)
 	{
 		ft_close_pipes((*t)->pipe_fds[i][0], (*t)->pipe_fds[i][1]);
 		ft_execute(t[i], 0, 1);
@@ -72,32 +69,31 @@ static void	ft_child(t_cmdline **t, int i, int j)
 	exit(g_error);
 }
 
-static int	ft_fork_it(t_cmdline **todo, int j)
+static int	ft_fork_it(t_cmdline **todo, int j, int i)
 {
-	int	i;
-
-	i = 0;
 	ft_switch_signals(EXECUTING);
-	while (todo[i])
+	while (todo[++i])
 	{
-		if (pipe((*todo)->pipe_fds[i]))
+		if (i < j && pipe((*todo)->pipe_fds[i]))
 			return (1);
 		(*todo)->pids[i] = fork();
 		if ((*todo)->pids[i] == -1)
 			return (1);
 		if ((*todo)->pids[i] == 0)
+		{
+			ft_switch_signals(CHILD);
 			ft_child(todo, i, j);
-		else
+		}
+		else if (i < j)
 		{
 			close((*todo)->pipe_fds[i][1]);
 			if (i != 0)
 				close((*todo)->pipe_fds[i - 1][0]);
 		}
+		else
+			close((*todo)->pipe_fds[i][0]);
 		ft_free_all(NULL, NULL, todo[i]->env);
-		i++;
 	}
-	if (*todo && (*todo)->pipe_fds && (*todo)->pipe_fds[i][0]) // I do not know!?!?!?!?!?!
-		close((*todo)->pipe_fds[i][0]);
 	return (0);
 }
 
@@ -133,7 +129,7 @@ int	ft_execution(t_cmdline **todo)
 	int	i;
 
 	i = 0;
-	if ((*todo) == NULL || todo[0]->cmd[0] == NULL)
+	if ((*todo) == NULL)
 		return (0);
 	i = ft_init_exe(todo, i);
 	if (i == -1)
@@ -149,7 +145,7 @@ int	ft_execution(t_cmdline **todo)
 			return (-1);
 	}
 	else
-		if (ft_fork_it(todo, i))
+		if (ft_fork_it(todo, i, -1))
 			return (1);
 	if (i > 0 && ft_wait_for_children(todo, i) == -1)
 		return (-1);

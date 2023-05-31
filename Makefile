@@ -78,5 +78,5 @@ re:	fclean all
 norm:
 	norminette -R CheckForbiddenSourceHeader src/*.c src/vr.h
 
-val: all
-	env -i valgrind -s --leak-check=full --show-leak-kinds=all --suppressions=./minishell.supp ./minishell
+#val: all
+#	env -i valgrind -s --leak-check=full --show-leak-kinds=all --suppressions=./minishell.supp ./minishell
